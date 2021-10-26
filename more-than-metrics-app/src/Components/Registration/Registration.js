@@ -62,8 +62,29 @@ function Registration(props) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const { email, password, passwordConfirmation } = values;
-    console.log(email, password, passwordConfirmation);
+    const {
+      firstName,
+      lastName,
+      phoneNumber,
+      yearsInIndustry,
+      technologies,
+      email,
+      password,
+      passwordConfirmation,
+    } = values;
+
+    console.log(
+      `In handlesubmit: ${
+        (firstName,
+        lastName,
+        phoneNumber,
+        yearsInIndustry,
+        technologies,
+        email,
+        password,
+        passwordConfirmation)
+      }`
+    );
 
     const emailResponse = isEmailValid(email);
     const passwordResponse = isPasswordValid(password, passwordConfirmation);
@@ -109,57 +130,66 @@ function Registration(props) {
 
   return (
     <div className="registration-form">
-      <Box sx={{ display: "flex", flexWrap: "wrap" }} onSubmit={handleSubmit}>
-        {true
-          ? renderCandidateForm(values, error, handleChange)
-          : renderCompanyForm(values, error, handleChange)}
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-          <OutlinedInput
-            type="email"
-            label="Email"
-            placeholder="example@hotmail.com"
-            name="email"
-            value={values.email}
-            onChange={handleChange}
-            variant="outlined"
-          />
-        </FormControl>
-        {error.emailError ? (
-          <p className="error-msg">{error.emailError}</p>
-        ) : null}
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-          <OutlinedInput
-            type="password"
-            label="Password"
-            placeholder="Password"
-            name="password"
-            value={values.password}
-            onChange={handleChange}
-            variant="outlined"
-          />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-          <OutlinedInput
-            type="password"
-            label="Confirm Password"
-            placeholder="Password"
-            name="passwordConfirmation"
-            value={values.passwordConfirmation}
-            onChange={handleChange}
-            variant="outlined"
-          />
-        </FormControl>
-        {error.passwordError ? (
-          <p className="error-msg">{error.passwordError}</p>
-        ) : null}
-        <Button
-          className={classes.btn}
-          variant="contained"
-          size={"small"}
-          type="submit"
-        >
-          Register
-        </Button>
+      {console.log(
+        values.firstName,
+        values.lastName,
+        values.phoneNumber,
+        values.yearsInIndustry,
+        values.technologies,
+        values.email,
+        values.password,
+        values.passwordConfirmation
+      )}
+      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+        <form className="registration-form" onSubmit={handleSubmit}>
+          {true
+            ? renderCandidateForm(values, error, handleChange)
+            : renderCompanyForm(values, error, handleChange)}
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <OutlinedInput
+              type="email"
+              label="Email"
+              placeholder="example@hotmail.com"
+              name="email"
+              value={values.email}
+              onChange={handleChange}
+            />
+          </FormControl>
+          {error.emailError ? (
+            <p className="error-msg">{error.emailError}</p>
+          ) : null}
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <OutlinedInput
+              type="password"
+              label="Password"
+              placeholder="Password"
+              name="password"
+              value={values.password}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <OutlinedInput
+              type="password"
+              label="Confirm Password"
+              placeholder="Password"
+              name="passwordConfirmation"
+              value={values.passwordConfirmation}
+              onChange={handleChange}
+            />
+          </FormControl>
+          {error.passwordError ? (
+            <p className="error-msg">{error.passwordError}</p>
+          ) : null}
+          <Button
+            className={classes.btn}
+            variant="contained"
+            size={"small"}
+            type="submit"
+          >
+            Register
+          </Button>
+        </form>
       </Box>
     </div>
   );
@@ -190,7 +220,7 @@ function renderCandidateForm(values, error, handleChange) {
           onChange={handleChange}
         />
       </FormControl>
-      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+      {/* <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
         <MuiPhoneNumber
           defaultCountry="gb"
           regions={"europe"}
@@ -200,10 +230,9 @@ function renderCandidateForm(values, error, handleChange) {
           sx={{ m: 1, width: "25ch" }}
           value={values.phoneNumber}
           onChange={handleChange}
-          variant="outlined"
         />
-      </FormControl>
-      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+      </FormControl> */}
+      {/* <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
         <TextField
           id="outlined-select-yearsInIndustry"
           select
@@ -213,12 +242,12 @@ function renderCandidateForm(values, error, handleChange) {
           onChange={handleChange}
           helperText="Please select your years in industry"
         >
-          {/* {years.map((option) => ( */}
+          {/* {years.map((option) => ( 
           <MenuItem key={1} value={"0-10"}>
             {"0 - 10"}
           </MenuItem>
         </TextField>
-      </FormControl>
+      </FormControl> */}
       <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
         <OutlinedInput
           type="text"
