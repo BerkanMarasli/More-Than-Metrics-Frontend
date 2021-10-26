@@ -15,6 +15,7 @@ import {
   TextField,
   Box,
   MenuItem,
+  Select,
 } from "@material-ui/core";
 
 const MINIMUMPASSWORDLENGTH = 8;
@@ -74,38 +75,45 @@ function Registration(props) {
     } = values;
 
     console.log(
-      `In handlesubmit: ${
-        (firstName,
-        lastName,
-        phoneNumber,
-        yearsInIndustry,
-        technologies,
-        email,
-        password,
-        passwordConfirmation)
-      }`
+      firstName,
+      lastName,
+      phoneNumber,
+      yearsInIndustry,
+      technologies,
+      email,
+      password,
+      passwordConfirmation
     );
 
     const emailResponse = isEmailValid(email);
     const passwordResponse = isPasswordValid(password, passwordConfirmation);
 
     if (!emailResponse.length && !passwordResponse.length) {
-      setError((prevState) => ({
-        ...prevState,
-        emailError: [],
-        passwordError: [],
-      }));
       const response = createUser(values, isCandidate); //this will set the error returned from the backend in the front end
       setError((prevState) => ({
         ...prevState,
         emailError: response,
       }));
-    } else if (emailResponse.length) {
+    }
+    if (!emailResponse.length) {
+      setError((prevState) => ({
+        ...prevState,
+        emailError: "",
+      }));
+    }
+    if (!passwordResponse.length) {
+      setError((prevState) => ({
+        ...prevState,
+        passwordError: "",
+      }));
+    }
+    if (emailResponse.length) {
       setError((prevState) => ({
         ...prevState,
         emailError: emailResponse,
       }));
-    } else if (passwordResponse.errorMsg !== "Valid") {
+    }
+    if (passwordResponse.length) {
       setError((prevState) => ({
         ...prevState,
         passwordError: passwordResponse,
@@ -130,7 +138,7 @@ function Registration(props) {
 
   return (
     <div className="registration-form">
-      {console.log(
+      {/* {console.log(
         values.firstName,
         values.lastName,
         values.phoneNumber,
@@ -139,7 +147,7 @@ function Registration(props) {
         values.email,
         values.password,
         values.passwordConfirmation
-      )}
+      )} */}
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
         <form className="registration-form" onSubmit={handleSubmit}>
           {true
@@ -232,22 +240,20 @@ function renderCandidateForm(values, error, handleChange) {
           onChange={handleChange}
         />
       </FormControl> */}
-      {/* <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-        <TextField
-          id="outlined-select-yearsInIndustry"
-          select
-          label="Select"
+      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <InputLabel id="years-in-industry-label">Years in industry</InputLabel>
+        <Select
+          labelId="years-in-industry-label"
+          id="years-in-industry"
           value={values.yearsInIndustry}
-          sx={{ m: 1, width: "25ch" }}
+          label="yearsInIndustry"
           onChange={handleChange}
-          helperText="Please select your years in industry"
         >
-          {/* {years.map((option) => ( 
-          <MenuItem key={1} value={"0-10"}>
-            {"0 - 10"}
-          </MenuItem>
-        </TextField>
-      </FormControl> */}
+          <MenuItem value={values.yearsInIndustry}>Less than 5</MenuItem>
+          <MenuItem value="5<10">5 to 10</MenuItem>
+          <MenuItem value="10<">10+</MenuItem>
+        </Select>
+      </FormControl>
       <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
         <OutlinedInput
           type="text"
