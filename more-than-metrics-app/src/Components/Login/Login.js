@@ -24,34 +24,12 @@ function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const { email, password } = values;
-    console.log(email, password);
 
-    const emailResponse = isEmailValid(email);
-    const passwordResponse = isPasswordValid(password);
-
-    if (!emailResponse.length && !passwordResponse.length) {
-      setError((prevState) => ({
-        ...prevState,
-        emailError: [],
-        passwordError: [],
-      }));
-      const response = getUser(values); //this will set the error returned from the backend in the front end
-      setError((prevState) => ({
-        ...prevState,
-        emailError: response,
-      }));
-    } else if (emailResponse.length) {
-      setError((prevState) => ({
-        ...prevState,
-        emailError: emailResponse,
-      }));
-    } else if (passwordResponse.length) {
-      setError((prevState) => ({
-        ...prevState,
-        passwordError: passwordResponse,
-      }));
-    }
+    const response = getUser(values, setError); //this will set the error returned from the backend in the front end
+    setError((prevState) => ({
+      ...prevState,
+      emailError: response,
+    }));
   }
 
   function handleChange(e) {
@@ -102,40 +80,7 @@ function Login() {
   );
 }
 
-function isEmailValid(email) {
-  const emailError = [];
-  const re =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if (!email) {
-    emailError.push("Email address is required");
-  }
-  if (!re.test(String(email).toLowerCase())) {
-    emailError.push("Email address is invalid");
-  }
-  return emailError;
-}
-
-function isPasswordValid(password) {
-  const errorMessages = [];
-  if (password.length < MINIMUMPASSWORDLENGTH) {
-    errorMessages.push("Password must be 8 characters or longer");
-  }
-  if (!/\d/.test(password)) {
-    errorMessages.push("Password must contain at least one number");
-  }
-  if (!/[a-z]/.test(password)) {
-    errorMessages.push("Password must contain lower case letters");
-  }
-  if (!/[A-Z]/.test(password)) {
-    errorMessages.push("Password must contain upper case letters");
-  }
-  if (!/[ `£!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password)) {
-    errorMessages.push("Password must contain symbols");
-  }
-  return errorMessages;
-}
-
-async function getUser(values) {
+async function getUser(values, setError) {
   console.log(`Welcome ${values.email} your password is ${values.password}`);
 
   const url = "http://localhost:8080/login";
@@ -149,9 +94,9 @@ async function getUser(values) {
     const json = await response.json();
 
     if (!json.msg) {
-      return "Invalid username/password";
+      setError("Invalid username/password");
     } else {
-      return "";
+      setError("");
     }
   } catch (error) {
     console.log(error);
