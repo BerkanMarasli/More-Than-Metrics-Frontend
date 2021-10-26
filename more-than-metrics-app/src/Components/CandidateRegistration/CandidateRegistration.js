@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./Registration.css";
 
 import MuiPhoneNumber from "material-ui-phone-number";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -27,11 +26,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Registration(props) {
+function CandidateRegistration() {
   const classes = useStyles();
 
-  const isCandidate = props.isCandidate;
   const [fetchedYearsCategory, setCategory] = useState(null);
+  const [values, setValues] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: null,
+    yearsInIndustry: null,
+    technologies: [],
+    email: "",
+    password: "",
+    passwordConfirmation: "",
+  });
+
+  const [error, setError] = useState({
+    emailError: "",
+    passwordError: "",
+    firstNameError: "",
+    lastNameError: "",
+  });
 
   useEffect(() => {
     console.log("hello");
@@ -40,44 +55,8 @@ function Registration(props) {
       const json = await response.json();
       setCategory(json);
     }
-
-    // console.log(setCategory);
     getYearsInIndustryCategory(setCategory);
   }, []);
-
-  console.log("Fetch CATS: ", fetchedYearsCategory);
-
-  const userDetails = false
-    ? {
-        firstName: "",
-        lastName: "",
-        phoneNumber: null,
-        yearsInIndustry: null,
-        technologies: [],
-        email: "",
-        password: "",
-        passwordConfirmation: "",
-      }
-    : {
-        companyName: "",
-        numOfEmployees: null,
-        maleToFemaleRatio: null,
-        retentionRate: null,
-        email: "",
-        password: "",
-        passwordConfirmation: "",
-      };
-
-  const [values, setValues] = useState(userDetails);
-  const [error, setError] = useState({
-    emailError: "",
-    passwordError: "",
-    firstNameError: "",
-    lastNameError: "",
-  });
-
-  // const yearsCategory = getYearsInIndustryCategory();
-  //console.log("YEAR CAT: ", yearsCategory);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -93,6 +72,7 @@ function Registration(props) {
     } = values;
 
     console.log(
+      `Submitted details: `,
       firstName,
       lastName,
       phoneNumber,
@@ -107,7 +87,7 @@ function Registration(props) {
     const passwordResponse = isPasswordValid(password, passwordConfirmation);
 
     if (!emailResponse.length && !passwordResponse.length) {
-      const response = createUser(values, isCandidate); //this will set the error returned from the backend in the front end
+      const response = createUser(values);
       setError((prevState) => ({
         ...prevState,
         emailError: response,
@@ -141,31 +121,38 @@ function Registration(props) {
 
   function handleChange(e) {
     const { name, value } = e.target;
-    if (isCandidate) {
-      setValues((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
-    } else {
-      setValues((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
-    }
+    setValues((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   }
 
   return (
-    <div className="registration-form">
+    <div className="candidate-registration-form">
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
         <form className="registration-form" onSubmit={handleSubmit}>
-          {true
-            ? renderCandidateForm(
-                values,
-                error,
-                handleChange,
-                fetchedYearsCategory
-              )
-            : renderCompanyForm(values, error, handleChange)}
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <OutlinedInput
+              type="text"
+              label="First name"
+              placeholder="First name"
+              name="firstName"
+              sx={{ m: 1, width: "25ch" }}
+              value={values.firstName}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <OutlinedInput
+              type="text"
+              label="Last Name"
+              placeholder="Last name"
+              name="lastName"
+              sx={{ m: 1, width: "25ch" }}
+              value={values.lastName}
+              onChange={handleChange}
+            />
+          </FormControl>
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
             <OutlinedInput
               type="email"
@@ -179,6 +166,58 @@ function Registration(props) {
           {error.emailError ? (
             <p className="error-msg">{error.emailError}</p>
           ) : null}
+          {/* <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <MuiPhoneNumber
+          defaultCountry="gb"
+          regions={"europe"}
+          label="Phone number"
+          placeholder="Phone Number"
+          name="phoneNumber"
+          sx={{ m: 1, width: "25ch" }}
+          value={values.phoneNumber}
+          onChange={handleChange}
+        />
+      </FormControl> */}
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <InputLabel id="years-in-industry-label">
+              Years in industry
+            </InputLabel>
+            <Select
+              labelId="years-in-industry-label"
+              id="years-in-industry"
+              value={values.yearsInIndustry}
+              label="yearsInIndustry"
+              onChange={handleChange}
+            >
+              {fetchedYearsCategory !== null ? (
+                fetchedYearsCategory.map((category) => {
+                  return (
+                    <MenuItem
+                      key={category.years_in_industry_id}
+                      value={category.category}
+                    >
+                      {category.category}
+                    </MenuItem>
+                  );
+                })
+              ) : (
+                <MenuItem>Select year range</MenuItem>
+              )}
+            </Select>
+          </FormControl>
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <OutlinedInput
+              type="text"
+              label="Technologies"
+              placeholder="Technologies"
+              name="technologies"
+              sx={{ m: 1, width: "25ch" }}
+              value={values.technologies}
+              onChange={handleChange}
+              variant="outlined"
+            />
+          </FormControl>
+
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
             <OutlinedInput
               type="password"
@@ -212,133 +251,6 @@ function Registration(props) {
           </Button>
         </form>
       </Box>
-    </div>
-  );
-}
-
-function renderCandidateForm(
-  values,
-  error,
-  handleChange,
-  fetchedYearsCategory
-) {
-  return (
-    <div>
-      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-        <OutlinedInput
-          type="text"
-          label="First name"
-          placeholder="First name"
-          name="firstName"
-          sx={{ m: 1, width: "25ch" }}
-          value={values.firstName}
-          onChange={handleChange}
-        />
-      </FormControl>
-      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-        <OutlinedInput
-          type="text"
-          label="Last Name"
-          placeholder="Last name"
-          name="lastName"
-          sx={{ m: 1, width: "25ch" }}
-          value={values.lastName}
-          onChange={handleChange}
-        />
-      </FormControl>
-      {/* <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-        <MuiPhoneNumber
-          defaultCountry="gb"
-          regions={"europe"}
-          label="Phone number"
-          placeholder="Phone Number"
-          name="phoneNumber"
-          sx={{ m: 1, width: "25ch" }}
-          value={values.phoneNumber}
-          onChange={handleChange}
-        />
-      </FormControl> */}
-      <FormControl>
-        <InputLabel id="years-in-industry-label">Years in industry</InputLabel>
-        <Select
-          labelId="years-in-industry-label"
-          id="years-in-industry"
-          value={values.yearsInIndustry}
-          label="yearsInIndustry"
-          onChange={handleChange}
-        >
-          {console.log("This is the years cat", fetchedYearsCategory)}
-          {/* {fetchedYearsCategory.map((id, category) => {
-            <MenuItem key={id}>{category}</MenuItem>;
-          })} */}
-        </Select>
-      </FormControl>
-      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-        <OutlinedInput
-          type="text"
-          label="Technologies"
-          placeholder="Technologies"
-          name="technologies"
-          sx={{ m: 1, width: "25ch" }}
-          value={values.technologies}
-          onChange={handleChange}
-          variant="outlined"
-        />
-      </FormControl>
-    </div>
-  );
-}
-
-function renderCompanyForm(values, error, handleChange) {
-  return (
-    <div className="company-form">
-      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-        <OutlinedInput
-          type="text"
-          label="Company name"
-          placeholder="Company name"
-          name="companyName"
-          value={values.companyName}
-          onChange={handleChange}
-          variant="outlined"
-        />
-      </FormControl>
-      {error.firstNameError ? (
-        <p className="error-msg">{error.firstNameError}</p>
-      ) : null}
-      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-        <OutlinedInput
-          type="number"
-          label="No. Of Employees"
-          placeholder="No. of Employees"
-          name="numOfEmployees"
-          value={values.numOfEmployees}
-          onChange={handleChange}
-          variant="outlined"
-        />
-      </FormControl>
-      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-        <OutlinedInput
-          type="number"
-          label="Male to Female ratio"
-          placeholder="Male to Female ratio"
-          name="maleToFemaleRatio"
-          value={values.maleToFemaleRatio}
-          onChange={handleChange}
-          variant="outlined"
-        />
-      </FormControl>
-      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-        <OutlinedInput
-          type="number"
-          label="Retention Rate"
-          placeholder="Retention Rate"
-          name="retentionRate"
-          value={values.retentionRate}
-          onChange={handleChange}
-          variant="outlined"
-        />
-      </FormControl>
     </div>
   );
 }
@@ -383,9 +295,7 @@ async function createUser(values, isCandidate) {
   console.log(
     `Welcome ${values.firstName} ${values.lastName} ${values.email} your password is ${values.password} your password confirmation is ${values.passwordConfirmation}`
   );
-
-  const urlTip = isCandidate ? "candidate/register" : "company/register";
-  const url = `http://localhost:8080/${urlTip}`;
+  const url = `http://localhost:8080/candidate/register`;
 
   try {
     const response = await fetch(url, {
@@ -405,7 +315,4 @@ async function createUser(values, isCandidate) {
   }
 }
 
-//"http://localhost:8080/candidate/register"
-//"http://localhost:8080/candidate/login"
-//"http://localhost:8080/company/login"
-export default Registration;
+export default CandidateRegistration;
