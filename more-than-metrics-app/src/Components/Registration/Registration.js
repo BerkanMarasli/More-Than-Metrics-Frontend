@@ -1,6 +1,21 @@
 import React, { useState } from "react";
 import "./Registration.css";
-import { Button, makeStyles, TextField } from "@material-ui/core";
+
+import MuiPhoneNumber from "material-ui-phone-number";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import IconButton from "@mui/material/IconButton";
+
+import {
+  Button,
+  makeStyles,
+  TextField,
+  Box,
+  MenuItem,
+} from "@material-ui/core";
 
 const MINIMUMPASSWORDLENGTH = 8;
 const useStyles = makeStyles((theme) => ({
@@ -13,24 +28,37 @@ const useStyles = makeStyles((theme) => ({
 
 function Registration(props) {
   const classes = useStyles();
-  const [values, setValues] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: null,
-    yearsInIndustry: null,
-    technologies: [],
-    email: "",
-    password: "",
-    passwordConfirmation: "",
-  });
+
+  const isCandidate = props.isCandidate;
+
+  const userDetails = false
+    ? {
+        firstName: "",
+        lastName: "",
+        phoneNumber: null,
+        yearsInIndustry: null,
+        technologies: [],
+        email: "",
+        password: "",
+        passwordConfirmation: "",
+      }
+    : {
+        companyName: "",
+        numOfEmployees: null,
+        maleToFemaleRatio: null,
+        retentionRate: null,
+        email: "",
+        password: "",
+        passwordConfirmation: "",
+      };
+
+  const [values, setValues] = useState(userDetails);
   const [error, setError] = useState({
     emailError: "",
     passwordError: "",
     firstNameError: "",
     lastNameError: "",
   });
-
-  const isCandidate = props.isCandidate;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -66,48 +94,61 @@ function Registration(props) {
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setValues((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    if (isCandidate) {
+      setValues((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    } else {
+      setValues((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   }
 
   return (
     <div className="registration-form">
-      <form onSubmit={handleSubmit}>
+      <Box sx={{ display: "flex", flexWrap: "wrap" }} onSubmit={handleSubmit}>
         {true
           ? renderCandidateForm(values, error, handleChange)
           : renderCompanyForm(values, error, handleChange)}
-        <TextField
-          type="email"
-          label="Email"
-          placeholder="example@hotmail.com"
-          name="email"
-          value={values.email}
-          onChange={handleChange}
-          variant="outlined"
-        />
+        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+          <OutlinedInput
+            type="email"
+            label="Email"
+            placeholder="example@hotmail.com"
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+            variant="outlined"
+          />
+        </FormControl>
         {error.emailError ? (
           <p className="error-msg">{error.emailError}</p>
         ) : null}
-        <TextField
-          type="password"
-          label="Password"
-          placeholder="Password"
-          name="password"
-          value={values.password}
-          onChange={handleChange}
-          variant="outlined"
-        />
-        <TextField
-          type="password"
-          label="Confirm Password"
-          placeholder="Password"
-          name="passwordConfirmation"
-          value={values.passwordConfirmation}
-          onChange={handleChange}
-          variant="outlined"
-        />
+        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+          <OutlinedInput
+            type="password"
+            label="Password"
+            placeholder="Password"
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+            variant="outlined"
+          />
+        </FormControl>
+        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+          <OutlinedInput
+            type="password"
+            label="Confirm Password"
+            placeholder="Password"
+            name="passwordConfirmation"
+            value={values.passwordConfirmation}
+            onChange={handleChange}
+            variant="outlined"
+          />
+        </FormControl>
         {error.passwordError ? (
           <p className="error-msg">{error.passwordError}</p>
         ) : null}
@@ -119,66 +160,134 @@ function Registration(props) {
         >
           Register
         </Button>
-      </form>
+      </Box>
     </div>
   );
 }
 
 function renderCandidateForm(values, error, handleChange) {
   return (
-    <div className="candidate-form">
-      <TextField
-        type="text"
-        label="First name"
-        placeholder="First name"
-        name="First name"
-        value={values.firstName}
-        onChange={handleChange}
-        variant="outlined"
-      />
-      {error.firstNameError ? (
-        <p className="error-msg">{error.firstNameError}</p>
-      ) : null}
-      <TextField
-        type="text"
-        label="Last Name"
-        placeholder="Last name"
-        name="lastName"
-        value={values.lastName}
-        onChange={handleChange}
-        variant="outlined"
-      />
-      <TextField
-        type="number"
-        label="Phone number"
-        placeholder="Phone Number"
-        name="phoneNumber"
-        value={values.phoneNumber}
-        onChange={handleChange}
-        variant="outlined"
-      />
-      <TextField
-        type="number"
-        label="Years in Industry"
-        placeholder="Years in industry"
-        name="yearsInIndustry"
-        value={values.yearsInIndustry}
-        onChange={handleChange}
-        variant="outlined"
-      />
-      <TextField
-        type="text"
-        label="Technologies"
-        placeholder="Technologies"
-        name="technologies"
-        value={values.technologies}
-        onChange={handleChange}
-        variant="outlined"
-      />
+    <div>
+      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <OutlinedInput
+          type="text"
+          label="First name"
+          placeholder="First name"
+          name="firstName"
+          sx={{ m: 1, width: "25ch" }}
+          value={values.firstName}
+          onChange={handleChange}
+        />
+      </FormControl>
+      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <OutlinedInput
+          type="text"
+          label="Last Name"
+          placeholder="Last name"
+          name="lastName"
+          sx={{ m: 1, width: "25ch" }}
+          value={values.lastName}
+          onChange={handleChange}
+        />
+      </FormControl>
+      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <MuiPhoneNumber
+          defaultCountry="gb"
+          regions={"europe"}
+          label="Phone number"
+          placeholder="Phone Number"
+          name="phoneNumber"
+          sx={{ m: 1, width: "25ch" }}
+          value={values.phoneNumber}
+          onChange={handleChange}
+          variant="outlined"
+        />
+      </FormControl>
+      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <TextField
+          id="outlined-select-yearsInIndustry"
+          select
+          label="Select"
+          value={values.yearsInIndustry}
+          sx={{ m: 1, width: "25ch" }}
+          onChange={handleChange}
+          helperText="Please select your years in industry"
+        >
+          {/* {years.map((option) => ( */}
+          <MenuItem key={1} value={"0-10"}>
+            {"0 - 10"}
+          </MenuItem>
+        </TextField>
+      </FormControl>
+      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <OutlinedInput
+          type="text"
+          label="Technologies"
+          placeholder="Technologies"
+          name="technologies"
+          sx={{ m: 1, width: "25ch" }}
+          value={values.technologies}
+          onChange={handleChange}
+          variant="outlined"
+        />
+      </FormControl>
     </div>
   );
 }
-function renderCompanyForm(values, error, handleChange) {}
+
+function renderCompanyForm(values, error, handleChange) {
+  return (
+    <div className="company-form">
+      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <OutlinedInput
+          type="text"
+          label="Company name"
+          placeholder="Company name"
+          name="companyName"
+          value={values.companyName}
+          onChange={handleChange}
+          variant="outlined"
+        />
+      </FormControl>
+      {error.firstNameError ? (
+        <p className="error-msg">{error.firstNameError}</p>
+      ) : null}
+      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <OutlinedInput
+          type="number"
+          label="No. Of Employees"
+          placeholder="No. of Employees"
+          name="numOfEmployees"
+          value={values.numOfEmployees}
+          onChange={handleChange}
+          variant="outlined"
+        />
+      </FormControl>
+      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <OutlinedInput
+          type="number"
+          label="Male to Female ratio"
+          placeholder="Male to Female ratio"
+          name="maleToFemaleRatio"
+          value={values.maleToFemaleRatio}
+          onChange={handleChange}
+          variant="outlined"
+        />
+      </FormControl>
+      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <OutlinedInput
+          type="number"
+          label="Retention Rate"
+          placeholder="Retention Rate"
+          name="retentionRate"
+          value={values.retentionRate}
+          onChange={handleChange}
+          variant="outlined"
+        />
+      </FormControl>
+    </div>
+  );
+}
 
 function isEmailValid(email) {
   const emailError = [];
