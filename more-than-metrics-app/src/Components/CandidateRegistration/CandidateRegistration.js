@@ -137,7 +137,6 @@ function CandidateRegistration() {
               label="First name"
               placeholder="First name"
               name="firstName"
-              sx={{ m: 1, width: "25ch" }}
               value={values.firstName}
               onChange={handleChange}
             />
@@ -148,7 +147,6 @@ function CandidateRegistration() {
               label="Last Name"
               placeholder="Last name"
               name="lastName"
-              sx={{ m: 1, width: "25ch" }}
               value={values.lastName}
               onChange={handleChange}
             />
@@ -178,31 +176,29 @@ function CandidateRegistration() {
           onChange={handleChange}
         />
       </FormControl> */}
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="filled">
             <InputLabel id="years-in-industry-label">
               Years in industry
             </InputLabel>
             <Select
               labelId="years-in-industry-label"
               id="years-in-industry"
+              name="yearsInIndustry"
               value={values.yearsInIndustry}
-              label="yearsInIndustry"
               onChange={handleChange}
             >
-              {fetchedYearsCategory !== null ? (
-                fetchedYearsCategory.map((category) => {
-                  return (
-                    <MenuItem
-                      key={category.years_in_industry_id}
-                      value={category.category}
-                    >
-                      {category.category}
-                    </MenuItem>
-                  );
-                })
-              ) : (
-                <MenuItem>Select year range</MenuItem>
-              )}
+              {fetchedYearsCategory !== null
+                ? fetchedYearsCategory.map((category) => {
+                    return (
+                      <MenuItem
+                        key={category.years_in_industry_id}
+                        value={category.category}
+                      >
+                        {category.category}
+                      </MenuItem>
+                    );
+                  })
+                : null}
             </Select>
           </FormControl>
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
@@ -211,13 +207,11 @@ function CandidateRegistration() {
               label="Technologies"
               placeholder="Technologies"
               name="technologies"
-              sx={{ m: 1, width: "25ch" }}
               value={values.technologies}
               onChange={handleChange}
               variant="outlined"
             />
           </FormControl>
-
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
             <OutlinedInput
               type="password"
