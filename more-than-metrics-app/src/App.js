@@ -43,7 +43,7 @@ function App() {
           <Login />
         </Route>
         <Route exact path="/register">
-          <Register userType={"user"} />
+          <Register userType={"candidate"} />
         </Route>
         {/* <Route exact path="/profile">
           <Profile userType={"userType"} />

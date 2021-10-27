@@ -227,17 +227,6 @@ function CandidateRegistration() {
             </Select>
           </FormControl>
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <OutlinedInput
-              type="text"
-              label="Technologies"
-              placeholder="Technologies"
-              name="technologies"
-              value={values.technologies}
-              onChange={handleChange}
-              variant="outlined"
-            />{" "}
-            {console.log("This is the icon ")}
-            <iconList icon="react" style={devIconStyle} viewBox="0 0 32 32" />
             <Select
               labelId="technology-list"
               id="years-in-industry"
@@ -259,16 +248,7 @@ function CandidateRegistration() {
                 : null}
             </Select>
           </FormControl>
-          {iconList.length
-            ? iconList.map((icon) => {
-                return (
-                  <DevIcon style={devIconStyle} viewBox="0 0 32 32">
-                    {" "}
-                    {icon}{" "}
-                  </DevIcon>
-                );
-              })
-            : null}
+
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
             <OutlinedInput
               type="password"
