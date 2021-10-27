@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 
@@ -39,8 +40,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ChooseUser() {
+function ChooseUser(props) {
   const classes = useStyles();
+
   return (
     <div className={classes.root} id="choose-user">
       <div className={classes.select}>

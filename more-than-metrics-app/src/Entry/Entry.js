@@ -1,6 +1,6 @@
 import { CssBaseline } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Header from "./Header";
+import Welcome from "./Welcome";
 import ChooseUser from "./ChooseUser";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,13 +16,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Entry() {
+function Entry(props) {
   const classes = useStyles();
+
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      style={
+        props.userType === null
+          ? {
+              backgroundImage: `url(${
+                process.env.PUBLIC_URL + "/assets/recruitment2.jpeg"
+              })`,
+              backgroundSize: "95%",
+              backgroundRepeat: "no-repeat",
+            }
+          : null
+      }
+    >
       <CssBaseline />
-      <Header />
-      <ChooseUser />
+      <Welcome userType={props.userType} />
+      <ChooseUser setUserType={props.setUserType} />
     </div>
   );
 }
