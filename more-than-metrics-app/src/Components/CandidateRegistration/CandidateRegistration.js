@@ -36,7 +36,7 @@ function CandidateRegistration() {
     lastName: "",
     phoneNumber: "",
     yearsInIndustry: null,
-    technologies: [],
+    technology: [],
     email: "",
     password: "",
     passwordConfirmation: "",
@@ -64,7 +64,7 @@ function CandidateRegistration() {
       lastName,
       phoneNumber,
       yearsInIndustry,
-      technologies,
+      technology,
       email,
       password,
       passwordConfirmation,
@@ -78,7 +78,7 @@ function CandidateRegistration() {
       lastName,
       phoneNumber,
       yearsInIndustry,
-      technologies,
+      technology,
       email,
       password,
       passwordConfirmation
@@ -134,6 +134,7 @@ function CandidateRegistration() {
   }
 
   function handleChange(e) {
+    console.log(e.target.value);
     const { name, value } = e.target;
     setValues((prevState) => ({
       ...prevState,
@@ -145,15 +146,6 @@ function CandidateRegistration() {
     setValues((prevState) => ({
       ...prevState,
       phoneNumber: e,
-    }));
-  }
-
-  function handleTechnologies(e) {
-    console.log("In here");
-    console.log(e.target.value);
-    setValues((prevState) => ({
-      ...prevState,
-      technologies: e.target.value,
     }));
   }
 
@@ -240,8 +232,8 @@ function CandidateRegistration() {
               labelId="technology-list"
               id="years-in-industry"
               name="technology"
-              value={values.technologies}
-              onChange={handleTechnologies}
+              value={values.technology}
+              onChange={handleChange}
               multiple
               sx={{ m: 1, width: "25ch" }}
               variant="outlined"
@@ -258,7 +250,6 @@ function CandidateRegistration() {
                 : null}
             </Select>
           </FormControl>
-
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
             <OutlinedInput
               type="password"
