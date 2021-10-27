@@ -148,6 +148,15 @@ function CandidateRegistration() {
     }));
   }
 
+  function handleTechnologies(e) {
+    console.log("In here");
+    console.log(e.target.value);
+    setValues((prevState) => ({
+      ...prevState,
+      technologies: e.target.value,
+    }));
+  }
+
   return (
     <div className="candidate-registration-form">
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
@@ -231,8 +240,9 @@ function CandidateRegistration() {
               labelId="technology-list"
               id="years-in-industry"
               name="technology"
-              value={values.yearsInIndustry}
-              onChange={handleChange}
+              value={values.technologies}
+              onChange={handleTechnologies}
+              multiple
               sx={{ m: 1, width: "25ch" }}
               variant="outlined"
             >
