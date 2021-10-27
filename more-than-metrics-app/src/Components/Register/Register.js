@@ -2,8 +2,7 @@ import React from "react";
 import CompanyRegistration from "../CompanyRegistration/CompanyRegistration";
 import CandidateRegistration from "../CandidateRegistration/CandidateRegistration";
 
-function Registration(props) {
-  const isCandidate = props.isCandidate;
+function Register(props) {
 
   return (
     <div>
@@ -16,4 +15,4 @@ function Registration(props) {
   );
 }
 
-export default Registration;
+export default Register;
