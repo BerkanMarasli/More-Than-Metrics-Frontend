@@ -1,5 +1,6 @@
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
+import MaterialUiForm from "./Components/Test/Experiementing";
 
 import { useState } from "react";
 import Entry from "./Entry/Entry.js";
@@ -43,7 +44,10 @@ function App() {
           <Login />
         </Route>
         <Route exact path="/register">
-          <Register userType={"candidate"} />
+          <Register userType={"comp"} />
+        </Route>
+        <Route exact path="/testing">
+          <MaterialUiForm />
         </Route>
         {/* <Route exact path="/profile">
           <Profile userType={"userType"} />
