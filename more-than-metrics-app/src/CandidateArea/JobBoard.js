@@ -17,7 +17,11 @@ function JobBoard() {
   const [companyViewed, setCompanyViewed] = useState(null)
   const [openViewCompany, setOpenViewCompany] = useState(false)
   const handleOpenViewCompany = e => {
-    setCompanyViewed(e.target.innerHTML)
+    if (e.target.childElementCount !== 0) {
+      setCompanyViewed(e.target.children[0].innerHTML)
+    } else {
+      setCompanyViewed(e.target.innerHTML)
+    }
     setOpenViewCompany(true)
   }
   const handleCloseViewCompany = () => setOpenViewCompany(false)

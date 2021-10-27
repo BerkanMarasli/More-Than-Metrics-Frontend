@@ -43,7 +43,7 @@ function createData(jobTitle, viewJobBtn, applyBtn) {
 
 function CompanyJobBoard(props) {
   // props
-  const { handleOpenViewCompany } = props.viewCompany
+  // const { handleOpenViewCompany } = props.viewCompany
   const { handleOpenViewJob } = props.viewJob
   const { handleOpenViewApply } = props.viewApply
   const companyViewed = props.companyViewed
@@ -67,7 +67,7 @@ function CompanyJobBoard(props) {
       setRows(rows)
     }
     fetchJobs()
-  }, [handleOpenViewCompany, handleOpenViewJob, handleOpenViewApply, companyViewed])
+  }, [handleOpenViewJob, handleOpenViewApply, companyViewed])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
