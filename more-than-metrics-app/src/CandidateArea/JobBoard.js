@@ -14,8 +14,12 @@ import ApplyModal from "./ApplyModal"
 
 function JobBoard() {
   // const classes = useStyles()
+  const [companyViewed, setCompanyViewed] = useState(null)
   const [openViewCompany, setOpenViewCompany] = useState(false)
-  const handleOpenViewCompany = () => setOpenViewCompany(true)
+  const handleOpenViewCompany = e => {
+    setCompanyViewed(e.target.innerHTML)
+    setOpenViewCompany(true)
+  }
   const handleCloseViewCompany = () => setOpenViewCompany(false)
   const viewCompany = {
     openViewCompany: openViewCompany,
@@ -44,9 +48,16 @@ function JobBoard() {
       <Navbar userType={"candidate"} />
       <JobBoardDisplayJobs viewCompany={viewCompany} viewJob={viewJob} viewApply={viewApply} />
       {openViewCompany ? (
-        <ViewCompanyModal viewCompany={viewCompany} viewJob={viewJob} viewApply={viewApply} />
+        <ViewCompanyModal
+          companyViewed={companyViewed}
+          viewCompany={viewCompany}
+          viewJob={viewJob}
+          viewApply={viewApply}
+        />
       ) : null}
-      {/* {openViewCompany ? <ViewCompanyModal viewCompany={viewCompany} viewJob={viewJob} /> : null} */}
+      {/* {openViewCompany ? (
+        <ViewCompanyModal viewCompany={viewCompany} viewJob={viewJob} viewApply={viewApply} />
+      ) : null} */}
       {openViewJob ? <ViewJobModal viewJob={viewJob} /> : null}
       {openViewApply ? <ApplyModal viewApply={viewApply} /> : null}
     </div>

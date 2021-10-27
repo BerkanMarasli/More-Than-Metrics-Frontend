@@ -1,5 +1,9 @@
 import { Button } from "@material-ui/core"
 
 export default function ViewCompanyBtn(props) {
-  return <Button onClick={props.handleOpen}>View Company</Button>
+  return (
+    <Button style={{ border: "2px solid #FFBF50", borderRadius: "8px" }} onClick={props.handleOpen}>
+      {props.companyName}
+    </Button>
+  )
 }

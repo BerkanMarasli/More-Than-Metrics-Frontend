@@ -37,29 +37,29 @@ const columns = [
   },
 ]
 
-function createData(jobTitle, viewCompanyBtn, viewJobBtn, applyBtn) {
-  return { jobTitle, viewCompanyBtn, viewJobBtn, applyBtn }
+function createData(jobTitle, viewJobBtn, applyBtn) {
+  return { jobTitle, viewJobBtn, applyBtn }
 }
 
-function JobBoardDisplayJobs(props) {
+function CompanyJobBoard(props) {
   // props
   const { handleOpenViewCompany } = props.viewCompany
   const { handleOpenViewJob } = props.viewJob
   const { handleOpenViewApply } = props.viewApply
+  const companyViewed = props.companyViewed
   // Fetch jobs
   const [rows, setRows] = useState(null)
   // Pagination
   const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(5)
+  const [rowsPerPage, setRowsPerPage] = React.useState(4)
 
   useEffect(() => {
     async function fetchJobs() {
-      const jobsResponse = await fetch("http://localhost:8080/jobs/")
+      const jobsResponse = await fetch(`http://localhost:8080/jobs/company/${companyViewed}`)
       const jobs = await jobsResponse.json()
       const rows = jobs.map(job => {
         return createData(
           job.job_title,
-          <ViewCompanyBtn companyName={job.company_name} handleOpen={handleOpenViewCompany} />,
           <ViewJobBtn handleOpen={handleOpenViewJob} />,
           <ApplyBtn handleOpen={handleOpenViewApply} />
         )
@@ -67,7 +67,7 @@ function JobBoardDisplayJobs(props) {
       setRows(rows)
     }
     fetchJobs()
-  }, [handleOpenViewCompany, handleOpenViewJob, handleOpenViewApply])
+  }, [handleOpenViewCompany, handleOpenViewJob, handleOpenViewApply, companyViewed])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
@@ -81,21 +81,8 @@ function JobBoardDisplayJobs(props) {
   return rows ? (
     <main>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer sx={{ maxHeight: 270 }}>
           <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map(column => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
             <TableBody>
               {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
                 return (
@@ -115,7 +102,7 @@ function JobBoardDisplayJobs(props) {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+          rowsPerPageOptions={[4, 8, 12, { label: "All", value: -1 }]}
           component="main"
           count={rows.length}
           rowsPerPage={rowsPerPage}
@@ -128,4 +115,4 @@ function JobBoardDisplayJobs(props) {
   ) : null
 }
 
-export default JobBoardDisplayJobs
+export default CompanyJobBoard

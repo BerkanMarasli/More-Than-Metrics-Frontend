@@ -7,7 +7,7 @@ import Avatar from "@mui/material/Avatar"
 import PeopleIcon from "@mui/icons-material/People"
 import FemaleIcon from "@mui/icons-material/Female"
 import FavoriteIcon from "@mui/icons-material/Favorite"
-import JobBoardDisplayJobs from "./JobBoardDisplayJobs"
+import CompanyJobBoard from "./CompanyJobBoard"
 
 const style = {
   position: "absolute",
@@ -28,6 +28,7 @@ export default function ViewCompanyModal(props) {
   const viewJob = props.viewJob
   const viewApply = props.viewApply
   const { openViewCompany, handleCloseViewCompany } = props.viewCompany
+  const companyViewed = props.companyViewed
 
   return (
     <div>
@@ -91,7 +92,7 @@ export default function ViewCompanyModal(props) {
                 89%
               </Typography>
             </div>
-            {/* <Typography sx={{ mb: 1 }} id="modal-modal-description" align="center">
+            <Typography sx={{ mb: 1 }} id="modal-modal-description" align="center">
               Instagram is an American photo and video sharing social networking service founded by
               Kevin Systrom and Mike Krieger. In April 2012, Facebook acquired the service for
               approximately US$1 billion in cash and stock. The app allows users to upload media
@@ -99,8 +100,9 @@ export default function ViewCompanyModal(props) {
               Posts can be shared publicly or with pre-approved followers. Users can browse other
               users' content by tags and locations and view trending content. Users can like photos
               and follow other users to add their content to a personal feed.
-            </Typography> */}
-            <JobBoardDisplayJobs
+            </Typography>
+            <CompanyJobBoard
+              companyViewed={companyViewed}
               viewCompany={viewCompany}
               viewJob={viewJob}
               viewApply={viewApply}
