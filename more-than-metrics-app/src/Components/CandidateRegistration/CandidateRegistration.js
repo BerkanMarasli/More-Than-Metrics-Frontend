@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import MuiPhoneNumber from "material-ui-phone-number";
 import FormControl from "@mui/material/FormControl";
 
+import DevIcon, { iconList, RandomIcon } from "devicon-react-svg";
+
 import {
   Button,
   makeStyles,
@@ -13,6 +15,10 @@ import {
 } from "@material-ui/core";
 
 const MINIMUMPASSWORDLENGTH = 8;
+const devIconStyle = {
+  fill: "thistle",
+  width: "150px",
+};
 const useStyles = makeStyles((theme) => ({
   btn: {
     margin: "1rem",
@@ -229,8 +235,40 @@ function CandidateRegistration() {
               value={values.technologies}
               onChange={handleChange}
               variant="outlined"
-            />
+            />{" "}
+            {console.log("This is the icon ")}
+            <iconList icon="react" style={devIconStyle} viewBox="0 0 32 32" />
+            <Select
+              labelId="technology-list"
+              id="years-in-industry"
+              name="technology"
+              value={values.yearsInIndustry}
+              onChange={handleChange}
+              sx={{ m: 1, width: "25ch" }}
+              variant="outlined"
+            >
+              {iconList.length
+                ? iconList.map((icon) => {
+                    return (
+                      <MenuItem key={icon} value={icon}>
+                        <DevIcon style={devIconStyle} viewBox="0 0 32 32" />{" "}
+                        {icon}
+                      </MenuItem>
+                    );
+                  })
+                : null}
+            </Select>
           </FormControl>
+          {iconList.length
+            ? iconList.map((icon) => {
+                return (
+                  <DevIcon style={devIconStyle} viewBox="0 0 32 32">
+                    {" "}
+                    {icon}{" "}
+                  </DevIcon>
+                );
+              })
+            : null}
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
             <OutlinedInput
               type="password"

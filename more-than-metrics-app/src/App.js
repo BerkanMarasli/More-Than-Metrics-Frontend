@@ -20,7 +20,6 @@ import {
 import Dashboard from "./CompanyArea/Dashboard.js";
 import ReviewCandidates from "./CompanyArea/ReviewCandidates.js";
 
-
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userType, setUserType] = useState(null);
@@ -44,7 +43,7 @@ function App() {
           <Login />
         </Route>
         <Route exact path="/register">
-          <Register userType={"userType"} />
+          <Register userType={"user"} />
         </Route>
         {/* <Route exact path="/profile">
           <Profile userType={"userType"} />

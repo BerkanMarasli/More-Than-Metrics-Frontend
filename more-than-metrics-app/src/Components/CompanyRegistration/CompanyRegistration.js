@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import FormControl from "@mui/material/FormControl";
 
-import { Button, makeStyles, Box, OutlinedInput } from "@material-ui/core";
+import {
+  Button,
+  makeStyles,
+  Box,
+  OutlinedInput,
+  Select,
+  MenuItem,
+} from "@material-ui/core";
 
 const MINIMUMPASSWORDLENGTH = 8;
 const useStyles = makeStyles((theme) => ({
@@ -15,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 function CompanyRegistration() {
   const classes = useStyles();
 
+  const [fetchedNumOfEmployeesCategory, setNumOfEmployees] = useState(null);
   const [values, setValues] = useState({
     companyName: "",
     numOfEmployees: undefined,
@@ -30,6 +38,15 @@ function CompanyRegistration() {
     passwordError: "",
     nameError: "",
   });
+
+  useEffect(() => {
+    async function getNumOfEmployees(setNumOfEmployees) {
+      const response = await fetch("http://localhost:8080/number_of_employees");
+      const json = await response.json();
+      setNumOfEmployees(json);
+    }
+    getNumOfEmployees(setNumOfEmployees);
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -129,14 +146,29 @@ function CompanyRegistration() {
             <p className="error-msg">{error.nameError}</p>
           ) : null}
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <OutlinedInput
-              type="text"
-              label="num-of-employees"
-              placeholder="Num Of Employees"
+            <Select
+              labelId="num-of-employees-list"
+              id="num-of-employees"
               name="numOfEmployees"
               value={values.numOfEmployees}
               onChange={handleChange}
-            />
+              sx={{ m: 1, width: "25ch" }}
+              variant="outlined"
+            >
+              {fetchedNumOfEmployeesCategory !== null
+                ? fetchedNumOfEmployeesCategory.map((category) => {
+                    console.log(category);
+                    return (
+                      <MenuItem
+                        key={category.number_of_employees_id}
+                        value={category.category}
+                      >
+                        {category.category}
+                      </MenuItem>
+                    );
+                  })
+                : null}
+            </Select>
           </FormControl>
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
             <OutlinedInput
