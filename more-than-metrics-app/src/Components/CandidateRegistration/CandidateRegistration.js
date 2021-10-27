@@ -164,28 +164,28 @@ function CandidateRegistration() {
           {error.emailError ? (
             <p className="error-msg">{error.emailError}</p>
           ) : null}
-          {/* <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-        <MuiPhoneNumber
-          defaultCountry="gb"
-          regions={"europe"}
-          label="Phone number"
-          placeholder="Phone Number"
-          name="phoneNumber"
-          sx={{ m: 1, width: "25ch" }}
-          value={values.phoneNumber}
-          onChange={handleChange}
-        />
-      </FormControl> */}
+
+          <MuiPhoneNumber
+            defaultCountry="gb"
+            regions={"europe"}
+            label="Phone number"
+            placeholder="Phone Number"
+            name="phoneNumber"
+            sx={{ m: 1, width: "25ch" }}
+            variant="outlined"
+            value={values.phoneNumber}
+            onChange={handleChange}
+          />
+
           <FormControl sx={{ m: 1, width: "25ch" }} variant="filled">
-            <InputLabel id="years-in-industry-label">
-              Years in industry
-            </InputLabel>
             <Select
               labelId="years-in-industry-label"
               id="years-in-industry"
               name="yearsInIndustry"
               value={values.yearsInIndustry}
               onChange={handleChange}
+              sx={{ m: 1, width: "25ch" }}
+              variant="outlined"
             >
               {fetchedYearsCategory !== null
                 ? fetchedYearsCategory.map((category) => {
