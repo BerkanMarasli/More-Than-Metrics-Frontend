@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Entry from "./Entry/Entry.js";
-import About from "./Menu/About.js";
-import Companies from "./Menu/Companies.js";
-import Candidates from "./Menu/Candidates.js";
+import About from "./Entry/Menu/About.js";
+import Companies from "./Entry/Menu/Companies.js";
+import Candidates from "./Entry/Menu/Candidates.js";
 import CompanyApp from "./CompanyArea/CompanyApp.js";
 import CandidateApp from "./CandidateArea/CandidateApp.js";
+import JobBoard from "./CandidateArea/JobBoard";
 
 import {
   Route,

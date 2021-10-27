@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, IconButton, Toolbar, Menu, MenuItem } from "@material-ui/core";
 import SortIcon from "@material-ui/icons/Sort";
-import Title from "../Components/Title";
+import Title from "../../Components/Title";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {

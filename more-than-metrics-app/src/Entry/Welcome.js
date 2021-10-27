@@ -19,10 +19,10 @@ import SortIcon from "@material-ui/icons/Sort";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Link as Scroll } from "react-scroll";
 import Title from "../Components/Title";
-import About from "../Menu/About";
-import Companies from "../Menu/Companies";
-import Candidates from "../Menu/Candidates";
-import Dropdown from "../Menu/Dropdown";
+import About from "./Menu/About";
+import Companies from "./Menu/Companies";
+import Candidates from "./Menu/Candidates";
+import Dropdown from "./Menu/Dropdown";
 
 const useStyles = makeStyles((theme) => ({
   root: {
