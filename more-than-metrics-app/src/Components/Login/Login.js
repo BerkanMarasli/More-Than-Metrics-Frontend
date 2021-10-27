@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./Login.css";
-import { Button, makeStyles, TextField } from "@material-ui/core";
 
-const MINIMUMPASSWORDLENGTH = 8;
+import FormControl from "@mui/material/FormControl";
+import { Button, makeStyles, Box, OutlinedInput } from "@material-ui/core";
+
 const useStyles = makeStyles((theme) => ({
   btn: {
     margin: "1rem",
@@ -41,41 +41,47 @@ function Login() {
   }
 
   return (
-    <div className="registration-form">
-      <form onSubmit={handleSubmit}>
-        <TextField
-          type="email"
-          label="Email"
-          placeholder="example@hotmail.com"
-          name="email"
-          value={values.email}
-          onChange={handleChange}
-          variant="outlined"
-        />
-        {error.emailError ? (
-          <p className="error-msg">{error.emailError}</p>
-        ) : null}
-        <TextField
-          type="password"
-          label="Password"
-          placeholder="Password"
-          name="password"
-          value={values.password}
-          onChange={handleChange}
-          variant="outlined"
-        />
-        {error.passwordError ? (
-          <p className="error-msg">{error.passwordError}</p>
-        ) : null}
-        <Button
-          className={classes.btn}
-          variant="contained"
-          size={"small"}
-          type="submit"
-        >
-          Login
-        </Button>
-      </form>
+    <div className="login-form">
+      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+        <form onSubmit={handleSubmit}>
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <OutlinedInput
+              type="email"
+              label="Email"
+              placeholder="example@hotmail.com"
+              name="email"
+              value={values.email}
+              onChange={handleChange}
+              variant="outlined"
+            />
+          </FormControl>
+          {error.emailError ? (
+            <p className="error-msg">{error.emailError}</p>
+          ) : null}
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <OutlinedInput
+              type="password"
+              label="Password"
+              placeholder="Password"
+              name="password"
+              value={values.password}
+              onChange={handleChange}
+            />
+          </FormControl>
+
+          {error.passwordError ? (
+            <p className="error-msg">{error.passwordError}</p>
+          ) : null}
+          <Button
+            className={classes.btn}
+            variant="contained"
+            size={"small"}
+            type="submit"
+          >
+            Login
+          </Button>
+        </form>
+      </Box>
     </div>
   );
 }

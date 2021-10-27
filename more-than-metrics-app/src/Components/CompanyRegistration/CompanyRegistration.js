@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
-import MuiPhoneNumber from "material-ui-phone-number";
 import FormControl from "@mui/material/FormControl";
 
-import {
-  Button,
-  makeStyles,
-  Box,
-  MenuItem,
-  Select,
-  OutlinedInput,
-  InputLabel,
-} from "@material-ui/core";
+import { Button, makeStyles, Box, OutlinedInput } from "@material-ui/core";
 
 const MINIMUMPASSWORDLENGTH = 8;
 const useStyles = makeStyles((theme) => ({
@@ -21,16 +12,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CandidateRegistration() {
+function CompanyRegistration() {
   const classes = useStyles();
 
-  const [fetchedYearsCategory, setCategory] = useState(null);
   const [values, setValues] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    yearsInIndustry: null,
-    technologies: [],
+    companyName: "",
+    numOfEmployees: undefined,
+    maleToFemaleRatio: undefined,
+    retentionRate: undefined,
     email: "",
     password: "",
     passwordConfirmation: "",
@@ -42,37 +31,24 @@ function CandidateRegistration() {
     nameError: "",
   });
 
-  useEffect(() => {
-    async function getYearsInIndustryCategory(setCategory) {
-      const response = await fetch("http://localhost:8080/years_in_industry");
-      const json = await response.json();
-      setCategory(json);
-    }
-    getYearsInIndustryCategory(setCategory);
-  }, []);
-
   async function handleSubmit(e) {
     e.preventDefault();
     const {
-      firstName,
-      lastName,
-      phoneNumber,
-      yearsInIndustry,
-      technologies,
+      companyName,
+      numOfEmployees,
+      maleToFemaleRatio,
+      retentionRate,
       email,
       password,
       passwordConfirmation,
     } = values;
 
-    console.log("This is the user phone Number: ", phoneNumber);
-
     console.log(
       `Submitted details: `,
-      firstName,
-      lastName,
-      phoneNumber,
-      yearsInIndustry,
-      technologies,
+      companyName,
+      numOfEmployees,
+      maleToFemaleRatio,
+      retentionRate,
       email,
       password,
       passwordConfirmation
@@ -80,7 +56,7 @@ function CandidateRegistration() {
 
     const emailResponse = isEmailValid(email);
     const passwordResponse = isPasswordValid(password, passwordConfirmation);
-    const nameResponse = isNameValid(firstName, lastName);
+    const nameResponse = isNameValid(companyName);
 
     if (!emailResponse.length && !passwordResponse.length) {
       const response = createUser(values);
@@ -135,13 +111,6 @@ function CandidateRegistration() {
     }));
   }
 
-  function handlePhoneChange(e) {
-    setValues((prevState) => ({
-      ...prevState,
-      phoneNumber: e,
-    }));
-  }
-
   return (
     <div className="candidate-registration-form">
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
@@ -149,26 +118,46 @@ function CandidateRegistration() {
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
             <OutlinedInput
               type="text"
-              label="First name"
-              placeholder="First name"
-              name="firstName"
-              value={values.firstName}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <OutlinedInput
-              type="text"
-              label="Last Name"
-              placeholder="Last name"
-              name="lastName"
-              value={values.lastName}
+              label="company-name"
+              placeholder="Company name"
+              name="companyName"
+              value={values.companyName}
               onChange={handleChange}
             />
           </FormControl>
           {error.nameError ? (
             <p className="error-msg">{error.nameError}</p>
           ) : null}
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <OutlinedInput
+              type="text"
+              label="num-of-employees"
+              placeholder="Num Of Employees"
+              name="numOfEmployees"
+              value={values.numOfEmployees}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <OutlinedInput
+              type="percentage"
+              label="male-to-female-ratio"
+              placeholder="Male : Female"
+              name="maleToFemaleRatio"
+              value={values.maleToFemaleRatio}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <OutlinedInput
+              type="number"
+              label="retentionRate"
+              placeholder="Retention Rate"
+              name="retentionRate"
+              value={values.retentionRate}
+              onChange={handleChange}
+            />
+          </FormControl>
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
             <OutlinedInput
               type="email"
@@ -182,55 +171,6 @@ function CandidateRegistration() {
           {error.emailError ? (
             <p className="error-msg">{error.emailError}</p>
           ) : null}
-          <MuiPhoneNumber
-            name="phoneNumber"
-            label="Phone number"
-            data-cy="user-phone"
-            defaultCountry="gb"
-            regions={"europe"}
-            value={values.phoneNumber}
-            onChange={handlePhoneChange}
-            sx={{ m: 1, width: "25ch" }}
-            variant="outlined"
-          />
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="filled">
-            <InputLabel id="years-in-industry-label">
-              {values.yearsInIndustry ? null : "Years in industry"}
-            </InputLabel>
-            <Select
-              labelId="years-in-industry-label"
-              id="years-in-industry"
-              name="yearsInIndustry"
-              value={values.yearsInIndustry}
-              onChange={handleChange}
-              sx={{ m: 1, width: "25ch" }}
-              variant="outlined"
-            >
-              {fetchedYearsCategory !== null
-                ? fetchedYearsCategory.map((category) => {
-                    return (
-                      <MenuItem
-                        key={category.years_in_industry_id}
-                        value={category.category}
-                      >
-                        {category.category}
-                      </MenuItem>
-                    );
-                  })
-                : null}
-            </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <OutlinedInput
-              type="text"
-              label="Technologies"
-              placeholder="Technologies"
-              name="technologies"
-              value={values.technologies}
-              onChange={handleChange}
-              variant="outlined"
-            />
-          </FormControl>
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
             <OutlinedInput
               type="password"
@@ -268,13 +208,10 @@ function CandidateRegistration() {
   );
 }
 
-function isNameValid(firstName, lastName) {
+function isNameValid(companyName) {
   const nameError = [];
-  if (!firstName) {
+  if (!companyName) {
     nameError.push("First name cannot be empty");
-  }
-  if (!lastName) {
-    nameError.push("Last name cannot be empty");
   }
   return nameError;
 }
@@ -315,8 +252,8 @@ function isPasswordValid(password, confirmation) {
   return passwordError;
 }
 
-async function createUser(values, isCandidate) {
-  const url = `http://localhost:8080/candidate/register`;
+async function createUser(values) {
+  const url = `http://localhost:8080/company/register`;
 
   try {
     const response = await fetch(url, {
@@ -336,4 +273,4 @@ async function createUser(values, isCandidate) {
   }
 }
 
-export default CandidateRegistration;
+export default CompanyRegistration;
