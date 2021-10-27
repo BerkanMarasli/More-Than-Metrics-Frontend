@@ -1,24 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Entry from "./Entry/Entry.js";
+import About from "./Entry/Menu/About.js";
+import Companies from "./Entry/Menu/Companies.js";
+import Candidates from "./Entry/Menu/Candidates.js";
+import CompanyApp from "./CompanyArea/CompanyApp.js";
+import CandidateApp from "./CandidateArea/CandidateApp.js";
+import JobBoard from "./CandidateArea/JobBoard";
+
+import {
+  Route,
+  Switch,
+  BrowserRouter as Router,
+  Link,
+  Redirect,
+} from "react-router-dom";
+import Dashboard from "./CompanyArea/Dashboard.js";
+import ReviewCandidates from "./CompanyArea/ReviewCandidates.js";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [userType, setUserType] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Entry />
+        </Route>
+        <Route exact path="/about-us">
+          <About />
+        </Route>
+        <Route exact path="/companies">
+          <Companies />
+        </Route>
+        <Route exact path="/candidates">
+          <Candidates />
+        </Route>
+        {/* <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/register">
+          <Register userType={"userType"} />
+        </Route>
+        <Route exact path="/profile">
+          <Profile userType={"userType"} />
+        </Route> */}
+        <Route exact path="/dashboard">
+          <Dashboard />
+        </Route>
+        <Route exact path="/review">
+          <ReviewCandidates />
+        </Route>
+        <Route exact path="/jobs">
+          <JobBoard />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
