@@ -20,19 +20,19 @@ const columns = [
     id: "viewCompanyBtn",
     // label: "View Company",
     minWidth: 170,
-    align: "right",
+    align: "center",
   },
   {
     id: "viewJobBtn",
     // label: "View Job",
     minWidth: 170,
-    align: "right",
+    align: "center",
   },
   {
     id: "applyBtn",
     // label: "Apply",
     minWidth: 170,
-    align: "right",
+    align: "center",
     // format: value => value.toFixed(2),
   },
 ]

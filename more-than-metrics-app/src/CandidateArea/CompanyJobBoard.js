@@ -26,13 +26,13 @@ const columns = [
     id: "viewJobBtn",
     // label: "View Job",
     minWidth: 170,
-    align: "right",
+    align: "center",
   },
   {
     id: "applyBtn",
     // label: "Apply",
     minWidth: 170,
-    align: "right",
+    align: "center",
     // format: value => value.toFixed(2),
   },
 ]
