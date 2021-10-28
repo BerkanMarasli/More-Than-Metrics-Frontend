@@ -23,13 +23,13 @@ function App() {
 
   const redirectHome = () => {
     if (loggedIn && userType === "company") {
-      <Redirect from="/" to="/dashboard" />;
+      ;<Redirect from="/" to="/dashboard" />
     } else if (loggedIn && userType === "candidate") {
-      <Redirect from="/" to="/jobs" />;
+      ;<Redirect from="/" to="/jobs" />
     } else if (!loggedIn) {
-      return <Entry userType={userType} setUserType={setUserType} />;
+      return <Entry userType={userType} setUserType={setUserType} />
     }
-  };
+  }
 
   return (
     <Router>
