@@ -73,6 +73,9 @@ function SelectTechnologies(props) {
         )}
         MenuProps={MenuProps}
       >
+        <MenuItem value="" disabled>
+          Technology
+        </MenuItem>
         {technologies
           ? technologies.map((tech) => (
               <MenuItem
