@@ -3,13 +3,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button, AppBar, Toolbar } from "@material-ui/core";
 import Title from "../Components/Title";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     fontFamily: "Lato",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100vh",
+    height: "15vh",
   },
 
   appbar: {
@@ -40,10 +40,25 @@ const useStyles = makeStyles((theme) => ({
       opacity: 0.3,
     },
   },
-}));
+}))
 
 function Navbar(props) {
-  const classes = useStyles();
+  const classes = useStyles()
+
+  let history = useHistory()
+
+  const handleRedirect = e => {
+    const target = e.target.innerText.toLowerCase()
+    if (target === "exit") {
+      history.goBack()
+    } else {
+      history.push(`/${target}`)
+    }
+  }
+
+  const handleLogout = () => {
+    console.log("logged out")
+  }
 
   let history = useHistory();
 
@@ -103,8 +118,8 @@ function Navbar(props) {
           LOGOUT
         </Button>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <div className={classes.root}>
@@ -115,7 +130,7 @@ function Navbar(props) {
         </Toolbar>
       </AppBar>
     </div>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar
