@@ -85,8 +85,9 @@ function CompanyJobBoard(props) {
           <Table stickyHeader aria-label="sticky table">
             <TableBody>
               {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+                // can add hover as attribute to TableRow
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow role="checkbox" tabIndex={-1} key={row.code}>
                     {columns.map(column => {
                       const value = row[column.id]
                       return (

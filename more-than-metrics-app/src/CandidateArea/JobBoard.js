@@ -15,6 +15,7 @@ import ApplyModal from "./ApplyModal"
 function JobBoard() {
   // const classes = useStyles()
   const [companyViewed, setCompanyViewed] = useState(null)
+  const [jobViewed, setJobViewed] = useState(null)
   const [openViewCompany, setOpenViewCompany] = useState(false)
   const handleOpenViewCompany = e => {
     if (e.target.childElementCount !== 0) {
@@ -31,7 +32,11 @@ function JobBoard() {
     handleCloseViewCompany: handleCloseViewCompany,
   }
   const [openViewJob, setOpenViewJob] = useState(false)
-  const handleOpenViewJob = () => setOpenViewJob(true)
+  const handleOpenViewJob = e => {
+    console.log(e.target.parentElement.value)
+    setJobViewed(e.target.parentElement.value)
+    setOpenViewJob(true)
+  }
   const handleCloseViewJob = () => setOpenViewJob(false)
   const viewJob = {
     openViewJob: openViewJob,
@@ -62,7 +67,7 @@ function JobBoard() {
       {/* {openViewCompany ? (
         <ViewCompanyModal viewCompany={viewCompany} viewJob={viewJob} viewApply={viewApply} />
       ) : null} */}
-      {openViewJob ? <ViewJobModal viewJob={viewJob} /> : null}
+      {openViewJob ? <ViewJobModal jobViewed={jobViewed} viewJob={viewJob} /> : null}
       {openViewApply ? <ApplyModal viewApply={viewApply} /> : null}
     </div>
   )

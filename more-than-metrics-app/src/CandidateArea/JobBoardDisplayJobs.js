@@ -60,7 +60,7 @@ function JobBoardDisplayJobs(props) {
         return createData(
           job.job_title,
           <ViewCompanyBtn companyName={job.company_name} handleOpen={handleOpenViewCompany} />,
-          <ViewJobBtn handleOpen={handleOpenViewJob} />,
+          <ViewJobBtn jobID={job.job_id} handleOpen={handleOpenViewJob} />,
           <ApplyBtn handleOpen={handleOpenViewApply} />
         )
       })
@@ -98,8 +98,9 @@ function JobBoardDisplayJobs(props) {
             </TableHead>
             <TableBody>
               {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+                // Can add hover as TableRow attribute
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow role="checkbox" tabIndex={-1} key={row.code}>
                     {columns.map(column => {
                       const value = row[column.id]
                       return (
