@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   OutlinedInput,
@@ -7,21 +7,7 @@ import {
   MenuItem,
   Chip,
 } from "@mui/material/";
-import { Button } from "@material-ui/core";
 import { useTheme } from "@mui/material/styles";
-
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -44,14 +30,27 @@ function getStyles(name, personName, theme) {
 }
 
 function SelectTechnologies(props) {
+  const [technologies, setTechnologies] = useState(null);
+
+  useEffect(() => {
+    const fetchTechnologies = async () => {
+      const techResponse = await fetch("http://localhost:8080/technologies");
+      console.log("hello");
+      const techJson = await techResponse.json();
+      console.log(techJson);
+      setTechnologies(techJson);
+    };
+    fetchTechnologies();
+  }, []);
+
   const theme = useTheme();
-  const [personName, setPersonName] = useState([]);
+  const [techName, setTechName] = useState([]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setTechName(
       // On autofill we get a the stringified value.
       typeof value === "string" ? value.split(",") : value
     );
@@ -62,7 +61,7 @@ function SelectTechnologies(props) {
       <Select
         id="select-technologies"
         multiple
-        value={personName}
+        value={techName}
         onChange={handleChange}
         input={<OutlinedInput id="select-multiple-chip" />}
         renderValue={(selected) => (
@@ -74,15 +73,20 @@ function SelectTechnologies(props) {
         )}
         MenuProps={MenuProps}
       >
-        {names.map((name) => (
-          <MenuItem
-            key={name}
-            value={name}
-            style={getStyles(name, personName, theme)}
-          >
-            {name}
-          </MenuItem>
-        ))}
+        <MenuItem value="" disabled>
+          Technology
+        </MenuItem>
+        {technologies
+          ? technologies.map((tech) => (
+              <MenuItem
+                key={tech.technology_id}
+                value={tech.technology_name}
+                style={getStyles(tech, techName, theme)}
+              >
+                {tech.technology_name}
+              </MenuItem>
+            ))
+          : null}
       </Select>
     </FormControl>
   );

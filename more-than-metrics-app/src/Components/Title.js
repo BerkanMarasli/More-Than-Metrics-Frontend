@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Title() {
+function Title(props) {
   const classes = useStyles();
 
   let history = useHistory();
@@ -43,8 +43,17 @@ function Title() {
         "user-select": "none",
       }}
     >
-      MORE TH
-      <span className={classes.greaterThan}>{">"}</span>N METRICS
+      {props.match ? (
+        <span>
+          <span className={classes.greaterThan}>{">"}</span>METRICS
+          <span style={{ color: "#FFBF50", fontWeight: "bold" }}> MATCH</span>
+        </span>
+      ) : (
+        <span>
+          MORE TH
+          <span className={classes.greaterThan}>{">"}</span>N METRICS
+        </span>
+      )}
     </h1>
   );
 }
