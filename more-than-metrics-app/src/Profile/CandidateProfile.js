@@ -135,6 +135,19 @@ function CandidateProfile() {
           )}
         </div>
         <div className={classes.row}>
+          <InputLabel htmlFor="outlined-description">Headline </InputLabel>
+          <OutlinedInput
+            disabled={disabled}
+            id="outlined-description"
+            className={classes.input}
+            placeholder="Describe the function of the role and the type of candidate you're looking for"
+            multiline
+            maxRows={4}
+            // value={bio}
+            //   onChange={handleChange}
+          />
+        </div>
+        <div className={classes.row}>
           <InputLabel htmlFor="slider-years" style={{ paddingRight: "15px" }}>
             Years in Industry
           </InputLabel>
@@ -151,6 +164,7 @@ function CandidateProfile() {
             }}
           >
             <Slider
+              disabled={disabled}
               id="slider-years"
               size="medium"
               valueLabelFormat={valueLabelFormat}
