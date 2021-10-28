@@ -1,25 +1,20 @@
-import Register from "./Components/Register/Register";
-import Login from "./Components/Login/Login";
+import Register from "./Components/Register/Register"
+import Login from "./Components/Login/Login"
 
-import { useState } from "react";
-import Entry from "./Entry/Entry.js";
-import About from "./Menu/About.js";
-import Companies from "./Menu/Companies.js";
-import Candidates from "./Menu/Candidates.js";
-import Dashboard from "./CompanyArea/Dashboard.js";
-import Profile from "./Profile/Profile.js";
+import { useState } from "react"
+import Entry from "./Entry/Entry.js"
+import About from "./Menu/About.js"
+import Companies from "./Menu/Companies.js"
+import Candidates from "./Menu/Candidates.js"
+import Dashboard from "./CompanyArea/Dashboard.js"
+import Profile from "./Profile/Profile.js"
 
-import {
-  Route,
-  Switch,
-  BrowserRouter as Router,
-  Redirect,
-} from "react-router-dom";
-import ReviewCandidates from "./CompanyArea/MatchCandidates.js";
+import { Route, Switch, BrowserRouter as Router, Redirect } from "react-router-dom"
+import ReviewCandidates from "./CompanyArea/MatchCandidates.js"
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [userType, setUserType] = useState();
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [userType, setUserType] = useState()
 
   const redirectHome = () => {
     if (loggedIn && userType === "company") {
@@ -70,7 +65,7 @@ function App() {
         </Route>
       </Switch>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App
