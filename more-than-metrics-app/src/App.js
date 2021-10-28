@@ -16,7 +16,7 @@ import ReviewCandidates from "./CompanyArea/MatchCandidates.js";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userType, setUserType] = useState("company");
+  const [userType, setUserType] = useState("candidate");
 
   const redirectHome = () => {
     if (loggedIn && userType === "company") {
@@ -66,4 +66,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
