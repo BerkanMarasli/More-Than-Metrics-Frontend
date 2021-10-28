@@ -22,7 +22,7 @@ function CompanyRegistration() {
       .min(2, "Must be more then one character"),
     companyBio: yup
       .string()
-      .max(400)
+      .max(500)
       .required("Please enter your company bio < 400 characters"),
     numOfEmployees: yup.string().required("Please select number of employees"),
     femalePercentage: yup
