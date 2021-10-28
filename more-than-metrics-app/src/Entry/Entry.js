@@ -9,10 +9,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${
       process.env.PUBLIC_URL + "/assets/recruitment2.jpeg"
     })`,
-    backgroundSize: "95%",
+    backgroundPosition: "top",
+    backgroundSize: "85%",
     backgroundRepeat: "no-repeat",
-    backgroundColor: "white",
+    backgroundColor: "#FFFFFF",
     fontFamily: "Lato",
+    [theme.breakpoints.down("md")]: {
+      backgroundSize: "150%",
+    },
   },
 }));
 

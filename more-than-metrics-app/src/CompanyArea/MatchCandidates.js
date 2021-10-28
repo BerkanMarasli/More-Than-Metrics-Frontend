@@ -11,11 +11,19 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "90vh",
-    paddingTop: "4rem",
+    maxHeight: "100vh",
+    paddingTop: "2rem",
+    backgroundColor: "#fff4dc",
   },
 
   main: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  play: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -24,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     background: "none",
     fontSize: "5rem",
+    opacity: "70%",
   },
 
   iconStyle: {
@@ -40,18 +49,21 @@ function ReviewCandidates() {
 
   return (
     <div className={classes.root}>
-      <Navbar exit={true} />
+      <Navbar match={true} />
       <main className={classes.main}>
-        <IconButton className={classes.iconStyle}>
-          <CancelIcon className={classes.icon} style={{ color: "red" }} />
-        </IconButton>
-        <CandidateCard className={classes.card} />
-        <IconButton className={classes.iconStyle}>
-          <CheckCircleIcon
-            className={classes.icon}
-            style={{ color: "green" }}
-          />
-        </IconButton>
+        <h1>Find your company's perfect match</h1>
+        <div className={classes.play}>
+          <IconButton className={classes.iconStyle}>
+            <CancelIcon className={classes.icon} style={{ color: "red" }} />
+          </IconButton>
+          <CandidateCard className={classes.card} />
+          <IconButton className={classes.iconStyle}>
+            <CheckCircleIcon
+              className={classes.icon}
+              style={{ color: "green" }}
+            />
+          </IconButton>
+        </div>
       </main>
     </div>
   );

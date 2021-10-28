@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, IconButton, Toolbar, Menu, MenuItem } from "@material-ui/core";
 import SortIcon from "@material-ui/icons/Sort";
-import Title from "../../Components/Title";
+import Title from "../Components/Title";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -55,8 +55,8 @@ function Dropdown(props) {
 
   let history = useHistory();
 
-  function handleClick() {
-    history.push("/about-us");
+  function handleRedirect(e) {
+    history.push(`/${e.target.id}`);
   }
 
   return (
@@ -79,39 +79,40 @@ function Dropdown(props) {
         <MenuItem
           id="about-us"
           className={classes.list}
-          onClick={() => {
+          onClick={(e) => {
             handleCloseMenu();
-            handleClick();
+            handleRedirect(e);
           }}
-          // component={Link}
-          // to="/about-us"
         >
           About us
         </MenuItem>
         <MenuItem
           id="companies"
           className={classes.list}
-          onClick={handleCloseMenu}
-          // component={Link}
-          // to={"/companies"}
+          onClick={(e) => {
+            handleCloseMenu();
+            handleRedirect(e);
+          }}
         >
           For Companies
         </MenuItem>
         <MenuItem
           id="candidates"
           className={classes.list}
-          onClick={handleCloseMenu}
-          // component={Link}
-          // to={"/candidates"}
+          onClick={(e) => {
+            handleCloseMenu();
+            handleRedirect(e);
+          }}
         >
           For Candidates
         </MenuItem>
         <MenuItem
           id="login"
           className={classes.list}
-          onClick={handleCloseMenu}
-          // component={Link}
-          // to={"/login"}
+          onClick={(e) => {
+            handleCloseMenu();
+            handleRedirect(e);
+          }}
         >
           Login
         </MenuItem>
