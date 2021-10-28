@@ -1,3 +1,6 @@
+import Register from "./Components/Register/Register";
+import Login from "./Components/Login/Login";
+
 import { useState } from "react";
 import Entry from "./Entry/Entry.js";
 import About from "./Menu/About.js";
@@ -16,7 +19,7 @@ import ReviewCandidates from "./CompanyArea/MatchCandidates.js";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userType, setUserType] = useState("candidate");
+  const [userType, setUserType] = useState();
 
   const redirectHome = () => {
     if (loggedIn && userType === "company") {
@@ -43,10 +46,14 @@ function App() {
         <Route exact path="/candidates">
           <Candidates />
         </Route>
-        {/* <Route exact path="/login">
+        <Route exact path="/login">
           <Login />
         </Route>
         <Route exact path="/register">
+          <Register userType={userType} redirectHome={redirectHome} />
+        </Route>
+        {/* <Route exact path="/profile">
+          <Profile userType={"userType"} />
           <Register userType={"userType"} />
         </Route> */}
         <Route exact path="/profile">
