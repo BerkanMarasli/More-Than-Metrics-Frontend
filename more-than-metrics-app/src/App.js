@@ -1,6 +1,6 @@
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
-import MaterialUiForm from "./Components/Test/Experiementing";
+import MaterialUiForm from "./Components/Test/Experimenting";
 
 import { useState } from "react";
 import Entry from "./Entry/Entry.js";

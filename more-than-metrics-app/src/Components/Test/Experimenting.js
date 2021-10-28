@@ -8,20 +8,22 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
-import ClearIcon from "@material-ui/icons/Clear";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import AddIcon from "@material-ui/icons/Add";
 import MuiPhoneNumber from "material-ui-phone-number";
 
 import { MenuItem, Select } from "@material-ui/core";
+
+import DevIcon, { iconList, RandomIcon } from "devicon-react-svg";
 
 import clsx from "clsx";
 
 // Formik
 import { Formik, FieldArray, Form } from "formik";
 import Dropdown from "../../Entry/Menu/Dropdown";
+
+const devIconStyle = {
+  fill: "thistle",
+  width: "150px",
+};
 
 // Yup
 const yup = require("yup");
@@ -53,22 +55,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Registration = () => {
+function Registration() {
   const classes = useStyles();
   const [fetchedYearsCategory, setCategory] = useState(null);
 
   const signupSchema = yup.object().shape({
-    data: yup.array().of(
-      yup.object().shape({
-        firstName: yup.string().required("Enter your first name"),
-        lastName: yup.string().required("Enter your last name"),
-        email: yup.string().required("Enter your email"),
-        phoneNumber: yup
-          .string()
-          .min(13, "not 13")
-          .required("Enter your phone number details"),
-      })
-    ),
+    firstName: yup
+      .string()
+      .required("Enter your first name")
+      .min(2, "Must be more then one character"),
+    lastName: yup
+      .string()
+      .required("Enter your last name")
+      .min(2, "Must be more than 1 characters"),
+    email: yup
+      .string()
+      .email("Email must be a valid email")
+      .required("Enter your email"),
+
+    phoneNumber: yup
+      .string()
+      .required("Enter your phone number details")
+      .min(15, "Please enter a valid phone number"),
+    yearsInIndustry: yup.string().required("Please select years in industry"),
+    password: yup
+      .string()
+      .required("Enter your password")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      ),
+    passwordConfirmation: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "Passwords must match"),
   });
 
   useEffect(() => {
@@ -89,9 +108,14 @@ const Registration = () => {
           lastName: "",
           email: "",
           phoneNumber: "",
+          yearsInIndustry: "",
+          technology: [],
+          password: "",
+          passwordConfirmation: "",
         }}
         onSubmit={(values, actions) => {
           console.log(values);
+          createUser(values);
         }}
         validationSchema={signupSchema}
       >
@@ -113,7 +137,7 @@ const Registration = () => {
                     spacing={0}
                     direction="column"
                     alignItems="center"
-                    justify="center"
+                    justifyContent="center"
                   >
                     <div>
                       <Grid item>
@@ -200,7 +224,7 @@ const Registration = () => {
                                   type="email"
                                   variant="outlined"
                                   name="email"
-                                  value={values && values.email}
+                                  value={values.email}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   error={Boolean(
@@ -221,13 +245,15 @@ const Registration = () => {
                               </Grid>
                               <Grid item lg={6} md={6} xs={12}>
                                 <MuiPhoneNumber
+                                  fullWidth
+                                  id="phoneNumber"
                                   name="phoneNumber"
                                   label="Phone number"
                                   data-cy="user-phone"
                                   defaultCountry="gb"
                                   regions={"europe"}
-                                  value={values && values.phoneNumber}
-                                  onChange={handleChange}
+                                  value={values.phoneNumber}
+                                  onChange={handleChange("phoneNumber")}
                                   variant="outlined"
                                   onBlur={handleBlur}
                                   error={Boolean(
@@ -248,13 +274,27 @@ const Registration = () => {
                               </Grid>
                               <Grid item lg={6} md={6} xs={12}>
                                 <Select
-                                  labelId="years-in-industry-label"
-                                  id="years-in-industry"
+                                  fullWidth
                                   name="yearsInIndustry"
+                                  label="Years in industry"
                                   value={values.yearsInIndustry}
                                   onChange={handleChange}
-                                  sx={{ m: 1, width: "25ch" }}
                                   variant="outlined"
+                                  onBlur={handleBlur}
+                                  error={Boolean(
+                                    touched &&
+                                      touched.yearsInIndustry &&
+                                      errors &&
+                                      errors.yearsInIndustry
+                                  )}
+                                  helperText={
+                                    touched &&
+                                    touched.yearsInIndustry &&
+                                    errors &&
+                                    errors.yearsInIndustry
+                                      ? errors.yearsInIndustry
+                                      : ""
+                                  }
                                 >
                                   {fetchedYearsCategory !== null
                                     ? fetchedYearsCategory.map((category) => {
@@ -270,7 +310,98 @@ const Registration = () => {
                                     : null}
                                 </Select>
                               </Grid>
-                              <Grid></Grid>
+                              <Grid item lg={6} md={6} xs={12}>
+                                <Select
+                                  fullWidth
+                                  id="years-in-industry"
+                                  name="technology"
+                                  value={values.technology}
+                                  onChange={handleChange}
+                                  multiple
+                                  variant="outlined"
+                                  onBlur={handleBlur}
+                                  error={Boolean(
+                                    touched &&
+                                      touched.yearsInIndustry &&
+                                      errors &&
+                                      errors.yearsInIndustry
+                                  )}
+                                  helperText={
+                                    touched &&
+                                    touched.yearsInIndustry &&
+                                    errors &&
+                                    errors.yearsInIndustry
+                                      ? errors.yearsInIndustry
+                                      : ""
+                                  }
+                                >
+                                  {iconList.length
+                                    ? iconList.map((icon) => {
+                                        return (
+                                          <MenuItem key={icon} value={icon}>
+                                            <DevIcon
+                                              style={devIconStyle}
+                                              viewBox="0 0 32 32"
+                                            />{" "}
+                                            {icon}
+                                          </MenuItem>
+                                        );
+                                      })
+                                    : null}
+                                </Select>
+                              </Grid>
+                              <Grid item lg={6} md={6} xs={12}>
+                                <TextField
+                                  fullWidth
+                                  label="Password"
+                                  type="password"
+                                  variant="outlined"
+                                  name="password"
+                                  value={values.password}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  error={Boolean(
+                                    touched &&
+                                      touched.password &&
+                                      errors &&
+                                      errors.password
+                                  )}
+                                  helperText={
+                                    touched &&
+                                    touched.password &&
+                                    errors &&
+                                    errors.password
+                                      ? errors.password
+                                      : ""
+                                  }
+                                />
+                              </Grid>
+                              <Grid item lg={6} md={6} xs={12}>
+                                <TextField
+                                  fullWidth
+                                  label="Confirm Password"
+                                  type="password"
+                                  variant="outlined"
+                                  name="passwordConfirmation"
+                                  value={values.passwordConfirmation}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  error={Boolean(
+                                    touched &&
+                                      touched.passwordConfirmation &&
+                                      errors &&
+                                      errors.passwordConfirmation
+                                  )}
+                                  helperText={
+                                    touched &&
+                                    touched.passwordConfirmation &&
+                                    errors &&
+                                    errors.passwordConfirmation
+                                      ? errors.passwordConfirmation
+                                      : ""
+                                  }
+                                />
+                              </Grid>
                             </Grid>
 
                             <Button
@@ -294,6 +425,27 @@ const Registration = () => {
       </Formik>
     </div>
   );
-};
+}
+
+async function createUser(values, isCandidate) {
+  const url = `http://localhost:8080/candidate/register`;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+    const json = await response.json();
+
+    if (!json.msg) {
+      return "That username is taken. Try another.";
+    } else {
+      return "";
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export default Registration;
