@@ -33,8 +33,11 @@ function JobBoard() {
   }
   const [openViewJob, setOpenViewJob] = useState(false)
   const handleOpenViewJob = e => {
-    console.log(e.target.parentElement.value)
-    setJobViewed(e.target.parentElement.value)
+    if (e.target.childElementCount !== 0) {
+      setCompanyViewed(e.target.value)
+    } else {
+      setJobViewed(e.target.parentElement.value)
+    }
     setOpenViewJob(true)
   }
   const handleCloseViewJob = () => setOpenViewJob(false)

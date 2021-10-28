@@ -79,11 +79,17 @@ function JobBoardDisplayJobs(props) {
   }
 
   return rows ? (
-    <main>
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+    <main
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+      }}
+    >
+      <Paper sx={{ width: "90%", overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
-            <TableHead>
+            {/* <TableHead>
               <TableRow>
                 {columns.map(column => (
                   <TableCell
@@ -95,7 +101,7 @@ function JobBoardDisplayJobs(props) {
                   </TableCell>
                 ))}
               </TableRow>
-            </TableHead>
+            </TableHead> */}
             <TableBody>
               {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
                 // Can add hover as TableRow attribute
@@ -115,15 +121,23 @@ function JobBoardDisplayJobs(props) {
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-          component="main"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+            component="main"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </div>
       </Paper>
     </main>
   ) : null
