@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Fragment } from "react";
-
 // Material UI
 import { makeStyles } from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
@@ -8,25 +7,12 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import MuiPhoneNumber from "material-ui-phone-number";
-
-import { MenuItem, Select } from "@material-ui/core";
-
-import DevIcon, { iconList, RandomIcon } from "devicon-react-svg";
+import { MenuItem, Select, InputAdornment } from "@material-ui/core";
 
 import clsx from "clsx";
 
 // Formik
 import { Formik, FieldArray, Form } from "formik";
-import Dropdown from "../../Entry/Menu/Dropdown";
-
-const devIconStyle = {
-  fill: "thistle",
-  width: "150px",
-};
-
-// Yup
-const yup = require("yup");
 
 const useStyles = makeStyles((theme) => ({
   center: {
@@ -55,61 +41,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Registration() {
+function CompanyForm(props) {
   const classes = useStyles();
-  const [fetchedYearsCategory, setCategory] = useState(null);
-
-  const signupSchema = yup.object().shape({
-    firstName: yup
-      .string()
-      .required("Enter your first name")
-      .min(2, "Must be more then one character"),
-    lastName: yup
-      .string()
-      .required("Enter your last name")
-      .min(2, "Must be more than 1 characters"),
-    email: yup
-      .string()
-      .email("Email must be a valid email")
-      .required("Enter your email"),
-
-    phoneNumber: yup
-      .string()
-      .required("Enter your phone number details")
-      .min(15, "Please enter a valid phone number"),
-    yearsInIndustry: yup.string().required("Please select years in industry"),
-    password: yup
-      .string()
-      .required("Enter your password")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-      ),
-    passwordConfirmation: yup
-      .string()
-      .oneOf([yup.ref("password"), null], "Passwords must match"),
-  });
+  const [fetchedNumOfEmployeesCategory, setNumOfEmployees] = useState(null);
+  const { createUser, signupSchema } = props;
 
   useEffect(() => {
-    async function getYearsInIndustryCategory(setCategory) {
-      const response = await fetch("http://localhost:8080/years_in_industry");
+    async function getNumOfEmployees(setNumOfEmployees) {
+      const response = await fetch("http://localhost:8080/number_of_employees");
       const json = await response.json();
-      setCategory(json);
+      setNumOfEmployees(json);
     }
-    getYearsInIndustryCategory(setCategory);
+    getNumOfEmployees(setNumOfEmployees);
   }, []);
 
   return (
     <div>
-      <Dropdown />
       <Formik
         initialValues={{
-          firstName: "",
-          lastName: "",
+          companyName: "",
+          numOfEmployees: "",
+          femalePercentage: "",
+          retentionRate: "",
           email: "",
-          phoneNumber: "",
-          yearsInIndustry: "",
-          technology: [],
           password: "",
           passwordConfirmation: "",
         }}
@@ -159,33 +113,111 @@ function Registration() {
                             >
                               Registration
                             </Typography>
-
                             <Grid container spacing={2}>
                               <Grid item lg={6} md={6} xs={12}>
                                 <TextField
                                   fullWidth
-                                  label="First Name"
+                                  label="Company Name"
                                   type="text"
                                   variant="outlined"
-                                  name="firstName"
-                                  value={values && values.firstName}
+                                  name="companyName"
+                                  value={values.companyName}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   error={Boolean(
                                     touched &&
                                       touched &&
-                                      touched.firstName &&
+                                      touched.companyName &&
                                       errors &&
                                       errors &&
-                                      errors.firstName
+                                      errors.companyName
                                   )}
                                   helperText={
                                     touched &&
                                     touched &&
-                                    touched.firstName &&
+                                    touched.companyName &&
                                     errors &&
-                                    errors.firstName
-                                      ? errors.firstName
+                                    errors.companyName
+                                      ? errors.companyName
+                                      : ""
+                                  }
+                                />
+                              </Grid>
+                              <Grid item lg={6} md={6} xs={12}>
+                                <Select
+                                  fullWidth
+                                  name="numOfEmployees"
+                                  label="Number of Employees"
+                                  value={values.numOfEmployees}
+                                  onChange={handleChange}
+                                  variant="outlined"
+                                  onBlur={handleBlur}
+                                  displayEmpty
+                                  error={Boolean(
+                                    touched &&
+                                      touched.numOfEmployees &&
+                                      errors &&
+                                      errors.numOfEmployees
+                                  )}
+                                  helperText={
+                                    touched &&
+                                    touched.numOfEmployees &&
+                                    errors &&
+                                    errors.numOfEmployees
+                                      ? errors.numOfEmployees
+                                      : ""
+                                  }
+                                >
+                                  <MenuItem value="" disabled>
+                                    Number of Employees
+                                  </MenuItem>
+                                  {fetchedNumOfEmployeesCategory !== null
+                                    ? fetchedNumOfEmployeesCategory.map(
+                                        (category) => {
+                                          return (
+                                            <MenuItem
+                                              key={
+                                                category.years_in_industry_id
+                                              }
+                                              value={category.category}
+                                            >
+                                              {category.category}
+                                            </MenuItem>
+                                          );
+                                        }
+                                      )
+                                    : null}
+                                </Select>
+                              </Grid>
+                              <Grid item lg={6} md={6} xs={12}>
+                                <TextField
+                                  fullWidth
+                                  label="Female percentage"
+                                  type="number"
+                                  variant="outlined"
+                                  name="femalePercentage"
+                                  value={values.femalePercentage}
+                                  InputProps={{
+                                    endAdornment: (
+                                      <InputAdornment position="end">
+                                        % Female
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  error={Boolean(
+                                    touched &&
+                                      touched.femalePercentage &&
+                                      errors &&
+                                      errors.femalePercentage
+                                  )}
+                                  helperText={
+                                    touched &&
+                                    touched.femalePercentage &&
+                                    errors &&
+                                    errors.femalePercentage
+                                      ? errors.femalePercentage
                                       : ""
                                   }
                                 />
@@ -193,30 +225,36 @@ function Registration() {
                               <Grid item lg={6} md={6} xs={12}>
                                 <TextField
                                   fullWidth
-                                  label="Last Name"
-                                  type="text"
+                                  label="Retention Rate"
+                                  type="number"
                                   variant="outlined"
-                                  name="lastName"
-                                  value={values && values.lastName}
+                                  name="retentionRate"
+                                  value={values.retentionRate}
+                                  InputProps={{
+                                    endAdornment: (
+                                      <InputAdornment position="end">
+                                        %
+                                      </InputAdornment>
+                                    ),
+                                  }}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   error={Boolean(
                                     touched &&
-                                      touched.lastName &&
+                                      touched.retentionRate &&
                                       errors &&
-                                      errors.lastName
+                                      errors.retentionRate
                                   )}
                                   helperText={
                                     touched &&
-                                    touched.lastName &&
+                                    touched.retentionRate &&
                                     errors &&
-                                    errors.lastName
-                                      ? errors.lastName
+                                    errors.retentionRate
+                                      ? errors.retentionRate
                                       : ""
                                   }
                                 />
                               </Grid>
-
                               <Grid item lg={6} md={6} xs={12}>
                                 <TextField
                                   fullWidth
@@ -242,113 +280,6 @@ function Registration() {
                                       : ""
                                   }
                                 />
-                              </Grid>
-                              <Grid item lg={6} md={6} xs={12}>
-                                <MuiPhoneNumber
-                                  fullWidth
-                                  id="phoneNumber"
-                                  name="phoneNumber"
-                                  label="Phone number"
-                                  data-cy="user-phone"
-                                  defaultCountry="gb"
-                                  regions={"europe"}
-                                  value={values.phoneNumber}
-                                  onChange={handleChange("phoneNumber")}
-                                  variant="outlined"
-                                  onBlur={handleBlur}
-                                  error={Boolean(
-                                    touched &&
-                                      touched.phoneNumber &&
-                                      errors &&
-                                      errors.phoneNumber
-                                  )}
-                                  helperText={
-                                    touched &&
-                                    touched.phoneNumber &&
-                                    errors &&
-                                    errors.phoneNumber
-                                      ? errors.phoneNumber
-                                      : ""
-                                  }
-                                />
-                              </Grid>
-                              <Grid item lg={6} md={6} xs={12}>
-                                <Select
-                                  fullWidth
-                                  name="yearsInIndustry"
-                                  label="Years in industry"
-                                  value={values.yearsInIndustry}
-                                  onChange={handleChange}
-                                  variant="outlined"
-                                  onBlur={handleBlur}
-                                  error={Boolean(
-                                    touched &&
-                                      touched.yearsInIndustry &&
-                                      errors &&
-                                      errors.yearsInIndustry
-                                  )}
-                                  helperText={
-                                    touched &&
-                                    touched.yearsInIndustry &&
-                                    errors &&
-                                    errors.yearsInIndustry
-                                      ? errors.yearsInIndustry
-                                      : ""
-                                  }
-                                >
-                                  {fetchedYearsCategory !== null
-                                    ? fetchedYearsCategory.map((category) => {
-                                        return (
-                                          <MenuItem
-                                            key={category.years_in_industry_id}
-                                            value={category.category}
-                                          >
-                                            {category.category}
-                                          </MenuItem>
-                                        );
-                                      })
-                                    : null}
-                                </Select>
-                              </Grid>
-                              <Grid item lg={6} md={6} xs={12}>
-                                <Select
-                                  fullWidth
-                                  id="years-in-industry"
-                                  name="technology"
-                                  value={values.technology}
-                                  onChange={handleChange}
-                                  multiple
-                                  variant="outlined"
-                                  onBlur={handleBlur}
-                                  error={Boolean(
-                                    touched &&
-                                      touched.yearsInIndustry &&
-                                      errors &&
-                                      errors.yearsInIndustry
-                                  )}
-                                  helperText={
-                                    touched &&
-                                    touched.yearsInIndustry &&
-                                    errors &&
-                                    errors.yearsInIndustry
-                                      ? errors.yearsInIndustry
-                                      : ""
-                                  }
-                                >
-                                  {iconList.length
-                                    ? iconList.map((icon) => {
-                                        return (
-                                          <MenuItem key={icon} value={icon}>
-                                            <DevIcon
-                                              style={devIconStyle}
-                                              viewBox="0 0 32 32"
-                                            />{" "}
-                                            {icon}
-                                          </MenuItem>
-                                        );
-                                      })
-                                    : null}
-                                </Select>
                               </Grid>
                               <Grid item lg={6} md={6} xs={12}>
                                 <TextField
@@ -403,7 +334,6 @@ function Registration() {
                                 />
                               </Grid>
                             </Grid>
-
                             <Button
                               type="submit"
                               color="primary"
@@ -427,25 +357,4 @@ function Registration() {
   );
 }
 
-async function createUser(values, isCandidate) {
-  const url = `http://localhost:8080/candidate/register`;
-
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-    const json = await response.json();
-
-    if (!json.msg) {
-      return "That username is taken. Try another.";
-    } else {
-      return "";
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export default Registration;
+export default CompanyForm;

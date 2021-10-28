@@ -1,42 +1,46 @@
-import React, { useState, useEffect } from "react";
-import FormControl from "@mui/material/FormControl";
+import React, { useState, useEffect, Fragment } from "react";
+// Material UI
+import { makeStyles } from "@material-ui/styles";
 
-import {
-  Button,
-  makeStyles,
-  Box,
-  OutlinedInput,
-  Select,
-  MenuItem,
-} from "@material-ui/core";
+import Dropdown from "../../Entry/Menu/Dropdown";
+import CompanyForm from "../CompanyRegistration/CompanyForm/CompanyForm";
 
-const MINIMUMPASSWORDLENGTH = 8;
-const useStyles = makeStyles((theme) => ({
-  btn: {
-    margin: "1rem",
-    fontFamily: "Lato",
-    fontWeight: "bold",
-  },
-}));
+// Yup
+const yup = require("yup");
 
 function CompanyRegistration() {
-  const classes = useStyles();
-
   const [fetchedNumOfEmployeesCategory, setNumOfEmployees] = useState(null);
-  const [values, setValues] = useState({
-    companyName: "",
-    numOfEmployees: undefined,
-    maleToFemaleRatio: undefined,
-    retentionRate: undefined,
-    email: "",
-    password: "",
-    passwordConfirmation: "",
-  });
 
-  const [error, setError] = useState({
-    emailError: "",
-    passwordError: "",
-    nameError: "",
+  const signupSchema = yup.object().shape({
+    companyName: yup
+      .string()
+      .required("Enter your company name")
+      .min(2, "Must be more then one character"),
+    numOfEmployees: yup.string().required("Please select number of employees"),
+    femalePercentage: yup
+      .number()
+      .required("Please include percentage of female employees")
+      .positive("Percentage cannot be negative")
+      .max(100, "Percentage has to be below 100 "),
+    retentionRate: yup
+      .number()
+      .required("Please include retention rate")
+      .positive("Percentage cannot be negative")
+      .max(100, "Percentage has to be below 100 "),
+    email: yup
+      .string()
+      .email("Email must be a valid email")
+      .required("Enter your email"),
+    password: yup
+      .string()
+      .required("Enter your password")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      ),
+    passwordConfirmation: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "Passwords must match"),
   });
 
   useEffect(() => {
@@ -48,240 +52,12 @@ function CompanyRegistration() {
     getNumOfEmployees(setNumOfEmployees);
   }, []);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const {
-      companyName,
-      numOfEmployees,
-      maleToFemaleRatio,
-      retentionRate,
-      email,
-      password,
-      passwordConfirmation,
-    } = values;
-
-    console.log(
-      `Submitted details: `,
-      companyName,
-      numOfEmployees,
-      maleToFemaleRatio,
-      retentionRate,
-      email,
-      password,
-      passwordConfirmation
-    );
-
-    const emailResponse = isEmailValid(email);
-    const passwordResponse = isPasswordValid(password, passwordConfirmation);
-    const nameResponse = isNameValid(companyName);
-
-    if (!emailResponse.length && !passwordResponse.length) {
-      const response = createUser(values);
-      setError((prevState) => ({
-        ...prevState,
-        emailError: response,
-      }));
-    }
-    if (!emailResponse.length) {
-      setError((prevState) => ({
-        ...prevState,
-        emailError: "",
-      }));
-    }
-    if (!passwordResponse.length) {
-      setError((prevState) => ({
-        ...prevState,
-        passwordError: "",
-      }));
-    }
-    if (emailResponse.length) {
-      setError((prevState) => ({
-        ...prevState,
-        emailError: emailResponse,
-      }));
-    }
-    if (passwordResponse.length) {
-      setError((prevState) => ({
-        ...prevState,
-        passwordError: passwordResponse,
-      }));
-    }
-    if (!nameResponse.length) {
-      setError((prevState) => ({
-        ...prevState,
-        nameError: "",
-      }));
-    }
-    if (nameResponse.length) {
-      setError((prevState) => ({
-        ...prevState,
-        nameError: nameResponse,
-      }));
-    }
-  }
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setValues((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  }
-
   return (
-    <div className="candidate-registration-form">
-      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-        <form className="registration-form" onSubmit={handleSubmit}>
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <OutlinedInput
-              type="text"
-              label="company-name"
-              placeholder="Company name"
-              name="companyName"
-              value={values.companyName}
-              onChange={handleChange}
-            />
-          </FormControl>
-          {error.nameError ? (
-            <p className="error-msg">{error.nameError}</p>
-          ) : null}
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <Select
-              labelId="num-of-employees-list"
-              id="num-of-employees"
-              name="numOfEmployees"
-              value={values.numOfEmployees}
-              onChange={handleChange}
-              sx={{ m: 1, width: "25ch" }}
-              variant="outlined"
-            >
-              {fetchedNumOfEmployeesCategory !== null
-                ? fetchedNumOfEmployeesCategory.map((category) => {
-                    console.log(category);
-                    return (
-                      <MenuItem
-                        key={category.number_of_employees_id}
-                        value={category.category}
-                      >
-                        {category.category}
-                      </MenuItem>
-                    );
-                  })
-                : null}
-            </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <OutlinedInput
-              type="percentage"
-              label="male-to-female-ratio"
-              placeholder="Male : Female"
-              name="maleToFemaleRatio"
-              value={values.maleToFemaleRatio}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <OutlinedInput
-              type="number"
-              label="retentionRate"
-              placeholder="Retention Rate"
-              name="retentionRate"
-              value={values.retentionRate}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <OutlinedInput
-              type="email"
-              label="Email"
-              placeholder="example@hotmail.com"
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-            />
-          </FormControl>
-          {error.emailError ? (
-            <p className="error-msg">{error.emailError}</p>
-          ) : null}
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <OutlinedInput
-              type="password"
-              label="Password"
-              placeholder="Password"
-              name="password"
-              value={values.password}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <OutlinedInput
-              type="password"
-              label="Confirm Password"
-              placeholder="Confirm Password"
-              name="passwordConfirmation"
-              value={values.passwordConfirmation}
-              onChange={handleChange}
-            />
-          </FormControl>
-          {error.passwordError ? (
-            <p className="error-msg">{error.passwordError}</p>
-          ) : null}
-          <Button
-            className={classes.btn}
-            variant="contained"
-            size={"small"}
-            type="submit"
-          >
-            Register
-          </Button>
-        </form>
-      </Box>
+    <div>
+      <Dropdown />
+      <CompanyForm createUser={createUser} signupSchema={signupSchema} />
     </div>
   );
-}
-
-function isNameValid(companyName) {
-  const nameError = [];
-  if (!companyName) {
-    nameError.push("First name cannot be empty");
-  }
-  return nameError;
-}
-
-function isEmailValid(email) {
-  const emailError = [];
-  const re =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if (!email) {
-    emailError.push("Email address is required");
-  }
-  if (!re.test(String(email).toLowerCase())) {
-    emailError.push("Email address is invalid");
-  }
-  return emailError;
-}
-
-function isPasswordValid(password, confirmation) {
-  const passwordError = [];
-  if (password !== confirmation) {
-    passwordError.push("Password does not match.");
-  }
-  if (password.length < MINIMUMPASSWORDLENGTH) {
-    passwordError.push("Password must be 8 characters or longer");
-  }
-  if (!/\d/.test(password)) {
-    passwordError.push("Password must contain at least one number");
-  }
-  if (!/[a-z]/.test(password)) {
-    passwordError.push("Password must contain lower case letters");
-  }
-  if (!/[A-Z]/.test(password)) {
-    passwordError.push("Password must contain upper case letters");
-  }
-  if (!/[ `£!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password)) {
-    passwordError.push("Password must contain symbols");
-  }
-  return passwordError;
 }
 
 async function createUser(values) {

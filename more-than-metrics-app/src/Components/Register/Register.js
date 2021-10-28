@@ -4,12 +4,15 @@ import CandidateRegistration from "../CandidateRegistration/CandidateRegistratio
 import Dropdown from "../../Entry/Menu/Dropdown";
 
 function Register(props) {
+  console.log(props.userType);
   return (
     <div>
+      {console.log(props.userType)}
       {/* <Dropdown /> */}
       {props.userType === "candidate" ? (
-        <CandidateRegistration />
+        <h1>In here</h1>
       ) : (
+        // <CandidateRegistration />
         <CompanyRegistration />
       )}
     </div>
