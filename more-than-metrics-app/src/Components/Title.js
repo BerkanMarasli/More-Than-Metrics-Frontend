@@ -43,11 +43,17 @@ function Title(props) {
         "user-select": "none",
       }}
     >
-      MORE TH
-      <span className={classes.greaterThan}>{">"}</span>N METRICS
       {props.match ? (
-        <span style={{ color: "#FFBF50", fontWeight: "bold" }}> MATCH</span>
-      ) : null}
+        <span>
+          <span className={classes.greaterThan}>{">"}</span>METRICS
+          <span style={{ color: "#FFBF50", fontWeight: "bold" }}> MATCH</span>
+        </span>
+      ) : (
+        <span>
+          MORE TH
+          <span className={classes.greaterThan}>{">"}</span>N METRICS
+        </span>
+      )}
     </h1>
   );
 }
