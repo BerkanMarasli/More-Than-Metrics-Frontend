@@ -28,7 +28,7 @@ function Registration() {
     technology: yup.array().required("Please select at least one technology"),
     headline: yup
       .string()
-      .max(70)
+      .max(100)
       .required("Please enter your headline < 70 characters"),
     password: yup
       .string()
@@ -58,7 +58,7 @@ function Registration() {
   );
 }
 
-async function createUser(values, isCandidate) {
+async function createUser(values) {
   const url = `http://localhost:8080/candidate/register`;
 
   try {

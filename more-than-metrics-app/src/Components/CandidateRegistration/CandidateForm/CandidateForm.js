@@ -85,290 +85,285 @@ function CandidateForm(props) {
           handleChange,
           handleBlur,
           handleSubmit,
-          setFieldValue,
         }) => {
           return (
             <Form onSubmit={handleSubmit}>
-              <FieldArray name="data">
-                {({ insert, remove, push }) => (
-                  <Grid
-                    container
-                    spacing={0}
-                    direction="column"
-                    alignItems="center"
-                    justifyContent="center"
-                  >
-                    <div>
-                      <Grid item>
-                        <Card
-                          style={{
-                            marginBottom: 20,
-                            maxWidth: 900,
-                            marginTop: 20,
-                          }}
+              <Grid
+                container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <div>
+                  <Grid item>
+                    <Card
+                      style={{
+                        marginBottom: 20,
+                        maxWidth: 900,
+                        marginTop: 20,
+                      }}
+                    >
+                      <CardContent>
+                        <Typography
+                          variant="h3"
+                          className={clsx(
+                            classes.center,
+
+                            classes.mb4
+                          )}
                         >
-                          <CardContent>
-                            <Typography
-                              variant="h3"
-                              className={clsx(
-                                classes.center,
-
-                                classes.mb4
+                          Registration
+                        </Typography>
+                        <Grid container spacing={2}>
+                          <Grid item lg={6} md={6} xs={12}>
+                            <TextField
+                              fullWidth
+                              label="First Name"
+                              type="text"
+                              variant="outlined"
+                              name="firstName"
+                              value={values.firstName}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={Boolean(
+                                touched &&
+                                  touched &&
+                                  touched.firstName &&
+                                  errors &&
+                                  errors.firstName
                               )}
-                            >
-                              Registration
-                            </Typography>
-                            <Grid container spacing={2}>
-                              <Grid item lg={6} md={6} xs={12}>
-                                <TextField
-                                  fullWidth
-                                  label="First Name"
-                                  type="text"
-                                  variant="outlined"
-                                  name="firstName"
-                                  value={values.firstName}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  error={Boolean(
-                                    touched &&
-                                      touched &&
-                                      touched.firstName &&
-                                      errors &&
-                                      errors.firstName
-                                  )}
-                                  helperText={
-                                    touched &&
-                                    touched.firstName &&
-                                    errors &&
-                                    errors.firstName
-                                      ? errors.firstName
-                                      : ""
-                                  }
-                                />
-                              </Grid>
-                              <Grid item lg={6} md={6} xs={12}>
-                                <TextField
-                                  fullWidth
-                                  label="Last Name"
-                                  type="text"
-                                  variant="outlined"
-                                  name="lastName"
-                                  value={values.lastName}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  error={Boolean(
-                                    touched &&
-                                      touched.lastName &&
-                                      errors &&
-                                      errors.lastName
-                                  )}
-                                  helperText={
-                                    touched &&
-                                    touched.lastName &&
-                                    errors &&
-                                    errors.lastName
-                                      ? errors.lastName
-                                      : ""
-                                  }
-                                />
-                              </Grid>
+                              helperText={
+                                touched &&
+                                touched.firstName &&
+                                errors &&
+                                errors.firstName
+                                  ? errors.firstName
+                                  : ""
+                              }
+                            />
+                          </Grid>
+                          <Grid item lg={6} md={6} xs={12}>
+                            <TextField
+                              fullWidth
+                              label="Last Name"
+                              type="text"
+                              variant="outlined"
+                              name="lastName"
+                              value={values.lastName}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={Boolean(
+                                touched &&
+                                  touched.lastName &&
+                                  errors &&
+                                  errors.lastName
+                              )}
+                              helperText={
+                                touched &&
+                                touched.lastName &&
+                                errors &&
+                                errors.lastName
+                                  ? errors.lastName
+                                  : ""
+                              }
+                            />
+                          </Grid>
 
-                              <Grid item lg={6} md={6} xs={12}>
-                                <TextField
-                                  fullWidth
-                                  label="Email"
-                                  type="email"
-                                  variant="outlined"
-                                  name="email"
-                                  value={values.email}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  error={Boolean(
-                                    touched &&
-                                      touched.email &&
-                                      errors &&
-                                      errors.email
-                                  )}
-                                  helperText={
-                                    touched &&
-                                    touched.email &&
-                                    errors &&
-                                    errors.email
-                                      ? errors.email
-                                      : ""
-                                  }
-                                />
-                              </Grid>
-                              <Grid item lg={6} md={6} xs={12}>
-                                <MuiPhoneNumber
-                                  fullWidth
-                                  id="phoneNumber"
-                                  name="phoneNumber"
-                                  label="Phone number"
-                                  data-cy="user-phone"
-                                  defaultCountry="gb"
-                                  regions={"europe"}
-                                  value={values.phoneNumber}
-                                  onChange={handleChange("phoneNumber")}
-                                  variant="outlined"
-                                  onBlur={handleBlur}
-                                  error={Boolean(
-                                    touched &&
-                                      touched.phoneNumber &&
-                                      errors &&
-                                      errors.phoneNumber
-                                  )}
-                                  helperText={
-                                    touched &&
-                                    touched.phoneNumber &&
-                                    errors &&
-                                    errors.phoneNumber
-                                      ? errors.phoneNumber
-                                      : ""
-                                  }
-                                />
-                              </Grid>
-                              <Grid item lg={6} md={6} xs={12}>
-                                <Select
-                                  fullWidth
-                                  name="yearsInIndustry"
-                                  label="Years in industry"
-                                  value={values.yearsInIndustry}
-                                  onChange={handleChange}
-                                  variant="outlined"
-                                  onBlur={handleBlur}
-                                  displayEmpty
-                                  error={Boolean(
-                                    touched &&
-                                      touched.yearsInIndustry &&
-                                      errors &&
-                                      errors.yearsInIndustry
-                                  )}
-                                  helperText={
-                                    touched &&
-                                    touched.yearsInIndustry &&
-                                    errors &&
-                                    errors.yearsInIndustry
-                                      ? errors.yearsInIndustry
-                                      : ""
-                                  }
-                                >
-                                  <MenuItem value="" disabled>
-                                    Years in industry
-                                  </MenuItem>
-                                  {fetchedYearsCategory !== null
-                                    ? fetchedYearsCategory.map((category) => {
-                                        return (
-                                          <MenuItem
-                                            key={category.years_in_industry_id}
-                                            value={category.category}
-                                          >
-                                            {category.category}
-                                          </MenuItem>
-                                        );
-                                      })
-                                    : null}
-                                </Select>
-                              </Grid>
-                              <Grid item lg={6} md={6} xs={12}>
-                                <SelectTechnologies />
-                              </Grid>
-                              <Grid item lg={12} md={12} xs={12}>
-                                <TextField
-                                  fullWidth
-                                  multiline
-                                  rows={2}
-                                  label="Candidate headline"
-                                  type="text"
-                                  variant="outlined"
-                                  name="headline"
-                                  value={values.headline}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  error={Boolean(
-                                    touched &&
-                                      touched.headline &&
-                                      errors &&
-                                      errors.headline
-                                  )}
-                                  helperText={
-                                    touched &&
-                                    touched.headline &&
-                                    errors &&
-                                    errors.headline
-                                      ? errors.headline
-                                      : ""
-                                  }
-                                />
-                              </Grid>
-                              <Grid item lg={6} md={6} xs={12}>
-                                <TextField
-                                  fullWidth
-                                  label="Password"
-                                  type="password"
-                                  variant="outlined"
-                                  name="password"
-                                  value={values.password}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  error={Boolean(
-                                    touched &&
-                                      touched.password &&
-                                      errors &&
-                                      errors.password
-                                  )}
-                                  helperText={
-                                    touched &&
-                                    touched.password &&
-                                    errors &&
-                                    errors.password
-                                      ? errors.password
-                                      : ""
-                                  }
-                                />
-                              </Grid>
-                              <Grid item lg={6} md={6} xs={12}>
-                                <TextField
-                                  fullWidth
-                                  label="Confirm Password"
-                                  type="password"
-                                  variant="outlined"
-                                  name="passwordConfirmation"
-                                  value={values.passwordConfirmation}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  error={Boolean(
-                                    touched &&
-                                      touched.passwordConfirmation &&
-                                      errors &&
-                                      errors.passwordConfirmation
-                                  )}
-                                  helperText={
-                                    touched &&
-                                    touched.passwordConfirmation &&
-                                    errors &&
-                                    errors.passwordConfirmation
-                                      ? errors.passwordConfirmation
-                                      : ""
-                                  }
-                                />
-                              </Grid>
-                            </Grid>
-                            <Button
-                              type="submit"
-                              color="primary"
-                              variant="contained"
-                              className={clsx(classes.mt4, classes.mb3)}
+                          <Grid item lg={6} md={6} xs={12}>
+                            <TextField
+                              fullWidth
+                              label="Email"
+                              type="email"
+                              variant="outlined"
+                              name="email"
+                              value={values.email}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={Boolean(
+                                touched &&
+                                  touched.email &&
+                                  errors &&
+                                  errors.email
+                              )}
+                              helperText={
+                                touched &&
+                                touched.email &&
+                                errors &&
+                                errors.email
+                                  ? errors.email
+                                  : ""
+                              }
+                            />
+                          </Grid>
+                          <Grid item lg={6} md={6} xs={12}>
+                            <MuiPhoneNumber
+                              fullWidth
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              label="Phone number"
+                              data-cy="user-phone"
+                              defaultCountry="gb"
+                              regions={"europe"}
+                              value={values.phoneNumber}
+                              onChange={handleChange("phoneNumber")}
+                              variant="outlined"
+                              onBlur={handleBlur}
+                              error={Boolean(
+                                touched &&
+                                  touched.phoneNumber &&
+                                  errors &&
+                                  errors.phoneNumber
+                              )}
+                              helperText={
+                                touched &&
+                                touched.phoneNumber &&
+                                errors &&
+                                errors.phoneNumber
+                                  ? errors.phoneNumber
+                                  : ""
+                              }
+                            />
+                          </Grid>
+                          <Grid item lg={6} md={6} xs={12}>
+                            <Select
+                              fullWidth
+                              name="yearsInIndustry"
+                              label="Years in industry"
+                              value={values.yearsInIndustry}
+                              onChange={handleChange}
+                              variant="outlined"
+                              onBlur={handleBlur}
+                              displayEmpty
+                              error={Boolean(
+                                touched &&
+                                  touched.yearsInIndustry &&
+                                  errors &&
+                                  errors.yearsInIndustry
+                              )}
+                              helperText={
+                                touched &&
+                                touched.yearsInIndustry &&
+                                errors &&
+                                errors.yearsInIndustry
+                                  ? errors.yearsInIndustry
+                                  : ""
+                              }
                             >
-                              submit
-                            </Button>
-                          </CardContent>
-                        </Card>
-                      </Grid>
-                    </div>
+                              <MenuItem value="" disabled>
+                                Years in industry
+                              </MenuItem>
+                              {fetchedYearsCategory !== null
+                                ? fetchedYearsCategory.map((category) => {
+                                    return (
+                                      <MenuItem
+                                        key={category.years_in_industry_id}
+                                        value={category.category}
+                                      >
+                                        {category.category}
+                                      </MenuItem>
+                                    );
+                                  })
+                                : null}
+                            </Select>
+                          </Grid>
+                          <Grid item lg={6} md={6} xs={12}>
+                            <SelectTechnologies />
+                          </Grid>
+                          <Grid item lg={12} md={12} xs={12}>
+                            <TextField
+                              fullWidth
+                              multiline
+                              rows={2}
+                              label="Candidate headline"
+                              type="text"
+                              variant="outlined"
+                              name="headline"
+                              value={values.headline}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={Boolean(
+                                touched &&
+                                  touched.headline &&
+                                  errors &&
+                                  errors.headline
+                              )}
+                              helperText={
+                                touched &&
+                                touched.headline &&
+                                errors &&
+                                errors.headline
+                                  ? errors.headline
+                                  : ""
+                              }
+                            />
+                          </Grid>
+                          <Grid item lg={6} md={6} xs={12}>
+                            <TextField
+                              fullWidth
+                              label="Password"
+                              type="password"
+                              variant="outlined"
+                              name="password"
+                              value={values.password}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={Boolean(
+                                touched &&
+                                  touched.password &&
+                                  errors &&
+                                  errors.password
+                              )}
+                              helperText={
+                                touched &&
+                                touched.password &&
+                                errors &&
+                                errors.password
+                                  ? errors.password
+                                  : ""
+                              }
+                            />
+                          </Grid>
+                          <Grid item lg={6} md={6} xs={12}>
+                            <TextField
+                              fullWidth
+                              label="Confirm Password"
+                              type="password"
+                              variant="outlined"
+                              name="passwordConfirmation"
+                              value={values.passwordConfirmation}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={Boolean(
+                                touched &&
+                                  touched.passwordConfirmation &&
+                                  errors &&
+                                  errors.passwordConfirmation
+                              )}
+                              helperText={
+                                touched &&
+                                touched.passwordConfirmation &&
+                                errors &&
+                                errors.passwordConfirmation
+                                  ? errors.passwordConfirmation
+                                  : ""
+                              }
+                            />
+                          </Grid>
+                        </Grid>
+                        <Button
+                          type="submit"
+                          color="primary"
+                          variant="contained"
+                          className={clsx(classes.mt4, classes.mb3)}
+                        >
+                          submit
+                        </Button>
+                      </CardContent>
+                    </Card>
                   </Grid>
-                )}
-              </FieldArray>
+                </div>
+              </Grid>
             </Form>
           );
         }}
