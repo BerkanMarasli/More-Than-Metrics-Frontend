@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Title() {
+function Title(props) {
   const classes = useStyles();
 
   let history = useHistory();
@@ -45,6 +45,9 @@ function Title() {
     >
       MORE TH
       <span className={classes.greaterThan}>{">"}</span>N METRICS
+      {props.match ? (
+        <span style={{ color: "#FFBF50", fontWeight: "bold" }}> MATCH</span>
+      ) : null}
     </h1>
   );
 }

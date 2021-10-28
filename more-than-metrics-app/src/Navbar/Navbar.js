@@ -110,8 +110,8 @@ function Navbar(props) {
     <div className={classes.root}>
       <AppBar className={classes.appbar} elevation={0}>
         <Toolbar className={classes.appbarWrapper}>
-          <Title className={classes.appbarTitle} />
-          {props.exit === true ? renderExit() : renderBtns()}
+          <Title className={classes.appbarTitle} match={props.match} />
+          {props.match === true ? renderExit() : renderBtns()}
         </Toolbar>
       </AppBar>
     </div>
