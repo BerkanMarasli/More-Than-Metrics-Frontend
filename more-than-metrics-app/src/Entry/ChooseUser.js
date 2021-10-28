@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 
@@ -37,21 +38,51 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "2rem",
     fontFamily: "Lato",
     fontWeight: "bold",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "1.5rem",
+    },
   },
 }));
 
 function ChooseUser(props) {
   const classes = useStyles();
 
+  let history = useHistory();
+
+  async function setUserType(e) {
+    await props.setUserType(e.target.innerText.toLowerCase());
+  }
+
+  function handleRedirect(e) {
+    history.push(`/register`);
+  }
+
+  async function handleClick(e) {
+    await setUserType(e);
+    handleRedirect(e);
+  }
+
   return (
     <div className={classes.root} id="choose-user">
       <div className={classes.select}>
         <h1>Are you a...?</h1>
         <div className={classes.buttons}>
-          <Button className={classes.btn} variant="contained" size="large">
+          <Button
+            id="company"
+            className={classes.btn}
+            variant="contained"
+            size="large"
+            onClick={(e) => handleClick(e)}
+          >
             Company
           </Button>
-          <Button className={classes.btn} variant="contained" size="large">
+          <Button
+            id="candidate"
+            className={classes.btn}
+            variant="contained"
+            size="large"
+            onClick={(e) => handleClick(e)}
+          >
             Candidate
           </Button>
         </div>
