@@ -14,7 +14,7 @@ import ReviewCandidates from "./CompanyArea/MatchCandidates.js"
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
-  const [userType, setUserType] = useState()
+  const [userType, setUserType] = useState("candidate")
 
   const redirectHome = () => {
     if (loggedIn && userType === "company") {
