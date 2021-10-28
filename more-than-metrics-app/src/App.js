@@ -12,7 +12,7 @@ import {
   BrowserRouter as Router,
   Redirect,
 } from "react-router-dom";
-import ReviewCandidates from "./CompanyArea/ReviewCandidates.js";
+import ReviewCandidates from "./CompanyArea/MatchCandidates.js";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -55,7 +55,7 @@ function App() {
         <Route exact path="/dashboard">
           <Dashboard />
         </Route>
-        <Route exact path="/review">
+        <Route exact path="/match">
           <ReviewCandidates />
         </Route>
         <Route exact path="/jobs">
