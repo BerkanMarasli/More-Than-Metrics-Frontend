@@ -59,7 +59,9 @@ function CompanyForm(props) {
     <div>
       <Formik
         initialValues={{
+          img_url: "",
           companyName: "",
+          companyBio: "",
           numOfEmployees: "",
           femalePercentage: "",
           retentionRate: "",
@@ -110,10 +112,37 @@ function CompanyForm(props) {
 
                                 classes.mb4
                               )}
+                              styles={{ fontFamily: "Lato" }}
                             >
                               Registration
                             </Typography>
                             <Grid container spacing={2}>
+                              <Grid item lg={6} md={6} xs={12}>
+                                <TextField
+                                  fullWidth
+                                  label="Company Logo"
+                                  type="text"
+                                  variant="outlined"
+                                  name="img_url"
+                                  value={values.img_url}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  error={Boolean(
+                                    touched &&
+                                      touched.img_url &&
+                                      errors &&
+                                      errors.img_url
+                                  )}
+                                  helperText={
+                                    touched &&
+                                    touched.img_url &&
+                                    errors &&
+                                    errors.img_url
+                                      ? errors.img_url
+                                      : ""
+                                  }
+                                />
+                              </Grid>
                               <Grid item lg={6} md={6} xs={12}>
                                 <TextField
                                   fullWidth
@@ -126,19 +155,44 @@ function CompanyForm(props) {
                                   onBlur={handleBlur}
                                   error={Boolean(
                                     touched &&
-                                      touched &&
                                       touched.companyName &&
-                                      errors &&
                                       errors &&
                                       errors.companyName
                                   )}
                                   helperText={
                                     touched &&
-                                    touched &&
                                     touched.companyName &&
                                     errors &&
                                     errors.companyName
                                       ? errors.companyName
+                                      : ""
+                                  }
+                                />
+                              </Grid>
+                              <Grid item lg={12} md={12} xs={12}>
+                                <TextField
+                                  fullWidth
+                                  multiline
+                                  rows={5}
+                                  label="Company Bio"
+                                  type="text"
+                                  variant="outlined"
+                                  name="companyBio"
+                                  value={values.companyBio}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  error={Boolean(
+                                    touched &&
+                                      touched.companyBio &&
+                                      errors &&
+                                      errors.companyBio
+                                  )}
+                                  helperText={
+                                    touched &&
+                                    touched.companyBio &&
+                                    errors &&
+                                    errors.companyBio
+                                      ? errors.companyBio
                                       : ""
                                   }
                                 />

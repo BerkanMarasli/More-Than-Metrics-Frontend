@@ -1,8 +1,4 @@
 import React, { useState, useEffect, Fragment } from "react";
-// Material UI
-import { makeStyles } from "@material-ui/styles";
-
-import Dropdown from "../../Entry/Menu/Dropdown";
 import CompanyForm from "../CompanyRegistration/CompanyForm/CompanyForm";
 
 // Yup
@@ -12,20 +8,32 @@ function CompanyRegistration() {
   const [fetchedNumOfEmployeesCategory, setNumOfEmployees] = useState(null);
 
   const signupSchema = yup.object().shape({
+    img_url: yup
+      .string()
+      .trim()
+      .matches(
+        /^data:image([a-z]+\/[a-z0-9-+.]+(;[a-z-]+=[a-z0-9-]+)?)?(;base64)?,([a-z0-9!$&',()*+;=\-._~:@/?%\s]*)$/i,
+        "Must be a valid data URI"
+      )
+      .required("Please include company logo"),
     companyName: yup
       .string()
       .required("Enter your company name")
       .min(2, "Must be more then one character"),
+    companyBio: yup
+      .string()
+      .max(400)
+      .required("Please enter your company bio < 400 characters"),
     numOfEmployees: yup.string().required("Please select number of employees"),
     femalePercentage: yup
       .number()
       .required("Please include percentage of female employees")
-      .positive("Percentage cannot be negative")
+      .moreThan(-1, "Percentage cannot be negative")
       .max(100, "Percentage has to be below 100 "),
     retentionRate: yup
       .number()
       .required("Please include retention rate")
-      .positive("Percentage cannot be negative")
+      .moreThan(-1, "Percentage cannot be negative")
       .max(100, "Percentage has to be below 100 "),
     email: yup
       .string()
@@ -54,7 +62,6 @@ function CompanyRegistration() {
 
   return (
     <div>
-      <Dropdown />
       <CompanyForm createUser={createUser} signupSchema={signupSchema} />
     </div>
   );

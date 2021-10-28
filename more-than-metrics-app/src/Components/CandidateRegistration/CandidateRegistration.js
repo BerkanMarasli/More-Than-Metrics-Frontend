@@ -1,39 +1,8 @@
 import React, { useState, useEffect, Fragment } from "react";
-// Material UI
-import { makeStyles } from "@material-ui/styles";
-
-import Dropdown from "../../Entry/Menu/Dropdown";
 import CandidateForm from "./CandidateForm/CandidateForm";
 
 // Yup
 const yup = require("yup");
-
-const useStyles = makeStyles((theme) => ({
-  center: {
-    // display: "flex",
-    // flexDirection: "column",
-    // justifyContent: "center",
-    // alignContent: "center",
-  },
-  mb4: {
-    marginBottom: 4,
-  },
-  mb1: {
-    marginBottom: 1,
-  },
-  mb3: {
-    marginBottom: 3,
-  },
-  mt2: {
-    marginTop: 2,
-  },
-  mt4: {
-    marginTop: 4,
-  },
-  ml4: {
-    marginLeft: 4,
-  },
-}));
 
 function Registration() {
   const [fetchedYearsCategory, setCategory] = useState(null);
@@ -51,13 +20,16 @@ function Registration() {
       .string()
       .email("Email must be a valid email")
       .required("Enter your email"),
-
     phoneNumber: yup
       .string()
       .required("Enter your phone number details")
       .min(15, "Please enter a valid phone number"),
     yearsInIndustry: yup.string().required("Please select years in industry"),
     technology: yup.array().required("Please select at least one technology"),
+    headline: yup
+      .string()
+      .max(70)
+      .required("Please enter your headline < 70 characters"),
     password: yup
       .string()
       .required("Enter your password")
@@ -81,7 +53,6 @@ function Registration() {
 
   return (
     <div>
-      <Dropdown />
       <CandidateForm createUser={createUser} signupSchema={signupSchema} />
     </div>
   );

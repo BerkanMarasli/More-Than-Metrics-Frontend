@@ -10,7 +10,7 @@ import Button from "@material-ui/core/Button";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { MenuItem, Select } from "@material-ui/core";
 
-import { iconList } from "devicon-react-svg";
+import SelectTechnologies from "../../SelectTechnologies";
 
 import clsx from "clsx";
 
@@ -68,6 +68,7 @@ function CandidateForm(props) {
           phoneNumber: "",
           yearsInIndustry: "",
           technology: [],
+          headline: "",
           password: "",
           passwordConfirmation: "",
         }}
@@ -117,7 +118,6 @@ function CandidateForm(props) {
                             >
                               Registration
                             </Typography>
-
                             <Grid container spacing={2}>
                               <Grid item lg={6} md={6} xs={12}>
                                 <TextField
@@ -134,11 +134,9 @@ function CandidateForm(props) {
                                       touched &&
                                       touched.firstName &&
                                       errors &&
-                                      errors &&
                                       errors.firstName
                                   )}
                                   helperText={
-                                    touched &&
                                     touched &&
                                     touched.firstName &&
                                     errors &&
@@ -239,6 +237,7 @@ function CandidateForm(props) {
                                   onChange={handleChange}
                                   variant="outlined"
                                   onBlur={handleBlur}
+                                  displayEmpty
                                   error={Boolean(
                                     touched &&
                                       touched.yearsInIndustry &&
@@ -254,6 +253,9 @@ function CandidateForm(props) {
                                       : ""
                                   }
                                 >
+                                  <MenuItem value="" disabled>
+                                    Years in industry
+                                  </MenuItem>
                                   {fetchedYearsCategory !== null
                                     ? fetchedYearsCategory.map((category) => {
                                         return (
@@ -269,40 +271,35 @@ function CandidateForm(props) {
                                 </Select>
                               </Grid>
                               <Grid item lg={6} md={6} xs={12}>
-                                <Select
+                                <SelectTechnologies />
+                              </Grid>
+                              <Grid item lg={12} md={12} xs={12}>
+                                <TextField
                                   fullWidth
-                                  id="technology"
-                                  name="technology"
-                                  value={values.technology}
-                                  onChange={handleChange}
-                                  multiple
+                                  multiline
+                                  rows={2}
+                                  label="Candidate headline"
+                                  type="text"
                                   variant="outlined"
+                                  name="headline"
+                                  value={values.headline}
+                                  onChange={handleChange}
                                   onBlur={handleBlur}
                                   error={Boolean(
                                     touched &&
-                                      touched.technology &&
+                                      touched.headline &&
                                       errors &&
-                                      errors.technology
+                                      errors.headline
                                   )}
                                   helperText={
                                     touched &&
-                                    touched.technology &&
+                                    touched.headline &&
                                     errors &&
-                                    errors.technology
-                                      ? errors.technology
+                                    errors.headline
+                                      ? errors.headline
                                       : ""
                                   }
-                                >
-                                  {iconList.length
-                                    ? iconList.map((icon) => {
-                                        return (
-                                          <MenuItem key={icon} value={icon}>
-                                            {icon}
-                                          </MenuItem>
-                                        );
-                                      })
-                                    : null}
-                                </Select>
+                                />
                               </Grid>
                               <Grid item lg={6} md={6} xs={12}>
                                 <TextField
@@ -357,7 +354,6 @@ function CandidateForm(props) {
                                 />
                               </Grid>
                             </Grid>
-
                             <Button
                               type="submit"
                               color="primary"
