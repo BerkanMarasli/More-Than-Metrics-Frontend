@@ -11,30 +11,55 @@ import {
   IconButton,
   Typography,
   Paper,
+  Box,
 } from "@mui/material/";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     fontFamily: "Lato",
     width: "30rem",
     height: "max-content",
-    maxHeight: "36rem",
+    maxHeight: "45rem",
+    padding: "1rem",
+  },
+
+  header: {
+    display: "flex",
+    flexDirection: "row-reverse",
+    justifyContent: "center",
+    alignContent: "center",
   },
 
   bio: {
+    display: "flex",
+    justifyContent: "center",
     overflow: "scroll",
+    width: "80%",
   },
 
   stack: {
     display: "flex",
-    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+  },
+
+  container: {
+    border: "1px solid gray",
+    margin: "1rem",
+    borderRadius: "5px",
+    width: "80%",
+    display: "flex",
+    flexDirection: "column",
+    flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
+    paddingBottom: "1rem",
   },
 }));
 
@@ -44,6 +69,7 @@ const Item = styled(Paper)(({ theme }) => ({
   margin: "0.2rem",
   textAlign: "center",
   color: theme.palette.text.secondary,
+  backgroundColor: "#ffeab9",
 }));
 
 const ExpandMore = styled((props) => {
@@ -69,29 +95,35 @@ function CandidateCard() {
   return (
     <Card className={classes.root}>
       <CardHeader
+        className={classes.header}
+        title={<h2>Candidate</h2>}
         avatar={
-          <Avatar sx={{ backgroundColor: "#ffe4a7" }} aria-label="number">
+          <Avatar
+            sx={{ backgroundColor: "#FFBF50", margin: "0.4rem" }}
+            aria-label="number"
+          >
             {"1"}
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={<h3>Candidate 1</h3>}
-        subheader="September 14, 2016"
       />
       <CardContent>
-        <Stack className={classes.stack}>
-          <Item className={classes.item}>JavaScript</Item>
-          <Item>React.js</Item>
-          <Item>Node.js</Item>
-          <Item>Python</Item>
-          <Item>CSS</Item>
-          <Item>HTML</Item>
-          <Item>Kubernetes</Item>
-        </Stack>
+        <Box className={classes.container}>
+          <h4>Years in industry:</h4>
+          <Item className={classes.item} style={{ padding: "0.5rem 1rem" }}>
+            2
+          </Item>
+          <h4>Known technologies:</h4>
+          <Stack direction="row" className={classes.stack}>
+            <Item className={classes.item}>JavaScript</Item>
+            <Item className={classes.item}>React.js</Item>
+            <Item className={classes.item}>Node.js</Item>
+            <Item className={classes.item}>Python</Item>
+            <Item className={classes.item}>CSS</Item>
+            <Item className={classes.item}>HTML</Item>
+            <Item className={classes.item}>Kubernetes</Item>
+          </Stack>
+        </Box>
+
         <Typography variant="body2" color="text.secondary">
           This impressive paella is a perfect party dish and a fun meal to cook
           together with your guests. Add 1 cup of frozen peas along with the
@@ -99,12 +131,6 @@ function CandidateCard() {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -115,8 +141,8 @@ function CandidateCard() {
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <div className={classes.bio}>
+        <CardContent style={{ height: "max-content" }} className={classes.bio}>
+          <div>
             <Typography paragraph>
               <h4>Describe yourself in 3 words:</h4>
             </Typography>

@@ -11,8 +11,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "90vh",
-    paddingTop: "4rem",
+    maxHeight: "97vh",
+    paddingTop: "2rem",
+    backgroundColor: "#fff4dc",
   },
 
   main: {
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     background: "none",
     fontSize: "5rem",
+    opacity: "70%",
   },
 
   iconStyle: {

@@ -3,7 +3,7 @@ import Navbar from "../Navbar/Navbar.js";
 function Dashboard() {
   return (
     <div>
-      <Navbar exit={false} />
+      <Navbar userType="company" />
     </div>
   );
 }

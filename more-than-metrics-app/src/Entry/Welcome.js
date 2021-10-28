@@ -1,28 +1,9 @@
 import { useState, useEffect } from "react";
-import {
-  Route,
-  Switch,
-  BrowserRouter as Router,
-  Link,
-  Redirect,
-} from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  AppBar,
-  Collapse,
-  IconButton,
-  Toolbar,
-  Menu,
-  MenuItem,
-} from "@material-ui/core";
-import SortIcon from "@material-ui/icons/Sort";
+import { Collapse, IconButton } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Link as Scroll } from "react-scroll";
-import Title from "../Components/Title";
-import About from "./Menu/About";
-import Companies from "./Menu/Companies";
-import Candidates from "./Menu/Candidates";
-import Dropdown from "./Menu/Dropdown";
+import Dropdown from "../Menu/Dropdown";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     height: "100vh",
     padding: "3rem",
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+    },
   },
 
   appbar: {
@@ -52,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: "gray",
     fontSize: "2rem",
+    [theme.breakpoints.down("md")]: {
+      alignSelf: "center",
+    },
   },
 
   menu: {
@@ -69,56 +56,54 @@ const useStyles = makeStyles((theme) => ({
 
   questions: {
     paddingRight: "3.5rem",
+    [theme.breakpoints.down("md")]: {
+      paddingRight: "0",
+      paddingTop: "4rem",
+    },
   },
 
   humans: {
     paddingTop: "5.6rem",
     paddingRight: "3rem",
     paddingLeft: "1rem",
+    [theme.breakpoints.down("md")]: {
+      paddingTop: "0",
+      paddingRight: "0",
+      paddingLeft: "0",
+    },
   },
 }));
 
 function Welcome(props) {
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     setChecked(true);
   }, []);
 
-  const handleOpenMenu = (e) => {
-    setAnchorEl(e.currentTarget);
-  };
-
-  const handleCloseMenu = (e) => {
-    setAnchorEl(null);
-  };
-
   return (
-    <Router>
-      <div className={classes.root}>
-        <Dropdown />
-        <div className={classes.questions}>
-          <h3>Tired of outdated heuristics?</h3>
-          <h2>We're reinventing recruitment.</h2>{" "}
-        </div>
-        <div className={classes.humans}>
-          <Collapse
-            in={checked}
-            {...(checked ? { timeout: 2000 } : {})}
-            collapsedHeight={10}
-          >
-            <h1>Because humans are more than metrics.</h1>
-            <Scroll to="choose-user" smooth={true}>
-              <IconButton>
-                <ExpandMoreIcon className={classes.icon} />
-              </IconButton>
-            </Scroll>
-          </Collapse>
-        </div>
+    <div className={classes.root}>
+      <Dropdown />
+      <div className={classes.questions}>
+        <h3>Tired of outdated heuristics?</h3>
+        <h2>We're reinventing recruitment.</h2>{" "}
       </div>
-    </Router>
+      <div className={classes.humans}>
+        <Collapse
+          in={checked}
+          {...(checked ? { timeout: 2000 } : {})}
+          collapsedHeight={10}
+        >
+          <h1>Because humans are more than metrics.</h1>
+          <Scroll to="choose-user" smooth={true}>
+            <IconButton>
+              <ExpandMoreIcon className={classes.icon} />
+            </IconButton>
+          </Scroll>
+        </Collapse>
+      </div>
+    </div>
   );
 }
 
