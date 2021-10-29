@@ -1,4 +1,7 @@
-import { PendingIcon, CancelIcon, CheckCircleIcon, HelpIcon } from "@mui/icons-material"
+import PendingIcon from "@mui/icons-material/Pending"
+import CancelIcon from "@mui/icons-material/Cancel"
+import CheckCircleIcon from "@mui/icons-material/CheckCircle"
+import HelpIcon from "@mui/icons-material/Help"
 
 export default function ApplicationStatus(reviewed, accepted) {
   if (!reviewed) {
