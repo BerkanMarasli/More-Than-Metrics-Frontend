@@ -3,7 +3,7 @@ import Navbar from "../Navbar/Navbar"
 import JobBoardDisplayJobs from "./JobBoardDisplayJobs.js"
 import ViewCompanyModal from "./ViewCompanyModal"
 import ViewJobModal from "./ViewJobModal"
-import ApplyModal from "./ViewApplyModal"
+import ViewApplyModal from "./ViewApplyModal"
 import { Paper, Box, styled } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
 
@@ -43,6 +43,7 @@ function JobBoard() {
   const classes = useStyles()
   const [companyViewed, setCompanyViewed] = useState(null)
   const [jobIDViewed, setJobIDViewed] = useState(null)
+  const [jobIDApplied, setJobIDApplied] = useState(null)
   const [openViewCompany, setOpenViewCompany] = useState(false)
   const [openViewJob, setOpenViewJob] = useState(false)
   const [openViewApply, setOpenViewApply] = useState(false)
@@ -70,7 +71,14 @@ function JobBoard() {
   const handleCloseViewJob = () => setOpenViewJob(false)
 
   // View Apply
-  const handleOpenViewApply = () => setOpenViewApply(true)
+  const handleOpenViewApply = e => {
+    if (e.target.childElementCount !== 0) {
+      setJobIDApplied(e.target.value)
+    } else {
+      setJobIDApplied(e.target.parentElement.value)
+    }
+    setOpenViewApply(true)
+  }
   const handleCloseViewApply = () => setOpenViewApply(false)
 
   // handle modals...
@@ -112,7 +120,9 @@ function JobBoard() {
           {openViewJob ? (
             <ViewJobModal jobIDViewed={jobIDViewed} handleViewJob={handleViewJob} />
           ) : null}
-          {openViewApply ? <ApplyModal handleViewApply={handleViewApply} /> : null}
+          {openViewApply ? (
+            <ViewApplyModal jobIDApplied={jobIDApplied} handleViewApply={handleViewApply} />
+          ) : null}
         </Item>
       </Box>
     </div>

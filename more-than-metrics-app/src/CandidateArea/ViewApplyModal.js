@@ -50,8 +50,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "80vw",
-  height: "80vh",
+  width: "78vw",
+  height: "75vh",
   bgcolor: "background.paper",
   border: "4px solid #FFBF50",
   borderRadius: "10px",
@@ -60,7 +60,8 @@ const style = {
 }
 
 function ViewApplyModal(props) {
-  const { openViewApply, handleCloseViewApply } = props.viewApply
+  const jobIDApplied = props.jobIDApplied
+  const { openViewApply, handleCloseViewApply } = props.handleViewApply
 
   const classes = useStyles()
   const [promptsList, setPromptsList] = useState()
@@ -68,6 +69,7 @@ function ViewApplyModal(props) {
   const [answers, setAnswers] = useState({})
   const [errorMsg, setErrorMsg] = useState(null)
   const [successMsg, setSuccessMsg] = useState(null)
+  const [jobInfo, setJobInfo] = useState(null)
 
   let img
 
@@ -77,8 +79,14 @@ function ViewApplyModal(props) {
       const promptsJson = await promptsResponse.json()
       setPromptsList(promptsJson)
     }
+    async function fetchJobData() {
+      const jobDataResponse = await fetch(`http://localhost:8080/job/${jobIDApplied}`)
+      const jobData = await jobDataResponse.json()
+      setJobInfo(jobData[0])
+    }
     fetchPrompts()
-  }, [])
+    fetchJobData()
+  }, [jobIDApplied])
 
   const submitApplication = async () => {
     const requestOptions = {
@@ -159,12 +167,12 @@ function ViewApplyModal(props) {
               onClick={resetErrorMsg}
             />
           </FormControl>
-        </div>
+        </div>{" "}
       </div>
     )
   }
 
-  return (
+  return jobInfo ? (
     <Modal
       open={openViewApply}
       onClose={handleCloseViewApply}
@@ -172,12 +180,12 @@ function ViewApplyModal(props) {
       aria-describedby="modal-modal-description"
     >
       <div className={classes.root}>
-        <h1>APPLICATION</h1>
-        <Box className={classes.box} component="form" noValidate autoComplete="off">
+        <Box className={classes.box} sx={style}>
+          <h1>APPLICATION</h1>
           <div className={classes.row}>
             <Avatar
-              alt={"Google"}
-              src={img ? img : "/broken-image.jpg"}
+              alt={jobInfo.company_name}
+              src={jobInfo ? jobInfo.image_url : "/broken-image.jpg"}
               style={{
                 height: "3rem",
                 width: "3rem",
@@ -189,7 +197,7 @@ function ViewApplyModal(props) {
             <TextField
               id="outlined-read-only-name"
               label="Company name"
-              defaultValue="Google"
+              defaultValue={jobInfo.company_name}
               InputProps={{
                 readOnly: true,
               }}
@@ -200,7 +208,7 @@ function ViewApplyModal(props) {
             <TextField
               id="outlined-read-only-location"
               label="Location"
-              defaultValue="London"
+              defaultValue={jobInfo.location}
               InputProps={{
                 readOnly: true,
               }}
@@ -210,7 +218,7 @@ function ViewApplyModal(props) {
             <TextField
               id="outlined-read-only-salary"
               label="Salary"
-              defaultValue="£25,000"
+              defaultValue={jobInfo.salary}
               InputProps={{
                 readOnly: true,
               }}
@@ -222,7 +230,7 @@ function ViewApplyModal(props) {
             <TextField
               id="outlined-read-only-jd"
               label="Job description"
-              defaultValue="Be good at coding"
+              defaultValue={jobInfo.job_description}
               InputProps={{
                 readOnly: true,
               }}
@@ -230,18 +238,18 @@ function ViewApplyModal(props) {
               style={{ width: "25rem" }}
             />
           </div>
-          <Box className={classes.box}>
+          <Box className={classes.box} component="form" noValidate autoComplete="off">
             {returnAnswersForm(1)}
             {returnAnswersForm(2)}
             {returnAnswersForm(3)}
           </Box>
+          <Button onClick={submitApplication}>Submit</Button>
+          {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
+          {successMsg ? <Alert severity="success">{successMsg}</Alert> : null}
         </Box>
-        <Button onClick={submitApplication}>Submit</Button>
-        {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
-        {successMsg ? <Alert severity="success">{successMsg}</Alert> : null}
       </div>
     </Modal>
-  )
+  ) : null
 }
 
 export default ViewApplyModal
