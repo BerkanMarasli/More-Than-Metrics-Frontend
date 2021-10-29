@@ -8,6 +8,22 @@ import {
   Chip,
 } from "@mui/material/";
 import { useTheme } from "@mui/material/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import { createStyles, withStyles } from "@material-ui/styles";
+import React, { useState, useEffect } from "react";
+// Material UI
+import { useTheme } from "@material-ui/styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+
+import { Box, OutlinedInput, Select, MenuItem, Chip } from "@mui/material/";
+
+// Formik
+import { Formik, Form } from "formik";
+
+const yup = require("yup");
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -20,75 +36,114 @@ const MenuProps = {
   },
 };
 
-function getStyles(name, personName, theme) {
+function getStyles(tech, techName, theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      techName.indexOf(tech) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
 }
 
+const CustomMenuItem = withStyles((theme) =>
+  createStyles({
+    root: {
+      "&$selected": {
+        backgroundColor: "red",
+        "&:hover": {
+          backgroundColor: "green",
+        },
+      },
+      "&:hover": {
+        backgroundColor: "blue",
+      },
+    },
+    selected: { backgroundColor: "green" },
+  })
+)(MenuItem);
+
+const useStyles = makeStyles((theme) => ({
+  selectRoot: {
+    "&:focus": {
+      backgroundColor: "yellow",
+    },
+  },
+}));
+
 function SelectTechnologies(props) {
+  const { handleChange, values, error, helperText } = props;
+  const theme = useTheme();
+
+  console.log(error);
+
   const [technologies, setTechnologies] = useState(null);
+  const signupSchema = yup.object().shape({
+    // technology: yup.string().required("Please select at least one technology"),
+  });
+
+  const classes = useStyles();
 
   useEffect(() => {
     const fetchTechnologies = async () => {
       const techResponse = await fetch("http://localhost:8080/technologies");
-      console.log("hello");
       const techJson = await techResponse.json();
-      console.log(techJson);
       setTechnologies(techJson);
     };
     fetchTechnologies();
   }, []);
 
-  const theme = useTheme();
-  const [techName, setTechName] = useState([]);
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setTechName(
-      // On autofill we get a the stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+  console.log("va");
 
   return (
-    <FormControl sx={{ m: 1, width: "20rem" }} disabled={props.disabled}>
-      <Select
-        id="select-technologies"
-        multiple
-        value={techName}
-        onChange={handleChange}
-        input={<OutlinedInput id="select-multiple-chip" />}
-        renderValue={(selected) => (
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-            {selected.map((value) => (
-              <Chip key={value} label={value} />
-            ))}
-          </Box>
-        )}
-        MenuProps={MenuProps}
-      >
-        <MenuItem value="" disabled>
-          Technology
-        </MenuItem>
-        {technologies
-          ? technologies.map((tech) => (
-              <MenuItem
-                key={tech.technology_id}
-                value={tech.technology_name}
-                style={getStyles(tech, techName, theme)}
-              >
-                {tech.technology_name}
-              </MenuItem>
-            ))
-          : null}
-      </Select>
-    </FormControl>
+    <div>
+      {technologies ? (
+        <Select
+          fullWidth
+          id="select-technologies"
+          multiple
+          name="technology"
+          label="Technology"
+          value={values}
+          onChange={handleChange}
+          variant="outlined"
+          // onBlur={handleBlur}
+          displayEmpty
+          input={<OutlinedInput id="select-multiple-chip" />}
+          renderValue={(selected) => (
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 0.5,
+              }}
+            >
+              {selected.map((value) => (
+                <Chip
+                  key={value}
+                  label={value}
+                  style={{ background: "#ffeab9" }}
+                />
+              ))}
+            </Box>
+          )}
+          MenuProps={MenuProps}
+          error={!values.length}
+          //error={!error}
+          helperText={helperText}
+        >
+          <MenuItem value="" disabled>
+            Technology
+          </MenuItem>
+          {technologies
+            ? technologies.map((tech) => (
+                <MenuItem key={tech.technology_id} value={tech.technology_name}>
+                  {tech.technology_name}
+                </MenuItem>
+              ))
+            : null}
+        </Select>
+      ) : null}
+    </div>
   );
 }
 

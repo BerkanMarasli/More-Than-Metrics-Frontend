@@ -64,7 +64,6 @@ function LoginForm(props) {
           handleChange,
           handleBlur,
           handleSubmit,
-          setFieldValue,
         }) => {
           return (
             <Form onSubmit={handleSubmit}>

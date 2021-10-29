@@ -24,10 +24,10 @@ const columns = [
     id: "applicationStatus",
     align: "center",
   },
-]
+];
 
 function createData(jobTitle, companyName, viewApplication, applicationStatus) {
-  return { jobTitle, companyName, viewApplication, applicationStatus }
+  return { jobTitle, companyName, viewApplication, applicationStatus };
 }
 
 function Applied() {
@@ -47,21 +47,21 @@ function Applied() {
           application.company_name,
           <ViewApplicationBtn />,
           ApplicationStatus(application.reviewed, application.accepted)
-        )
-      })
-      setAppliedApplications(rows)
+        );
+      });
+      setAppliedApplications(rows);
     }
-    fetchJobs()
-  }, [])
+    fetchJobs();
+  }, []);
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage)
-  }
+    setPage(newPage);
+  };
 
-  const handleChangeRowsPerPage = event => {
-    setRowsPerPage(+event.target.value)
-    setPage(0)
-  }
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   return (
     <main>
@@ -76,16 +76,16 @@ function Applied() {
                   .map(row => {
                     return (
                       <TableRow role="checkbox" tabIndex={-1} key={row.code}>
-                        {columns.map(column => {
-                          const value = row[column.id]
+                        {columns.map((column) => {
+                          const value = row[column.id];
                           return (
                             <TableCell key={column.id} align={column.align}>
                               {value}
                             </TableCell>
-                          )
+                          );
                         })}
                       </TableRow>
-                    )
+                    );
                   })}
               </TableBody>
             </Table>
@@ -110,7 +110,7 @@ function Applied() {
         </div>
       ) : null}
     </main>
-  )
+  );
 }
 
-export default Applied
+export default Applied;

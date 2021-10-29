@@ -59,13 +59,41 @@ function Registration() {
 }
 
 async function createUser(values) {
+  console.log("Candidate details");
+  const {
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    yearsInIndustry,
+    technology,
+    headline,
+    password,
+    passwordConfirmation,
+  } = values;
+
+  console.log(technology);
+
+  console.log(
+    `User details: `,
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    yearsInIndustry,
+    technology,
+    headline,
+    password,
+    passwordConfirmation
+  );
+
   const url = `http://localhost:8080/candidate/register`;
 
   try {
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(),
+      body: JSON.stringify(values),
     });
     const json = await response.json();
 
