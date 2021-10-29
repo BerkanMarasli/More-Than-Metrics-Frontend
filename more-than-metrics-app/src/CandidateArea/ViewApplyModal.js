@@ -79,8 +79,6 @@ function ViewApplyModal(props) {
   const [successMsg, setSuccessMsg] = useState(null)
   const [jobInfo, setJobInfo] = useState(null)
 
-  let img
-
   useEffect(() => {
     const fetchPrompts = async () => {
       const promptsResponse = await fetch("http://localhost:8080/prompts")
