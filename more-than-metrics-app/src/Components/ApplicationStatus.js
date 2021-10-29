@@ -1,6 +1,4 @@
-import PendingIcon from "@mui/icons-material/Pending"
-import CancelIcon from "@mui/icons-material/Cancel"
-import CheckCircleIcon from "@mui/icons-material/CheckCircle"
+import { PendingIcon, CancelIcon, CheckCircleIcon, HelpIcon } from "@mui/icons-material"
 
 export default function ApplicationStatus(reviewed, accepted) {
   if (!reviewed) {
@@ -10,6 +8,6 @@ export default function ApplicationStatus(reviewed, accepted) {
   } else if (reviewed && accepted) {
     return <CheckCircleIcon sx={{ color: "green", opacity: "70%" }} />
   } else {
-    return <p>Status</p>
+    return <HelpIcon />
   }
 }
