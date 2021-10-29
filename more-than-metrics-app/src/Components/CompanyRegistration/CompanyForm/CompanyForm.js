@@ -16,10 +16,10 @@ import { Formik, Form } from "formik";
 
 const useStyles = makeStyles(() => ({
   center: {
-    // display: "flex",
-    // flexDirection: "column",
-    // justifyContent: "center",
-    // alignContent: "center",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignContent: "center",
   },
   mb4: {
     marginBottom: 4,
