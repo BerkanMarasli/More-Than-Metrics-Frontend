@@ -86,6 +86,7 @@ function CandidateForm(props) {
           handleBlur,
           handleSubmit,
         }) => {
+          console.log(touched);
           return (
             <Form onSubmit={handleSubmit}>
               <Grid
@@ -169,7 +170,6 @@ function CandidateForm(props) {
                               }
                             />
                           </Grid>
-
                           <Grid item lg={6} md={6} xs={12}>
                             <TextField
                               fullWidth
@@ -268,7 +268,25 @@ function CandidateForm(props) {
                             </Select>
                           </Grid>
                           <Grid item lg={6} md={6} xs={12}>
-                            <SelectTechnologies />
+                            <SelectTechnologies
+                              handleChange={handleChange}
+                              values={values.technology}
+                              onBlur={handleBlur}
+                              error={
+                                touched &&
+                                touched.technology &&
+                                errors &&
+                                errors.technology
+                              }
+                              helperText={
+                                touched &&
+                                touched.technology &&
+                                errors &&
+                                errors.technology
+                                  ? errors.technology
+                                  : ""
+                              }
+                            />
                           </Grid>
                           <Grid item lg={12} md={12} xs={12}>
                             <TextField
