@@ -19,18 +19,18 @@ const style = {
 }
 
 export default function ViewJobModal(props) {
-  const { openViewJob, handleCloseViewJob } = props.viewJob
-  const jobViewed = props.jobViewed
+  const { openViewJob, handleCloseViewJob } = props.handleViewJob
+  const jobIDViewed = props.jobIDViewed
   const [jobData, setJobData] = useState(null)
 
   useEffect(() => {
     async function fetchJobData() {
-      const jobDataResponse = await fetch(`http://localhost:8080/job/${jobViewed}`)
+      const jobDataResponse = await fetch(`http://localhost:8080/job/${jobIDViewed}`)
       const jobData = await jobDataResponse.json()
       setJobData(jobData[0])
     }
     fetchJobData()
-  }, [jobViewed])
+  }, [jobIDViewed])
 
   return (
     <div>

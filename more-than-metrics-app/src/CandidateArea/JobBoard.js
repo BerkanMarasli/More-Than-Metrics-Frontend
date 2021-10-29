@@ -42,8 +42,12 @@ const Item = styled(Paper)(({ theme }) => ({
 function JobBoard() {
   const classes = useStyles()
   const [companyViewed, setCompanyViewed] = useState(null)
-  const [jobViewed, setJobViewed] = useState(null)
+  const [jobIDViewed, setJobIDViewed] = useState(null)
   const [openViewCompany, setOpenViewCompany] = useState(false)
+  const [openViewJob, setOpenViewJob] = useState(false)
+  const [openViewApply, setOpenViewApply] = useState(false)
+
+  // View Company
   const handleOpenViewCompany = e => {
     if (e.target.childElementCount !== 0) {
       setCompanyViewed(e.target.children[0].innerHTML)
@@ -53,30 +57,34 @@ function JobBoard() {
     setOpenViewCompany(true)
   }
   const handleCloseViewCompany = () => setOpenViewCompany(false)
-  const viewCompany = {
-    openViewCompany: openViewCompany,
-    handleOpenViewCompany: handleOpenViewCompany,
-    handleCloseViewCompany: handleCloseViewCompany,
-  }
-  const [openViewJob, setOpenViewJob] = useState(false)
+
+  // View Job
   const handleOpenViewJob = e => {
     if (e.target.childElementCount !== 0) {
       setCompanyViewed(e.target.value)
     } else {
-      setJobViewed(e.target.parentElement.value)
+      setJobIDViewed(e.target.parentElement.value)
     }
     setOpenViewJob(true)
   }
   const handleCloseViewJob = () => setOpenViewJob(false)
-  const viewJob = {
+
+  // View Apply
+  const handleOpenViewApply = () => setOpenViewApply(true)
+  const handleCloseViewApply = () => setOpenViewApply(false)
+
+  // handle modals...
+  const handleViewCompany = {
+    openViewCompany: openViewCompany,
+    handleOpenViewCompany: handleOpenViewCompany,
+    handleCloseViewCompany: handleCloseViewCompany,
+  }
+  const handleViewJob = {
     openViewJob: openViewJob,
     handleOpenViewJob: handleOpenViewJob,
     handleCloseViewJob: handleCloseViewJob,
   }
-  const [openViewApply, setOpenViewApply] = useState(false)
-  const handleOpenViewApply = () => setOpenViewApply(true)
-  const handleCloseViewApply = () => setOpenViewApply(false)
-  const viewApply = {
+  const handleViewApply = {
     openViewApply: openViewApply,
     handleOpenViewApply: handleOpenViewApply,
     handleCloseViewApply: handleCloseViewApply,
@@ -88,17 +96,23 @@ function JobBoard() {
       <Box className={classes.box}>
         <Item className={classes.container}>
           <h1>JOBS BOARD</h1>
-          <JobBoardDisplayJobs viewCompany={viewCompany} viewJob={viewJob} viewApply={viewApply} />
+          <JobBoardDisplayJobs
+            handleViewCompany={handleViewCompany}
+            handleViewJob={handleViewJob}
+            handleViewApply={handleViewApply}
+          />
           {openViewCompany ? (
             <ViewCompanyModal
               companyViewed={companyViewed}
-              viewCompany={viewCompany}
-              viewJob={viewJob}
-              viewApply={viewApply}
+              handleViewCompany={handleViewCompany}
+              handleViewJob={handleViewJob}
+              handleViewApply={handleViewApply}
             />
           ) : null}
-          {openViewJob ? <ViewJobModal jobViewed={jobViewed} viewJob={viewJob} /> : null}
-          {openViewApply ? <ApplyModal viewApply={viewApply} /> : null}
+          {openViewJob ? (
+            <ViewJobModal jobIDViewed={jobIDViewed} handleViewJob={handleViewJob} />
+          ) : null}
+          {openViewApply ? <ApplyModal handleViewApply={handleViewApply} /> : null}
         </Item>
       </Box>
     </div>

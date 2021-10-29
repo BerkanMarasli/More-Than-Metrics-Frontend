@@ -31,25 +31,25 @@ function createData(jobTitle, viewJobBtn, applyBtn) {
 }
 
 function CompanyJobBoard(props) {
-  const { handleOpenViewJob } = props.viewJob
-  const { handleOpenViewApply } = props.viewApply
   const companyViewed = props.companyViewed
-  const [rows, setRows] = useState(null)
+  const { handleOpenViewJob } = props.handleViewJob
+  const { handleOpenViewApply } = props.handleViewApply
+  const [jobs, setJobs] = useState(null)
   const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(4)
+  const [rowsPerPage, setRowsPerPage] = React.useState(7)
 
   useEffect(() => {
     async function fetchJobs() {
       const jobsResponse = await fetch(`http://localhost:8080/jobs/company/${companyViewed}`)
-      const jobs = await jobsResponse.json()
-      const rows = jobs.map(job => {
+      const jobsData = await jobsResponse.json()
+      const jobs = jobsData.map(job => {
         return createData(
           job.job_title,
-          <ViewJobBtn handleOpen={handleOpenViewJob} />,
+          <ViewJobBtn jobID={job.job_id} handleOpen={handleOpenViewJob} />,
           <ApplyBtn handleOpen={handleOpenViewApply} />
         )
       })
-      setRows(rows)
+      setJobs(jobs)
     }
     fetchJobs()
   }, [handleOpenViewJob, handleOpenViewApply, companyViewed])
@@ -63,17 +63,17 @@ function CompanyJobBoard(props) {
     setPage(0)
   }
 
-  return rows ? (
+  return jobs ? (
     <main>
-      <TableContainer sx={{ maxHeight: 270 }}>
+      <TableContainer sx={{ maxHeight: 520 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableBody>
-            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+            {jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(job => {
               // can add hover as attribute to TableRow
               return (
-                <TableRow role="checkbox" tabIndex={-1} key={row.code}>
+                <TableRow role="checkbox" tabIndex={-1} key={job.code}>
                   {columns.map(column => {
-                    const value = row[column.id]
+                    const value = job[column.id]
                     return (
                       <TableCell key={column.id} align={column.align}>
                         {value}
@@ -94,9 +94,9 @@ function CompanyJobBoard(props) {
         }}
       >
         <TablePagination
-          rowsPerPageOptions={[4, 8, 12, { label: "All", value: -1 }]}
+          rowsPerPageOptions={[7]}
           component="main"
-          count={rows.length}
+          count={jobs.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

@@ -19,7 +19,7 @@ const style = {
 }
 
 export default function ViewJobModal(props) {
-  const { openViewApply, handleCloseViewApply } = props.viewApply
+  const { openViewApply, handleCloseViewApply } = props.handleViewApply
   return (
     <div>
       <Modal
