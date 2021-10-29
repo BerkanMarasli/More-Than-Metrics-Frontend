@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   Box,
   InputLabel,
@@ -11,11 +11,11 @@ import {
   Button,
   Alert,
   Modal,
-} from "@mui/material";
-import { makeStyles } from "@material-ui/core/styles";
-import { useState, useEffect } from "react";
+} from "@mui/material"
+import { makeStyles } from "@material-ui/core/styles"
+import { useState, useEffect } from "react"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: "grid",
     justifyItems: "center",
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   company: {
     margin: "0.5rem",
   },
-}));
+}))
 
 const style = {
   position: "absolute",
@@ -57,28 +57,28 @@ const style = {
   borderRadius: "10px",
   boxShadow: 24,
   p: 4,
-};
+}
 
-function ViewJobModal(props) {
-  const { openViewApply, handleCloseViewApply } = props.viewApply;
+function ViewApplyModal(props) {
+  const { openViewApply, handleCloseViewApply } = props.viewApply
 
-  const classes = useStyles();
-  const [promptsList, setPromptsList] = useState();
-  const [prompts, setPrompts] = useState({});
-  const [answers, setAnswers] = useState({});
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [successMsg, setSuccessMsg] = useState(null);
+  const classes = useStyles()
+  const [promptsList, setPromptsList] = useState()
+  const [prompts, setPrompts] = useState({})
+  const [answers, setAnswers] = useState({})
+  const [errorMsg, setErrorMsg] = useState(null)
+  const [successMsg, setSuccessMsg] = useState(null)
 
-  let img;
+  let img
 
   useEffect(() => {
     const fetchPrompts = async () => {
-      const promptsResponse = await fetch("http://localhost:8080/prompts");
-      const promptsJson = await promptsResponse.json();
-      setPromptsList(promptsJson);
-    };
-    fetchPrompts();
-  }, []);
+      const promptsResponse = await fetch("http://localhost:8080/prompts")
+      const promptsJson = await promptsResponse.json()
+      setPromptsList(promptsJson)
+    }
+    fetchPrompts()
+  }, [])
 
   const submitApplication = async () => {
     const requestOptions = {
@@ -86,18 +86,15 @@ function ViewJobModal(props) {
       credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ answers }),
-    };
-    const response = await fetch(
-      `http://localhost:8080/application`,
-      requestOptions
-    );
-    const json = await response.json();
-    if (!response.ok) {
-      setErrorMsg(json.status);
-    } else {
-      setSuccessMsg("Application successfully submitted. Good luck!");
     }
-  };
+    const response = await fetch(`http://localhost:8080/application`, requestOptions)
+    const json = await response.json()
+    if (!response.ok) {
+      setErrorMsg(json.status)
+    } else {
+      setSuccessMsg("Application successfully submitted. Good luck!")
+    }
+  }
 
   const handleSelectPrompt = (e, number) => {
     setPrompts({
@@ -106,46 +103,40 @@ function ViewJobModal(props) {
         id: e.target.value.prompt_id,
         prompt: e.target.value.prompt,
       },
-    });
-  };
+    })
+  }
 
   const handleSetAnswer = (e, number) => {
     setAnswers({
       ...answers,
       [prompts[number].id]: e.target.value,
-    });
-  };
+    })
+  }
 
   const resetErrorMsg = () => {
-    setErrorMsg(null);
-  };
+    setErrorMsg(null)
+  }
 
-  const returnAnswersForm = (number) => {
+  const returnAnswersForm = number => {
     return (
       <div>
         <FormControl sx={{ m: 1, minWidth: "25rem" }}>
-          <InputLabel htmlFor={`outlined-prompt${number}`}>
-            Prompt {number}
-          </InputLabel>
+          <InputLabel htmlFor={`outlined-prompt${number}`}>Prompt {number}</InputLabel>
           <Select
             labelId={`outlined-prompt${number}`}
             className={classes.select}
             id={`outlined-prompt${number}`}
             placeholder={"Select a prompt"}
             label={`Prompt ${number}`}
-            onChange={(e) => handleSelectPrompt(e, number)}
+            onChange={e => handleSelectPrompt(e, number)}
             onClick={resetErrorMsg}
           >
             <MenuItem value="" disabled className={classes.select}>
               Select a prompt
             </MenuItem>
             {promptsList
-              ? promptsList.map((prompt) => (
-                  <MenuItem
-                    key={prompt.prompt_id}
-                    value={prompt}
-                    className={classes.select}
-                  >
+              ? promptsList.map(prompt => (
+                  <MenuItem key={prompt.prompt_id} value={prompt} className={classes.select}>
                     {prompt.prompt}
                   </MenuItem>
                 ))
@@ -154,9 +145,7 @@ function ViewJobModal(props) {
         </FormControl>
         <div className={classes.row}>
           <FormControl sx={{ m: 1, width: "20rem" }}>
-            <InputLabel htmlFor={`outlined-answer${number}`}>
-              Answer {number}
-            </InputLabel>
+            <InputLabel htmlFor={`outlined-answer${number}`}>Answer {number}</InputLabel>
             <OutlinedInput
               labelId={`outlined-answer${number}`}
               id={`outlined-answer${number}`}
@@ -166,14 +155,14 @@ function ViewJobModal(props) {
               multiline
               maxRows={2}
               value={answers[number.answer]}
-              onChange={(e) => handleSetAnswer(e, number)}
+              onChange={e => handleSetAnswer(e, number)}
               onClick={resetErrorMsg}
             />
           </FormControl>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <Modal
@@ -185,12 +174,7 @@ function ViewJobModal(props) {
       <div className={classes.root}>
         <h1>APPLICATION</h1>
 
-        <Box
-          className={classes.box}
-          component="form"
-          noValidate
-          autoComplete="off"
-        >
+        <Box className={classes.box} component="form" noValidate autoComplete="off">
           <div className={classes.row}>
             <Avatar
               alt={"Google"}
@@ -258,7 +242,7 @@ function ViewJobModal(props) {
         {successMsg ? <Alert severity="success">{successMsg}</Alert> : null}
       </div>
     </Modal>
-  );
+  )
 }
 
-export default ViewJobModal;
+export default ViewApplyModal
