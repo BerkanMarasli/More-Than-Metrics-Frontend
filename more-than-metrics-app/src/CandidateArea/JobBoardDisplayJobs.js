@@ -52,7 +52,7 @@ function JobBoardDisplayJobs(props) {
             handleOpen={handleOpenViewCompany}
           />,
           <ViewJobBtn jobID={job.job_id} handleOpen={handleOpenViewJob} />,
-          <ApplyBtn handleOpen={handleOpenViewApply} />
+          <ApplyBtn jobID={job.job_id} handleOpen={handleOpenViewApply} />
         )
       })
       setJobs(jobs)
