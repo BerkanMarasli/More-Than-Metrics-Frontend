@@ -3,7 +3,7 @@ import Navbar from "../Navbar/Navbar"
 import JobBoardDisplayJobs from "./JobBoardDisplayJobs.js"
 import ViewCompanyModal from "./ViewCompanyModal"
 import ViewJobModal from "./ViewJobModal"
-import ApplyModal from "./ApplyModal"
+import ApplyModal from "./ViewApplyModal"
 import { Paper, Box, styled } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
 
