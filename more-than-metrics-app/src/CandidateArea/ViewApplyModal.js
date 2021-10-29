@@ -23,13 +23,21 @@ const useStyles = makeStyles(theme => ({
   },
 
   box: {
-    display: "grid",
-    justifyItems: "end",
+    display: "flex",
+    flexDirection: "column",
+    alignSelf: "center",
   },
 
   row: {
     display: "flex",
     alignItems: "center",
+  },
+
+  rowTopHalf: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: "8px",
   },
 
   input: {
@@ -181,8 +189,10 @@ function ViewApplyModal(props) {
     >
       <div className={classes.root}>
         <Box className={classes.box} sx={style}>
-          <h1>APPLICATION</h1>
-          <div className={classes.row}>
+          <h1 style={{ margin: "5px auto" }}>
+            {jobInfo.job_title} - {jobInfo.company_name} - APPLICATION FORM
+          </h1>
+          <div className={classes.rowTopHalf}>
             <Avatar
               alt={jobInfo.company_name}
               src={jobInfo ? jobInfo.image_url : "/broken-image.jpg"}
@@ -204,7 +214,7 @@ function ViewApplyModal(props) {
               className={classes.company}
             />
           </div>
-          <div className={classes.row}>
+          <div className={classes.rowTopHalf}>
             <TextField
               id="outlined-read-only-location"
               label="Location"
@@ -226,7 +236,7 @@ function ViewApplyModal(props) {
               className={classes.company}
             />
           </div>
-          <div className={classes.row}>
+          <div className={classes.rowTopHalf}>
             <TextField
               id="outlined-read-only-jd"
               label="Job description"
