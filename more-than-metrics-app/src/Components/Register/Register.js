@@ -3,6 +3,7 @@ import CompanyRegistration from "../CompanyRegistration/CompanyRegistration";
 import CandidateRegistration from "../CandidateRegistration/CandidateRegistration";
 import Dropdown from "../../Menu/Dropdown";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 function Register(props) {
   console.log(props.userType);
   const classes = useStyles();
+  let history = useHistory();
 
   return (
     <div className={classes.root}>
@@ -26,7 +28,7 @@ function Register(props) {
       ) : props.userType === "company" ? (
         <CompanyRegistration />
       ) : (
-        props.redirectHome()
+        history.push(`/`)
       )}
     </div>
   );

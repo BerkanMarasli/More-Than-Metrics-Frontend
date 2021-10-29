@@ -1,8 +1,8 @@
-import React from "react"
-import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
-import Typography from "@mui/material/Typography"
-import Modal from "@mui/material/Modal"
+import React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 
 const style = {
   position: "absolute",
@@ -16,10 +16,11 @@ const style = {
   borderRadius: "10px",
   boxShadow: 24,
   p: 4,
-}
+};
 
 export default function ViewJobModal(props) {
-  const { openViewApply, handleCloseViewApply } = props.viewApply
+  const { openViewApply, handleCloseViewApply } = props.viewApply;
+
   return (
     <div>
       <Modal
@@ -38,5 +39,5 @@ export default function ViewJobModal(props) {
         </Box>
       </Modal>
     </div>
-  )
+  );
 }

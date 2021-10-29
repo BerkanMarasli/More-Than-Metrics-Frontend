@@ -8,6 +8,8 @@ import {
   Chip,
 } from "@mui/material/";
 import { useTheme } from "@mui/material/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import { createStyles, withStyles } from "@material-ui/styles";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -20,24 +22,49 @@ const MenuProps = {
   },
 };
 
-function getStyles(name, personName, theme) {
+function getStyles(tech, techName, theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      techName.indexOf(tech) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
 }
 
+const CustomMenuItem = withStyles((theme) =>
+  createStyles({
+    root: {
+      "&$selected": {
+        backgroundColor: "red",
+        "&:hover": {
+          backgroundColor: "green",
+        },
+      },
+      "&:hover": {
+        backgroundColor: "blue",
+      },
+    },
+    selected: { backgroundColor: "green" },
+  })
+)(MenuItem);
+
+const useStyles = makeStyles((theme) => ({
+  selectRoot: {
+    "&:focus": {
+      backgroundColor: "yellow",
+    },
+  },
+}));
+
 function SelectTechnologies(props) {
   const [technologies, setTechnologies] = useState(null);
+
+  const classes = useStyles();
 
   useEffect(() => {
     const fetchTechnologies = async () => {
       const techResponse = await fetch("http://localhost:8080/technologies");
-      console.log("hello");
       const techJson = await techResponse.json();
-      console.log(techJson);
       setTechnologies(techJson);
     };
     fetchTechnologies();
@@ -60,6 +87,7 @@ function SelectTechnologies(props) {
     <FormControl sx={{ m: 1, width: "20rem" }} disabled={props.disabled}>
       <Select
         id="select-technologies"
+        className={classes.selectRoot}
         multiple
         value={techName}
         onChange={handleChange}
@@ -67,7 +95,11 @@ function SelectTechnologies(props) {
         renderValue={(selected) => (
           <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
             {selected.map((value) => (
-              <Chip key={value} label={value} />
+              <Chip
+                key={value}
+                label={value}
+                style={{ backgroundColor: "#ffeab9" }}
+              />
             ))}
           </Box>
         )}
@@ -78,13 +110,15 @@ function SelectTechnologies(props) {
         </MenuItem>
         {technologies
           ? technologies.map((tech) => (
-              <MenuItem
+              <CustomMenuItem
+                // className={classes.select}
+                // sx={{ "&& .Mui-selected": { backgroundColor: "green" } }}
                 key={tech.technology_id}
                 value={tech.technology_name}
                 style={getStyles(tech, techName, theme)}
               >
                 {tech.technology_name}
-              </MenuItem>
+              </CustomMenuItem>
             ))
           : null}
       </Select>
