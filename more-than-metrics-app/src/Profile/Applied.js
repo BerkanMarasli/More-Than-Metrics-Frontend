@@ -1,29 +1,27 @@
-import React, { useState, useEffect } from "react";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import ViewApplicationBtn from "../Components/ViewApplicationBtn";
-import ApplicationStatus from "../Components/ApplicationStatus";
+import React, { useState, useEffect } from "react"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TablePagination,
+  TableRow,
+} from "@mui/material"
+import ViewApplicationBtn from "../Components/ViewApplicationBtn"
+import ApplicationStatus from "../Components/ApplicationStatus"
 
 const columns = [
-  { id: "jobTitle", minWidth: 170 },
+  { id: "jobTitle" },
   {
     id: "companyName",
-    minWidth: 170,
     align: "center",
   },
   {
     id: "viewApplication",
-    minWidth: 170,
     align: "center",
   },
   {
     id: "applicationStatus",
-    minWidth: 170,
     align: "center",
   },
 ];
@@ -33,18 +31,17 @@ function createData(jobTitle, companyName, viewApplication, applicationStatus) {
 }
 
 function Applied() {
-  const [appliedApplications, setAppliedApplications] = useState(null);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(4);
+  const [appliedApplications, setAppliedApplications] = useState(null)
+  const [page, setPage] = React.useState(0)
+  const [rowsPerPage, setRowsPerPage] = React.useState(7)
 
   useEffect(() => {
     async function fetchJobs() {
       const applicationsResponse = await fetch(
         `http://localhost:8080/applications/candidate/${"1"}`
-      );
-      const applications = await applicationsResponse.json();
-      console.log(applications);
-      const rows = applications.map((application) => {
+      )
+      const applications = await applicationsResponse.json()
+      const rows = applications.reverse().map(application => {
         return createData(
           application.job_title,
           application.company_name,
@@ -67,19 +64,16 @@ function Applied() {
   };
 
   return (
-    // <main style={{ padding: "0px 50px" }}>
     <main>
       {appliedApplications ? (
         <div>
           <h1>APPLIED TO</h1>
-          {/* <Paper sx={{ width: "100%", overflow: "hidden" }}> */}
           <TableContainer sx={{ maxHeight: 520 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableBody>
                 {appliedApplications
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    // can add hover as attribute to TableRow
+                  .map(row => {
                     return (
                       <TableRow role="checkbox" tabIndex={-1} key={row.code}>
                         {columns.map((column) => {
@@ -104,7 +98,7 @@ function Applied() {
             }}
           >
             <TablePagination
-              rowsPerPageOptions={[4, 8, 12, { label: "All", value: -1 }]}
+              rowsPerPageOptions={[7]}
               component="main"
               count={appliedApplications.length}
               rowsPerPage={rowsPerPage}
@@ -113,7 +107,6 @@ function Applied() {
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </div>
-          {/* </Paper>{" "} */}
         </div>
       ) : null}
     </main>

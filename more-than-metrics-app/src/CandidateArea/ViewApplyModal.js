@@ -59,7 +59,7 @@ const style = {
   p: 4,
 };
 
-function ViewJobModal(props) {
+function ViewApplyModal(props) {
   const { openViewApply, handleCloseViewApply } = props.viewApply;
 
   const classes = useStyles();
@@ -261,4 +261,4 @@ function ViewJobModal(props) {
   );
 }
 
-export default ViewJobModal;
+export default ViewApplyModal;
