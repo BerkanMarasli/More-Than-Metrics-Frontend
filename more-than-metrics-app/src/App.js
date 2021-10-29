@@ -8,7 +8,7 @@ import Companies from "./Menu/Companies.js";
 import Candidates from "./Menu/Candidates.js";
 import Dashboard from "./CompanyArea/Dashboard.js";
 import Profile from "./Profile/Profile.js";
-
+import JobBoard from "./CandidateArea/JobBoard";
 import {
   Route,
   Switch,
@@ -66,7 +66,7 @@ function App() {
           <ReviewCandidates />
         </Route>
         <Route exact path="/jobs">
-          {/* <JobBoard /> */}
+          <JobBoard />
         </Route>
       </Switch>
     </Router>

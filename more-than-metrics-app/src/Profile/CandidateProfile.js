@@ -186,7 +186,11 @@ function CandidateProfile() {
           <InputLabel htmlFor="select-technologies">
             Key technologies
           </InputLabel>
-          <SelectTechnologies className={classes.input} disabled={disabled} />
+          <SelectTechnologies
+            className={classes.input}
+            disabled={disabled}
+            values={technologies}
+          />
         </div>
         <div className={classes.row}>
           <InputLabel htmlFor="outlined-email">Number</InputLabel>

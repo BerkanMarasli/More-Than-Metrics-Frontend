@@ -43,27 +43,24 @@ const useStyles = makeStyles((theme) => ({
   company: {
     margin: "0.5rem",
   },
+
+  modal: {
+    // transform: "translate(-50%, -50%)",
+    width: "80vw",
+    height: "80vh",
+    backgroundColor: "background.paper",
+    border: "4px solid #FFBF50",
+    borderRadius: "10px",
+    boxShadow: 24,
+    padding: 4,
+  },
 }));
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "80vw",
-  height: "80vh",
-  bgcolor: "background.paper",
-  border: "4px solid #FFBF50",
-  borderRadius: "10px",
-  boxShadow: 24,
-  p: 4,
-};
-
-function ViewJobModal(props) {
+function ViewApplyModal(props) {
   const { openViewApply, handleCloseViewApply } = props.viewApply;
 
   const classes = useStyles();
-  const [promptsList, setPromptsList] = useState();
+  const [promptsList, setPromptsList] = useState(null);
   const [prompts, setPrompts] = useState({});
   const [answers, setAnswers] = useState({});
   const [errorMsg, setErrorMsg] = useState(null);
@@ -181,6 +178,7 @@ function ViewJobModal(props) {
       onClose={handleCloseViewApply}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      className={classes.modal}
     >
       <div className={classes.root}>
         <h1>APPLICATION</h1>
@@ -261,4 +259,4 @@ function ViewJobModal(props) {
   );
 }
 
-export default ViewJobModal;
+export default ViewApplyModal;
