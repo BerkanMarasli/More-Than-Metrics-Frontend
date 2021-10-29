@@ -1,32 +1,21 @@
-import { useState, useEffect } from "react";
-import {
-  Box,
-  OutlinedInput,
-  FormControl,
-  Select,
-  MenuItem,
-  Chip,
-} from "@mui/material/";
-import { useTheme } from "@mui/material/styles";
-import { makeStyles } from "@material-ui/core/styles";
-import { createStyles, withStyles } from "@material-ui/styles";
-import React, { useState, useEffect } from "react";
+import { Box, OutlinedInput, FormControl, Select, MenuItem, Chip } from "@mui/material/"
+import { useTheme } from "@mui/material/styles"
+import { makeStyles } from "@material-ui/core/styles"
+import { createStyles, withStyles } from "@material-ui/styles"
+import React, { useState, useEffect } from "react"
 // Material UI
-import { useTheme } from "@material-ui/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-
-import { Box, OutlinedInput, Select, MenuItem, Chip } from "@mui/material/";
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import Grid from "@material-ui/core/Grid"
+import Typography from "@material-ui/core/Typography"
 
 // Formik
-import { Formik, Form } from "formik";
+import { Formik, Form } from "formik"
 
-const yup = require("yup");
+const yup = require("yup")
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+const ITEM_HEIGHT = 48
+const ITEM_PADDING_TOP = 8
 const MenuProps = {
   PaperProps: {
     style: {
@@ -34,7 +23,7 @@ const MenuProps = {
       width: 250,
     },
   },
-};
+}
 
 function getStyles(tech, techName, theme) {
   return {
@@ -42,10 +31,10 @@ function getStyles(tech, techName, theme) {
       techName.indexOf(tech) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
-  };
+  }
 }
 
-const CustomMenuItem = withStyles((theme) =>
+const CustomMenuItem = withStyles(theme =>
   createStyles({
     root: {
       "&$selected": {
@@ -60,39 +49,39 @@ const CustomMenuItem = withStyles((theme) =>
     },
     selected: { backgroundColor: "green" },
   })
-)(MenuItem);
+)(MenuItem)
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   selectRoot: {
     "&:focus": {
       backgroundColor: "yellow",
     },
   },
-}));
+}))
 
 function SelectTechnologies(props) {
-  const { handleChange, values, error, helperText } = props;
-  const theme = useTheme();
+  const { handleChange, values, error, helperText } = props
+  const theme = useTheme()
 
-  console.log(error);
+  console.log(error)
 
-  const [technologies, setTechnologies] = useState(null);
+  const [technologies, setTechnologies] = useState(null)
   const signupSchema = yup.object().shape({
     // technology: yup.string().required("Please select at least one technology"),
-  });
+  })
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   useEffect(() => {
     const fetchTechnologies = async () => {
-      const techResponse = await fetch("http://localhost:8080/technologies");
-      const techJson = await techResponse.json();
-      setTechnologies(techJson);
-    };
-    fetchTechnologies();
-  }, []);
+      const techResponse = await fetch("http://localhost:8080/technologies")
+      const techJson = await techResponse.json()
+      setTechnologies(techJson)
+    }
+    fetchTechnologies()
+  }, [])
 
-  console.log("va");
+  console.log("va")
 
   return (
     <div>
@@ -109,7 +98,7 @@ function SelectTechnologies(props) {
           // onBlur={handleBlur}
           displayEmpty
           input={<OutlinedInput id="select-multiple-chip" />}
-          renderValue={(selected) => (
+          renderValue={selected => (
             <Box
               sx={{
                 display: "flex",
@@ -117,12 +106,8 @@ function SelectTechnologies(props) {
                 gap: 0.5,
               }}
             >
-              {selected.map((value) => (
-                <Chip
-                  key={value}
-                  label={value}
-                  style={{ background: "#ffeab9" }}
-                />
+              {selected.map(value => (
+                <Chip key={value} label={value} style={{ background: "#ffeab9" }} />
               ))}
             </Box>
           )}
@@ -135,7 +120,7 @@ function SelectTechnologies(props) {
             Technology
           </MenuItem>
           {technologies
-            ? technologies.map((tech) => (
+            ? technologies.map(tech => (
                 <MenuItem key={tech.technology_id} value={tech.technology_name}>
                   {tech.technology_name}
                 </MenuItem>
@@ -144,7 +129,7 @@ function SelectTechnologies(props) {
         </Select>
       ) : null}
     </div>
-  );
+  )
 }
 
-export default SelectTechnologies;
+export default SelectTechnologies

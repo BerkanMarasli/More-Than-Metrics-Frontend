@@ -91,7 +91,7 @@ function JobBoard() {
   }
 
   return (
-    <div>
+    <div className={classes.root}>
       <Navbar userType={"candidate"} />
       <Box className={classes.box}>
         <Item className={classes.container}>
