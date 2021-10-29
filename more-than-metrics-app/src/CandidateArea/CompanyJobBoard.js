@@ -1,39 +1,30 @@
 import React, { useState, useEffect } from "react"
-//
-// import ViewCompanyBtn from "../Components/ViewCompanyBtn"
 import ViewJobBtn from "../Components/ViewJobBtn"
 import ApplyBtn from "../Components/ApplyBtn"
-//
 import Paper from "@mui/material/Paper"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableContainer from "@mui/material/TableContainer"
-// import TableHead from "@mui/material/TableHead"
 import TablePagination from "@mui/material/TablePagination"
 import TableRow from "@mui/material/TableRow"
 
 const columns = [
   { id: "jobTitle", label: "Title", minWidth: 170 },
-  //   { id: "jobDescription", label: "Description", minWidth: 100 },
   {
     id: "viewCompanyBtn",
-    // label: "View Company",
     minWidth: 170,
     align: "right",
   },
   {
     id: "viewJobBtn",
-    // label: "View Job",
     minWidth: 170,
     align: "center",
   },
   {
     id: "applyBtn",
-    // label: "Apply",
     minWidth: 170,
     align: "center",
-    // format: value => value.toFixed(2),
   },
 ]
 
@@ -42,14 +33,10 @@ function createData(jobTitle, viewJobBtn, applyBtn) {
 }
 
 function CompanyJobBoard(props) {
-  // props
-  // const { handleOpenViewCompany } = props.viewCompany
   const { handleOpenViewJob } = props.viewJob
   const { handleOpenViewApply } = props.viewApply
   const companyViewed = props.companyViewed
-  // Fetch jobs
   const [rows, setRows] = useState(null)
-  // Pagination
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(4)
 
@@ -102,15 +89,23 @@ function CompanyJobBoard(props) {
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[4, 8, 12, { label: "All", value: -1 }]}
-          component="main"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          <TablePagination
+            rowsPerPageOptions={[4, 8, 12, { label: "All", value: -1 }]}
+            component="main"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </div>
       </Paper>
     </main>
   ) : null

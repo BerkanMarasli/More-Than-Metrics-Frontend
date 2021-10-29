@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import Box from "@mui/material/Box"
-// import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Modal from "@mui/material/Modal"
 import Avatar from "@mui/material/Avatar"
@@ -62,7 +61,12 @@ export default function ViewCompanyModal(props) {
               src="https://cdn-icons-png.flaticon.com/512/5968/5968982.png" // Needs changing to be company specific
               sx={{ width: 56, height: 56, mb: 1 }}
             />
-            <Typography sx={{ mb: 1 }} id="modal-modal-title" variant="h6" component="h2">
+            <Typography
+              sx={{ mb: 1, fontSize: 16, fontWeight: "bold" }}
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+            >
               {companyData ? companyData.company_name : null}
             </Typography>
             <div
@@ -75,7 +79,13 @@ export default function ViewCompanyModal(props) {
               }}
             >
               <Typography
-                sx={{ display: "flex", flexDirection: "row", alignItems: "center", p: 0.5 }}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  p: 0.5,
+                  fontSize: 16,
+                }}
                 id="modal-modal-title"
                 variant="h5"
                 component="h2"
@@ -84,7 +94,13 @@ export default function ViewCompanyModal(props) {
                 {companyData ? companyData.category : null}
               </Typography>
               <Typography
-                sx={{ display: "flex", flexDirection: "row", alignItems: "center", p: 0.5 }}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  p: 0.5,
+                  fontSize: 16,
+                }}
                 id="modal-modal-title"
                 variant="h5"
                 component="h2"
@@ -93,7 +109,13 @@ export default function ViewCompanyModal(props) {
                 {companyData ? companyData.company_female_employee_percentage : null}%
               </Typography>
               <Typography
-                sx={{ display: "flex", flexDirection: "row", alignItems: "center", p: 0.5 }}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  p: 0.5,
+                  fontSize: 16,
+                }}
                 id="modal-modal-title"
                 variant="h5"
                 component="h2"
@@ -102,7 +124,7 @@ export default function ViewCompanyModal(props) {
                 {companyData ? companyData.company_retention_rate : null}%
               </Typography>
             </div>
-            <Typography sx={{ mb: 1 }} id="modal-modal-description" align="center">
+            <Typography sx={{ mb: 1, fontSize: 16 }} id="modal-modal-description" align="center">
               {companyData ? companyData.company_bio : null}
             </Typography>
             <CompanyJobBoard

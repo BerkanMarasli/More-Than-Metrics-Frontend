@@ -1,9 +1,9 @@
-import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import { Button, AppBar, Toolbar } from "@material-ui/core";
-import Title from "../Components/Title";
+import { useHistory } from "react-router-dom"
+import { makeStyles } from "@material-ui/core/styles"
+import { Button, AppBar, Toolbar } from "@material-ui/core"
+import Title from "../Components/Title"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     fontFamily: "Lato",
     display: "flex",
@@ -40,71 +40,55 @@ const useStyles = makeStyles((theme) => ({
       opacity: 0.3,
     },
   },
-}));
+}))
 
 function Navbar(props) {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  let history = useHistory();
+  let history = useHistory()
 
-  const handleRedirect = (e) => {
-    const target = e.target.innerText.toLowerCase();
+  const handleRedirect = e => {
+    const target = e.target.innerText.toLowerCase()
     if (target === "exit") {
-      history.goBack();
+      history.goBack()
     } else {
-      history.push(`/${target}`);
+      history.push(`/${target}`)
     }
-  };
+  }
 
   const handleLogout = () => {
-    console.log("logged out");
-  };
+    console.log("logged out")
+  }
 
   const renderExit = () => {
     return (
-      <Button
-        id="exit"
-        className={classes.exit}
-        onClick={(e) => handleRedirect(e)}
-      >
+      <Button id="exit" className={classes.exit} onClick={e => handleRedirect(e)}>
         EXIT
       </Button>
-    );
-  };
+    )
+  }
 
   const renderBtns = () => {
     return (
       <div>
         {props.userType === "company" ? (
-          <Button
-            id="dashboard"
-            className={classes.btn}
-            onClick={(e) => handleRedirect(e)}
-          >
+          <Button id="dashboard" className={classes.btn} onClick={e => handleRedirect(e)}>
             DASHBOARD
           </Button>
         ) : (
-          <Button
-            id="jobs"
-            className={classes.btn}
-            onClick={(e) => handleRedirect(e)}
-          >
+          <Button id="jobs" className={classes.btn} onClick={e => handleRedirect(e)}>
             JOBS
           </Button>
         )}
-        <Button
-          id="profile"
-          className={classes.btn}
-          onClick={(e) => handleRedirect(e)}
-        >
+        <Button id="profile" className={classes.btn} onClick={e => handleRedirect(e)}>
           PROFILE
         </Button>
         <Button className={classes.btn} onClick={handleLogout}>
           LOGOUT
         </Button>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <div className={classes.root}>
@@ -115,7 +99,7 @@ function Navbar(props) {
         </Toolbar>
       </AppBar>
     </div>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar

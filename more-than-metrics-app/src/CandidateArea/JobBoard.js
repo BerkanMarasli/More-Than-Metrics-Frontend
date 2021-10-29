@@ -4,16 +4,8 @@ import JobBoardDisplayJobs from "./JobBoardDisplayJobs.js"
 import ViewCompanyModal from "./ViewCompanyModal"
 import ViewJobModal from "./ViewJobModal"
 import ApplyModal from "./ApplyModal"
-// import { makeStyles } from "@mui/styles"
-
-// const useStyles = makeStyles({
-//   "makeStyles-root-1": {
-//     height: "15vh",
-//   },
-// })
 
 function JobBoard() {
-  // const classes = useStyles()
   const [companyViewed, setCompanyViewed] = useState(null)
   const [jobViewed, setJobViewed] = useState(null)
   const [openViewCompany, setOpenViewCompany] = useState(false)
@@ -33,8 +25,11 @@ function JobBoard() {
   }
   const [openViewJob, setOpenViewJob] = useState(false)
   const handleOpenViewJob = e => {
-    console.log(e.target.parentElement.value)
-    setJobViewed(e.target.parentElement.value)
+    if (e.target.childElementCount !== 0) {
+      setCompanyViewed(e.target.value)
+    } else {
+      setJobViewed(e.target.parentElement.value)
+    }
     setOpenViewJob(true)
   }
   const handleCloseViewJob = () => setOpenViewJob(false)
@@ -64,9 +59,6 @@ function JobBoard() {
           viewApply={viewApply}
         />
       ) : null}
-      {/* {openViewCompany ? (
-        <ViewCompanyModal viewCompany={viewCompany} viewJob={viewJob} viewApply={viewApply} />
-      ) : null} */}
       {openViewJob ? <ViewJobModal jobViewed={jobViewed} viewJob={viewJob} /> : null}
       {openViewApply ? <ApplyModal viewApply={viewApply} /> : null}
     </div>
