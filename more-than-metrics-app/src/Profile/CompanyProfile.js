@@ -238,6 +238,11 @@ function CompanyProfile() {
               min={0}
               max={5}
               disabled={disabled}
+              style={
+                disabled
+                  ? { color: "#FFBF50", opacity: "70%" }
+                  : { color: "#FFBF50" }
+              }
             />
           </Box>
         </div>

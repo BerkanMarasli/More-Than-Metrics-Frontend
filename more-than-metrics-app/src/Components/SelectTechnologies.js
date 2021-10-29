@@ -1,3 +1,15 @@
+import { useState, useEffect } from "react";
+import {
+  Box,
+  OutlinedInput,
+  FormControl,
+  Select,
+  MenuItem,
+  Chip,
+} from "@mui/material/";
+import { useTheme } from "@mui/material/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import { createStyles, withStyles } from "@material-ui/styles";
 import React, { useState, useEffect } from "react";
 // Material UI
 import { useTheme } from "@material-ui/styles";
@@ -24,14 +36,39 @@ const MenuProps = {
   },
 };
 
-function getStyles(name, personName, theme) {
+function getStyles(tech, techName, theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      techName.indexOf(tech) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
 }
+
+const CustomMenuItem = withStyles((theme) =>
+  createStyles({
+    root: {
+      "&$selected": {
+        backgroundColor: "red",
+        "&:hover": {
+          backgroundColor: "green",
+        },
+      },
+      "&:hover": {
+        backgroundColor: "blue",
+      },
+    },
+    selected: { backgroundColor: "green" },
+  })
+)(MenuItem);
+
+const useStyles = makeStyles((theme) => ({
+  selectRoot: {
+    "&:focus": {
+      backgroundColor: "yellow",
+    },
+  },
+}));
 
 function SelectTechnologies(props) {
   const { handleChange, values, error, helperText } = props;
@@ -43,6 +80,8 @@ function SelectTechnologies(props) {
   const signupSchema = yup.object().shape({
     // technology: yup.string().required("Please select at least one technology"),
   });
+
+  const classes = useStyles();
 
   useEffect(() => {
     const fetchTechnologies = async () => {
@@ -82,7 +121,7 @@ function SelectTechnologies(props) {
                 <Chip
                   key={value}
                   label={value}
-                  style={{ background: "yellow" }}
+                  style={{ background: "#ffeab9" }}
                 />
               ))}
             </Box>
