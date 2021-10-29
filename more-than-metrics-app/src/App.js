@@ -17,6 +17,8 @@ import {
 } from "react-router-dom";
 import ReviewCandidates from "./CompanyArea/MatchCandidates.js";
 
+import JobBoard from "./CandidateArea/JobBoard"
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userType, setUserType] = useState("candidate");
@@ -66,7 +68,7 @@ function App() {
           <ReviewCandidates />
         </Route>
         <Route exact path="/jobs">
-          {/* <JobBoard /> */}
+          <JobBoard />
         </Route>
       </Switch>
     </Router>

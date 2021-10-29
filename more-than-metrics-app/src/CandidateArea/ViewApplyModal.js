@@ -173,7 +173,6 @@ function ViewApplyModal(props) {
     >
       <div className={classes.root}>
         <h1>APPLICATION</h1>
-
         <Box className={classes.box} component="form" noValidate autoComplete="off">
           <div className={classes.row}>
             <Avatar
