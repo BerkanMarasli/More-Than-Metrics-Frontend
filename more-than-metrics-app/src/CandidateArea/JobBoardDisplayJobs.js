@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from "react"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TablePagination,
+  TableRow,
+} from "@mui/material"
 import ViewCompanyBtn from "../Components/ViewCompanyBtn"
 import ViewJobBtn from "../Components/ViewJobBtn"
 import ApplyBtn from "../Components/ApplyBtn"
-import Paper from "@mui/material/Paper"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableCell from "@mui/material/TableCell"
-import TableContainer from "@mui/material/TableContainer"
-import TablePagination from "@mui/material/TablePagination"
-import TableRow from "@mui/material/TableRow"
 
 const columns = [
-  { id: "jobTitle", label: "Title", minWidth: 170 },
+  { id: "jobTitle" },
   {
     id: "viewCompanyBtn",
-    minWidth: 170,
     align: "center",
   },
   {
     id: "viewJobBtn",
-    minWidth: 170,
     align: "center",
   },
   {
     id: "applyBtn",
-    minWidth: 170,
     align: "center",
   },
 ]
@@ -39,13 +37,13 @@ function JobBoardDisplayJobs(props) {
   const { handleOpenViewApply } = props.viewApply
   const [rows, setRows] = useState(null)
   const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(5)
+  const [rowsPerPage, setRowsPerPage] = React.useState(7)
 
   useEffect(() => {
     async function fetchJobs() {
       const jobsResponse = await fetch("http://localhost:8080/jobs/")
       const jobs = await jobsResponse.json()
-      const rows = jobs.map(job => {
+      const rows = jobs.reverse().map(job => {
         return createData(
           job.job_title,
           <ViewCompanyBtn companyName={job.company_name} handleOpen={handleOpenViewCompany} />,
@@ -67,55 +65,52 @@ function JobBoardDisplayJobs(props) {
     setPage(0)
   }
 
-  return rows ? (
-    <main
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-      }}
-    >
-      <Paper sx={{ width: "90%", overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: 600 }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableBody>
-              {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
-                return (
-                  <TableRow role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map(column => {
-                      const value = row[column.id]
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {value}
-                        </TableCell>
-                      )
-                    })}
-                  </TableRow>
-                )
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-            component="main"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+  return (
+    <main>
+      {rows ? (
+        <div>
+          <TableContainer sx={{ maxHeight: 520 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableBody>
+                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+                  return (
+                    <TableRow role="checkbox" tabIndex={-1} key={row.code}>
+                      {columns.map(column => {
+                        const value = row[column.id]
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {value}
+                          </TableCell>
+                        )
+                      })}
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <TablePagination
+              //[5, 10, 25, { label: "All", value: -1 }]
+              rowsPerPageOptions={[7]}
+              component="main"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </div>
         </div>
-      </Paper>
+      ) : null}
     </main>
-  ) : null
+  )
 }
 
 export default JobBoardDisplayJobs

@@ -4,8 +4,43 @@ import JobBoardDisplayJobs from "./JobBoardDisplayJobs.js"
 import ViewCompanyModal from "./ViewCompanyModal"
 import ViewJobModal from "./ViewJobModal"
 import ApplyModal from "./ApplyModal"
+import { Paper, Box, styled } from "@mui/material"
+import { makeStyles } from "@material-ui/core/styles"
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    fontFamily: "Lato",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  box: {
+    display: "flex",
+    flexDirection: "row",
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+    },
+    marginTop: "6rem",
+  },
+
+  container: {
+    border: "1px solid gray",
+    margin: "1rem",
+    width: "80vw",
+  },
+}))
+
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+  height: "70vh",
+  lineHeight: "60px",
+}))
 
 function JobBoard() {
+  const classes = useStyles()
   const [companyViewed, setCompanyViewed] = useState(null)
   const [jobViewed, setJobViewed] = useState(null)
   const [openViewCompany, setOpenViewCompany] = useState(false)
@@ -50,17 +85,22 @@ function JobBoard() {
   return (
     <div>
       <Navbar userType={"candidate"} />
-      <JobBoardDisplayJobs viewCompany={viewCompany} viewJob={viewJob} viewApply={viewApply} />
-      {openViewCompany ? (
-        <ViewCompanyModal
-          companyViewed={companyViewed}
-          viewCompany={viewCompany}
-          viewJob={viewJob}
-          viewApply={viewApply}
-        />
-      ) : null}
-      {openViewJob ? <ViewJobModal jobViewed={jobViewed} viewJob={viewJob} /> : null}
-      {openViewApply ? <ApplyModal viewApply={viewApply} /> : null}
+      <Box className={classes.box}>
+        <Item className={classes.container}>
+          <h1>JOBS BOARD</h1>
+          <JobBoardDisplayJobs viewCompany={viewCompany} viewJob={viewJob} viewApply={viewApply} />
+          {openViewCompany ? (
+            <ViewCompanyModal
+              companyViewed={companyViewed}
+              viewCompany={viewCompany}
+              viewJob={viewJob}
+              viewApply={viewApply}
+            />
+          ) : null}
+          {openViewJob ? <ViewJobModal jobViewed={jobViewed} viewJob={viewJob} /> : null}
+          {openViewApply ? <ApplyModal viewApply={viewApply} /> : null}
+        </Item>
+      </Box>
     </div>
   )
 }
