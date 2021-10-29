@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from "react"
-import Box from "@mui/material/Box"
-import Typography from "@mui/material/Typography"
-import Modal from "@mui/material/Modal"
-import Avatar from "@mui/material/Avatar"
+import { Box, Typography, Modal, Avatar, Chip } from "@mui/material"
 import LocationOnIcon from "@mui/icons-material/LocationOn"
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet"
-import List from "@mui/material/List"
-import ListItem from "@mui/material/ListItem"
-import ListItemIcon from "@mui/material/ListItemIcon"
-import ListItemText from "@mui/material/ListItemText"
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd"
-import SettingsIcon from "@mui/icons-material/Settings"
-import Paper from "@mui/material/Paper"
 import ApplyBtn from "../Components/ApplyBtn"
 
 const style = {
@@ -130,6 +120,7 @@ export default function ViewJobModal(props) {
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "space-evenly",
+                  alignItems: "center",
                 }}
               >
                 <div
@@ -140,33 +131,23 @@ export default function ViewJobModal(props) {
                     marginBottom: 8,
                   }}
                 >
-                  <Typography style={{ width: 180, fontSize: 16 }} variant="h6" component="div">
+                  <Typography
+                    style={{ width: 180, fontSize: 16, textAlign: "center", paddingTop: 10 }}
+                    variant="h6"
+                    component="div"
+                  >
                     Responsibilities:
                   </Typography>
                 </div>
-                <Paper style={{ width: 200, maxHeight: 80, overflow: "auto" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-evenly",
-                      marginBottom: 8,
-                    }}
-                  >
-                    <List dense={true}>
-                      {jobData.responsibilities.map(responsibility => {
-                        return (
-                          <ListItem>
-                            <ListItemIcon>
-                              <AssignmentIndIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={responsibility} />
-                          </ListItem>
-                        )
-                      })}
-                    </List>
-                  </div>
-                </Paper>
+                {jobData.responsibilities.map(responsibility => {
+                  return (
+                    <Chip
+                      key={responsibility}
+                      label={responsibility}
+                      style={{ background: "#FFBF50" }}
+                    />
+                  )
+                })}
               </div>
               {/*  */}
               <hr />
@@ -177,6 +158,7 @@ export default function ViewJobModal(props) {
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "space-evenly",
+                  alignItems: "center",
                 }}
               >
                 <div
@@ -187,33 +169,19 @@ export default function ViewJobModal(props) {
                     marginBottom: 8,
                   }}
                 >
-                  <Typography style={{ width: 180, fontSize: 16 }} variant="h6" component="div">
+                  <Typography
+                    style={{ width: 180, fontSize: 16, textAlign: "center", paddingTop: 10 }}
+                    variant="h6"
+                    component="div"
+                  >
                     Technologies:
                   </Typography>
                 </div>
-                <Paper style={{ width: 200, maxHeight: 80, overflow: "auto" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-evenly",
-                      marginBottom: 8,
-                    }}
-                  >
-                    <List dense={true}>
-                      {jobData.technologies.map(technology => {
-                        return (
-                          <ListItem>
-                            <ListItemIcon>
-                              <SettingsIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={technology} />
-                          </ListItem>
-                        )
-                      })}
-                    </List>
-                  </div>
-                </Paper>
+                {jobData.technologies.map(technology => {
+                  return (
+                    <Chip key={technology} label={technology} style={{ background: "#FFBF50" }} />
+                  )
+                })}
               </div>
               {/*  */}
               {/*  */}
@@ -223,8 +191,8 @@ export default function ViewJobModal(props) {
               {/*  */}
               {/*  */}
               <Avatar
-                alt="Instagram Logo"
-                src="https://cdn-icons-png.flaticon.com/512/5968/5968982.png" // Needs changing to be company specific
+                alt={`${jobData.company_name} Logo`}
+                src={jobData.image_url}
                 sx={{ width: 56, height: 56, mb: 1 }}
               />
               <Typography
