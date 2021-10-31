@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { useState } from "react"
+import { makeStyles } from "@material-ui/core/styles"
 import {
   Box,
   TextField,
@@ -9,12 +9,12 @@ import {
   Slider,
   FormControl,
   IconButton,
-} from "@mui/material/";
-import { Button } from "@material-ui/core";
-import SelectTechnologies from "../Components/SelectTechnologies";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
+} from "@mui/material/"
+import { Button } from "@material-ui/core"
+import SelectTechnologies from "../Components/SelectTechnologies"
+import { Visibility, VisibilityOff } from "@material-ui/icons"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: "grid",
     justifyItems: "center",
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     width: "20rem",
     margin: "0.5rem",
   },
-}));
+}))
 
 const marks = [
   {
@@ -62,46 +62,41 @@ const marks = [
     value: 5,
     label: "5+",
   },
-];
+]
 
 function CandidateProfile() {
-  const [disabled, setDisabled] = useState(true);
-  const [firstName, setFirstName] = useState("Kasia");
-  const [lastName, setLastName] = useState("Dutch");
-  const [years, setYears] = useState(null);
-  const [technologies, setTechnologies] = useState([]);
-  const [number, setNumber] = useState("0121 do one");
-  const [email, setEmail] = useState("google@google.com");
-  const [password, setPassword] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
+  const [disabled, setDisabled] = useState(true)
+  const [firstName, setFirstName] = useState("Kasia")
+  const [lastName, setLastName] = useState("Dutch")
+  const [years, setYears] = useState(null)
+  const [technologies, setTechnologies] = useState([])
+  const [number, setNumber] = useState("0121 do one")
+  const [email, setEmail] = useState("google@google.com")
+  const [password, setPassword] = useState(null)
+  const [showPassword, setShowPassword] = useState(false)
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   function valueLabelFormat(value) {
-    return marks.map((mark) => {
+    return marks.map(mark => {
       if (mark.value === value) {
-        return mark.label;
+        return mark.label
       }
-    });
+    })
   }
 
   const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+    setShowPassword(!showPassword)
+  }
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  const handleMouseDownPassword = event => {
+    event.preventDefault()
+  }
 
   return (
     <div className={classes.root}>
       <h1>YOUR PROFILE</h1>
-      <Box
-        className={classes.box}
-        component="form"
-        noValidate
-        autoComplete="off"
-      >
+      <Box className={classes.box} component="form" noValidate autoComplete="off">
         <div className={classes.row}>
           <InputLabel htmlFor="outlined-name">Name</InputLabel>
           {disabled ? (
@@ -174,18 +169,12 @@ function CandidateProfile() {
               valueLabelDisplay="on"
               min={0}
               max={5}
-              style={
-                disabled
-                  ? { color: "#FFBF50", opacity: "70%" }
-                  : { color: "#FFBF50" }
-              }
+              style={disabled ? { color: "#FFBF50", opacity: "70%" } : { color: "#FFBF50" }}
             />
           </Box>
         </div>
         <div className={classes.row}>
-          <InputLabel htmlFor="select-technologies">
-            Key technologies
-          </InputLabel>
+          <InputLabel htmlFor="select-technologies">Key technologies</InputLabel>
           <SelectTechnologies className={classes.input} disabled={disabled} />
         </div>
         <div className={classes.row}>
@@ -248,7 +237,7 @@ function CandidateProfile() {
         <Button onClick={() => setDisabled(true)}>Save</Button>
       )}
     </div>
-  );
+  )
 }
 
-export default CandidateProfile;
+export default CandidateProfile
