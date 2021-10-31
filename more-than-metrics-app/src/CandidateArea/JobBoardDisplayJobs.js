@@ -37,7 +37,7 @@ function JobBoardDisplayJobs(props) {
   const { handleOpenViewApply } = props.handleViewApply
   const [jobs, setJobs] = useState(null)
   const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(7)
+  const [rowsPerPage, setRowsPerPage] = React.useState(6)
 
   useEffect(() => {
     async function fetchJobs() {
@@ -102,7 +102,7 @@ function JobBoardDisplayJobs(props) {
           >
             <TablePagination
               //[5, 10, 25, { label: "All", value: -1 }]
-              rowsPerPageOptions={[7]}
+              rowsPerPageOptions={[6]}
               component="main"
               count={jobs.length}
               rowsPerPage={rowsPerPage}
