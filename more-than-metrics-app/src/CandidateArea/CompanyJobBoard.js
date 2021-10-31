@@ -29,7 +29,7 @@ function CompanyJobBoard(props) {
     const { handleOpenViewApply } = props.handleViewApply
     const [jobs, setJobs] = useState(null)
     const [page, setPage] = React.useState(0)
-    const [rowsPerPage, setRowsPerPage] = React.useState(7)
+    const [rowsPerPage, setRowsPerPage] = React.useState(4)
 
     useEffect(() => {
         async function fetchJobs() {
@@ -86,7 +86,7 @@ function CompanyJobBoard(props) {
                     justifyContent: "center",
                 }}>
                 <TablePagination
-                    rowsPerPageOptions={[7]}
+                    rowsPerPageOptions={[4]}
                     component="main"
                     count={jobs.length}
                     rowsPerPage={rowsPerPage}
