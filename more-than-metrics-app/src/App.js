@@ -14,8 +14,6 @@ import CandidateProfileForm from "./Profile/CandidateProfileForm"
 import { Route, Switch, BrowserRouter as Router, Redirect } from "react-router-dom"
 import ReviewCandidates from "./CompanyArea/MatchCandidates.js"
 import CandidateProfile from "./Profile/CandidateProfile"
-import { Route, Switch, BrowserRouter as Router, Redirect } from "react-router-dom"
-import ReviewCandidates from "./CompanyArea/MatchCandidates.js"
 import { getAccountType, getUserID } from "./handleCookie.js"
 
 function App() {
