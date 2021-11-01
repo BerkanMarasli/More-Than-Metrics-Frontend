@@ -8,7 +8,7 @@ import Companies from "./Menu/Companies.js"
 import Candidates from "./Menu/Candidates.js"
 import Dashboard from "./CompanyArea/Dashboard.js"
 import Profile from "./Profile/Profile.js"
-
+import JobBoard from "./CandidateArea/JobBoard.js"
 import { Route, Switch, BrowserRouter as Router, Redirect } from "react-router-dom"
 import ReviewCandidates from "./CompanyArea/MatchCandidates.js"
 
