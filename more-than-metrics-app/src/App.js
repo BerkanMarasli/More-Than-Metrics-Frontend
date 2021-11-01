@@ -47,7 +47,7 @@ function App() {
                 <Route exact path="/">
                     {redirectHome()}
                 </Route>
-                <Route exact path="/about-us">
+                <Route exact path="/about">
                     <About />
                 </Route>
                 <Route exact path="/companies">

@@ -6,8 +6,6 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle"
 import { IconButton } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { Zoom, Slide } from "@mui/material"
-import ApplicationStatus from "../Components/ApplicationStatus.js"
-import JobBoardDisplayJobs from "../CandidateArea/JobBoardDisplayJobs.js"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,50 +43,58 @@ const useStyles = makeStyles((theme) => ({
 
     card: {
         width: "5rem",
+        // position: "relative",
+
+        // position: "absolute",
+    },
+
+    deck: {
+        display: "flex",
+        justifyContent: "center",
     },
 }))
 
 function ReviewCandidates() {
     const classes = useStyles()
     const [enter, setEnter] = useState(false)
-    const [swipeLeft, setSwipeLeft] = useState(false)
-    const [swipeRight, setSwipeRight] = useState(false)
-    const [candidates, setCandidates] = useState([
-        // {
-        //     app_id,
-        //     candidate_id,
-        //     headline,
-        //     technologies,
-        //     prompt1,
-        //     answer1,
-        //     prompt2,
-        //     answer2,
-        //     prompt3,
-        //     answer3,
-        // },
-    ])
-    const [counter, setCounter] = useState(null)
+    const [swipe, setSwipe] = useState()
+    const [candidates, setCandidates] = useState(null)
+    const [counter, setCounter] = useState(0)
+    const [dir, setDir] = useState(null)
 
     const handleEnter = () => {
         setEnter((prev) => !prev)
     }
 
-    const handleSwipeLeft = () => {
-        setSwipeLeft((prev) => !prev)
+    const handleSwipe = (dir) => {
+        setSwipe({ dir: true })
     }
 
     useEffect(() => {
         async function getCandidates(jobID) {
             const response = await fetch(`http://localhost:8080/applications/review/${jobID}`)
             const json = await response.json()
-            setCandidates([...candidates, json])
+            setCandidates(json)
         }
-        getCandidates(2)
-    })
+        getCandidates(4)
+    }, [])
 
     async function sendCandidateStatus(applicationID) {
         const response = await fetch(`http://localhost:8080/applications/review/${applicationID}`)
     }
+
+    // const makeCandidateDeck = () => {
+    //     console.log(candidates)
+    //     return candidates.map((candidate, i) => {
+    //         return (
+    //             <div className={classes.deck}>
+    //                 {/* <Slide direction={swipeLeft ? "left" : swipeRight ? "right" : null} in={swipeLeft || swipeRight} mountOnEnter unmountOnExit>
+    //                 <CandidateCard key={candidate.app_id} className={classes.card} number={i + 1} candidate={candidate} />
+    //                 </Slide> */}
+    //             </div>
+    //         )
+    //     })
+    // }
 
     return (
         <div className={classes.root}>
@@ -101,18 +107,34 @@ function ReviewCandidates() {
                             className={classes.icon}
                             style={{ color: "red" }}
                             onClick={() => {
-                                handleSwipeLeft()
-                                handleEnter()
+                                handleSwipe("left")
+                                // handleEnter()
                             }}
                         />
                     </IconButton>
-                    <Slide direction={swipeLeft ? "left" : swipeRight ? "right" : null} in={swipeLeft || swipeRight} mountOnEnter unmountOnExit>
-                        <Zoom in={enter} style={{ transitionDelay: enter ? "500ms" : "0ms" }}>
-                            <CandidateCard className={classes.card} />
-                        </Zoom>
-                    </Slide>
+                    {/* {candidates ? makeCandidateDeck() : null} */}
+                    {candidates ? (
+                        // <Slide in={true} timeout={1000}>
+                        <Slide direction={dir ? dir : null} in={true} mountOnEnter unmountOnExit>
+                            <CandidateCard
+                                key={candidates[counter].applicant_id}
+                                className={classes.card}
+                                number={counter + 1}
+                                candidate={candidates[counter]}
+                            />
+                        </Slide>
+                    ) : null}
+
                     <IconButton className={classes.iconStyle}>
-                        <CheckCircleIcon className={classes.icon} style={{ color: "green" }} onClick={handleEnter} />
+                        <CheckCircleIcon
+                            className={classes.icon}
+                            style={{ color: "green" }}
+                            onClick={() => {
+                                setDir("right")
+                                setTimeout(handleSwipe(dir), 2000)
+                                // handleEnter()
+                            }}
+                        />
                     </IconButton>
                 </div>
             </main>
