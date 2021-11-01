@@ -61,6 +61,7 @@ function Navbar(props) {
         try {
             const response = await fetch(url, {
                 method: "POST",
+                credentials: "include",
             })
             const json = await response.json()
 

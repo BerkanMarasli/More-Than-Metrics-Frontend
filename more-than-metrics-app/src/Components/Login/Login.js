@@ -14,32 +14,28 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Login(props) {
-    const { setLoggedIn, setUserType } = props
+    const { setLoggedIn, setUserType, setUserID } = props
     const classes = useStyles()
     return (
         <div className={classes.root}>
             <Dropdown />
-            <LoginForm getUser={getUser} setLoggedIn={setLoggedIn} setUserType={setUserType} />
+            <LoginForm getUser={getUser} setLoggedIn={setLoggedIn} setUserType={setUserType} setUserID={setUserID} />
         </div>
     )
 }
 
-async function getUser(values, setLoggedIn, setUserType) {
-    console.log(`Welcome ${values.email} your password is ${values.password}`)
-
+async function getUser(values, setLoggedIn, setUserType, setUserID) {
     const url = "http://localhost:8080/login"
-
     try {
-        console.log(values)
         const response = await fetch(url, {
             method: "POST",
+            credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(values),
         })
         const json = await response.json()
 
         if (response.status === 200) {
-            setUserType(json.type)
             setLoggedIn(true)
             window.location.href = json.url
         }
