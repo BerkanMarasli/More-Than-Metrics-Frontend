@@ -42,9 +42,6 @@ async function getUser(values, setLoggedIn, setUserType) {
             setUserType(json.type)
             setLoggedIn(true)
             window.location.href = json.url
-        } else {
-            console.log("This is the error from the backend", json.message)
-            return
         }
     } catch (error) {
         console.log({ error })
