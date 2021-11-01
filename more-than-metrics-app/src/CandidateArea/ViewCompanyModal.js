@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react"
-import Box from "@mui/material/Box"
-import Typography from "@mui/material/Typography"
-import Modal from "@mui/material/Modal"
-import Avatar from "@mui/material/Avatar"
+import { Box, Typography, Modal, Avatar } from "@mui/material"
 import PeopleIcon from "@mui/icons-material/People"
 import FemaleIcon from "@mui/icons-material/Female"
 import FavoriteIcon from "@mui/icons-material/Favorite"
@@ -23,11 +20,11 @@ const style = {
 }
 
 export default function ViewCompanyModal(props) {
-  const viewCompany = props.viewCompany
-  const viewJob = props.viewJob
-  const viewApply = props.viewApply
-  const { openViewCompany, handleCloseViewCompany } = props.viewCompany
   const companyViewed = props.companyViewed
+  const handleViewCompany = props.handleViewCompany
+  const handleViewJob = props.handleViewJob
+  const handleViewApply = props.handleViewApply
+  const { openViewCompany, handleCloseViewCompany } = props.handleViewCompany
   const [companyData, setCompanyData] = useState(null)
 
   useEffect(() => {
@@ -129,9 +126,9 @@ export default function ViewCompanyModal(props) {
             </Typography>
             <CompanyJobBoard
               companyViewed={companyViewed}
-              viewCompany={viewCompany}
-              viewJob={viewJob}
-              viewApply={viewApply}
+              handleViewCompany={handleViewCompany}
+              handleViewJob={handleViewJob}
+              handleViewApply={handleViewApply}
             />
           </div>
         </Box>
