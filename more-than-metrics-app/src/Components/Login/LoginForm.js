@@ -43,7 +43,7 @@ const useStyles = makeStyles(() => ({
 
 function LoginForm(props) {
     const classes = useStyles()
-    const { getUser, setLoggedIn, setUserType } = props
+    const { getUser, setLoggedIn, setUserType, setUserID } = props
 
     return (
         <div>
@@ -54,7 +54,7 @@ function LoginForm(props) {
                 }}
                 onSubmit={(values, actions) => {
                     console.log(values)
-                    getUser(values, setLoggedIn, setUserType)
+                    getUser(values, setLoggedIn, setUserType, setUserID)
                 }}>
                 {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => {
                     return (
