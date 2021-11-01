@@ -1,13 +1,24 @@
-import React, { useState, useEffect } from "react"
-import ReactDOM from "react-dom"
-import { useFormik } from "formik"
-import * as yup from "yup"
+import React, { useState, useEffect, Fragment } from "react"
+// Material UI
+import { makeStyles } from "@material-ui/styles"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import Grid from "@material-ui/core/Grid"
+import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
-import { makeStyles } from "@material-ui/core/styles"
-
+import MuiPhoneNumber from "material-ui-phone-number"
+import { MenuItem, Select } from "@material-ui/core"
 import { Box, TextField, InputAdornment, InputLabel, OutlinedInput, Slider, FormControl, IconButton } from "@mui/material/"
-import SelectTechnologies from "../Components/SelectTechnologies"
 import { Visibility, VisibilityOff } from "@material-ui/icons"
+
+import SelectTechnologies from "../Components/SelectTechnologies"
+
+import clsx from "clsx"
+// Formik
+import { Formik, FieldArray, Form } from "formik"
+
+// Yup
+const yup = require("yup")
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,7 +70,7 @@ const marks = [
     },
 ]
 
-function CandidateProfileForm(props) {
+function Experiment(props) {
     const [userDetails, setUserDetails] = useState({
         firstName: "",
         lastName: "",
@@ -75,6 +86,24 @@ function CandidateProfileForm(props) {
     const [showPassword, setShowPassword] = useState(false)
     const { id } = props
     const classes = useStyles()
+
+    const validationSchema = yup.object().shape({
+        firstName: yup.string().required("Enter your first name").min(2, "Must be more then one character"),
+        lastName: yup.string().required("Enter your last name").min(2, "Must be more than 1 characters"),
+        email: yup.string().email("Email must be a valid email").required("Enter your email"),
+        phoneNumber: yup.string().required("Enter your phone number details").min(15, "Please enter a valid phone number"),
+        yearsInIndustry: yup.string().required("Please select years in industry"),
+        technology: yup.array().required("Please select at least one technology"),
+        headline: yup.string().max(100).required("Please enter your headline < 70 characters"),
+        password: yup
+            .string()
+            .required("Enter your password")
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+                "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+            ),
+        passwordConfirmation: yup.string().oneOf([yup.ref("password"), null], "Passwords must match"),
+    })
 
     function valueLabelFormat(value) {
         return marks.map((mark) => {
@@ -93,12 +122,11 @@ function CandidateProfileForm(props) {
 
     useEffect(() => {
         async function getUserDetails(setUserDetails) {
-            const response = await fetch(`http://localhost:8080/candidate/information/${id}`)
+            const response = await fetch(`http://localhost:8080/candidate/information/2`)
             const [json] = await response.json()
             const { candidate_name, headline, candidate_phone_number, candidate_years_in_industry_id, account_email } = json
 
             const nameArr = candidate_name.split(" ")
-            console.log(nameArr)
 
             setUserDetails({
                 firstName: nameArr[0],
@@ -112,201 +140,265 @@ function CandidateProfileForm(props) {
                 passwordConfirmation: "",
             })
         }
+
         getUserDetails(setUserDetails)
     }, [])
 
-    console.log(userDetails)
-    const validationSchema = yup.object({
-        firstName: yup.string().required("Enter your first name").min(2, "Must be more then one character"),
-        lastName: yup.string().required("Enter your last name").min(2, "Must be more than 1 characters"),
-        email: yup.string().email("Email must be a valid email").required("Enter your email"),
-        phoneNumber: yup.string().required("Enter your phone number details").min(15, "Please enter a valid phone number"),
-        yearsInIndustry: yup.string().required("Please select years in industry"),
-        technology: yup.array().required("Please select at least one technology"),
-        headline: yup.string().max(100).required("Please enter your headline < 70 characters"),
-        password: yup
-            .string()
-            .required("Enter your password")
-            .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-                "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-            ),
-        passwordConfirmation: yup.string().oneOf([yup.ref("password"), null], "Passwords must match"),
-    })
-
-    const formik = useFormik({
-        initialValues: userDetails,
-        validationSchema: validationSchema,
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2))
-        },
-    })
-
     return (
-        <div className={classes.root}>
-            <h1>YOUR PROFILE</h1>
-            <Box className={classes.box} component="form" noValidate autoComplete="off">
-                <div className={classes.row}>
-                    <InputLabel htmlFor="outlined-name">Name</InputLabel>
-                    {disabled ? (
-                        <OutlinedInput
-                            disabled={disabled}
-                            id="outlined-name"
-                            className={classes.input}
-                            placeholder="Enter the company name"
-                            value={`${userDetails.firstName} ${userDetails.lastName}`}
-                        />
-                    ) : (
-                        <div>
-                            <FormControl sx={{ m: 1, width: "9.5rem" }} variant="outlined">
-                                <TextField id="outlined-first" value={userDetails.firstName} label="First Name" onChange={formik.handleChange} />
-                            </FormControl>
-                            <FormControl sx={{ m: 1, width: "9.5rem" }} variant="outlined">
-                                <TextField id="outlined-last" value={userDetails.lastName} label="Last Name" onChange={formik.handleChange} />
-                            </FormControl>
-                        </div>
-                    )}
-                </div>
-                <div className={classes.row}>
-                    <InputLabel htmlFor="outlined-description">Headline </InputLabel>
-                    <OutlinedInput
-                        disabled={disabled}
-                        id="outlined-description"
-                        className={classes.input}
-                        placeholder="Describe the function of the role and the type of candidate you're looking for"
-                        multiline
-                        maxRows={4}
-                        value={userDetails.headline}
-                        onChange={formik.handleChange}
-                    />
-                </div>
-                <div className={classes.row}>
-                    <InputLabel htmlFor="slider-years" style={{ paddingRight: "15px" }}>
-                        Years in Industry
-                    </InputLabel>
-                    {console.log(userDetails.yearsInIndustry)}
-                    <Box
-                        sx={{
-                            width: "18rem",
-                            paddingRight: "1.5rem",
-                            paddingLeft: "1rem",
-                            paddingTop: "2.5rem",
-                            paddingBottom: "0.5rem",
-                            display: "flex",
-                            alignContents: "center",
-                            justifyContents: "center",
-                        }}>
-                        <Slider
-                            controlled
-                            disabled={disabled}
-                            id="slider-years"
-                            size="medium"
-                            valueLabelFormat={valueLabelFormat}
-                            getAriaValueText={valueLabelFormat}
-                            step={1}
-                            value={userDetails.yearsInIndustry}
-                            onChange={formik.handleChange}
-                            marks
-                            valueLabelDisplay="on"
-                            min={0}
-                            max={5}
-                            style={disabled ? { color: "#FFBF50", opacity: "70%" } : { color: "#FFBF50" }}
-                        />
-                    </Box>
-                </div>
-                <div className={classes.row}>
-                    <InputLabel htmlFor="select-technologies">Key technologies</InputLabel>
-                    <SelectTechnologies className={classes.input} disabled={disabled} value={["JavaScript"]} />
-                </div>
-                <div className={classes.row}>
-                    <InputLabel htmlFor="outlined-email">Number</InputLabel>
-                    <OutlinedInput
-                        disabled={disabled}
-                        id="outlined-email"
-                        className={classes.input}
-                        placeholder="Enter a valid email address"
-                        value={userDetails.phoneNumber}
-                        onChange={formik.handleChange}
-                    />
-                </div>
-                <div className={classes.row}>
-                    <InputLabel htmlFor="outlined-email">Email</InputLabel>
-                    <OutlinedInput
-                        disabled={disabled}
-                        id="outlined-email"
-                        className={classes.input}
-                        placeholder="Enter a valid email address"
-                        value={userDetails.email}
-                        onChange={formik.handleChange}
-                    />
-                </div>
-                {!disabled ? (
-                    <div className={classes.row}>
-                        <InputLabel htmlFor="outlined-password">Password </InputLabel>
-                        <FormControl sx={{ m: 1, width: "8.4rem" }} variant="outlined">
-                            <TextField
-                                id="outlined-password"
-                                label="New password"
-                                type={showPassword ? "text" : "password"}
-                                value={userDetails.password}
-                                onChange={formik.handleChange}
-                            />
-                        </FormControl>
-                        <FormControl sx={{ m: 1, width: "8.4rem" }} variant="outlined">
-                            <TextField
-                                id="outlined-password"
-                                label="Confirm"
-                                type={showPassword ? "text" : "password"}
-                                value={userDetails.passwordConfirmation}
-                                onChange={formik.handleChange}
-                            />
-                        </FormControl>
-                        <InputAdornment position="end">
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword}
-                                onMouseDown={handleMouseDownPassword}
-                                edge="end">
-                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                        </InputAdornment>
-                    </div>
-                ) : null}
-            </Box>
+        <div>
+            <Formik
+                initialValues={userDetails}
+                onSubmit={(values, actions) => {
+                    console.log(values)
+                    updateUser(values)
+                }}
+                validationSchema={validationSchema}>
+                {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => {
+                    console.log(touched)
+                    console.log("values: ", values)
+                    return (
+                        <Form onSubmit={handleSubmit}>
+                            <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center">
+                                <div>
+                                    <Grid item>
+                                        <Card
+                                            style={{
+                                                marginBottom: 20,
+                                                maxWidth: 900,
+                                                marginTop: 20,
+                                            }}>
+                                            <CardContent>
+                                                <Typography
+                                                    variant="h3"
+                                                    className={clsx(
+                                                        classes.center,
+
+                                                        classes.mb4
+                                                    )}>
+                                                    Your Profile
+                                                </Typography>
+                                                <Grid container spacing={2}>
+                                                    <div>
+                                                        {disabled ? (
+                                                            <Grid item lg={6} md={6} xs={12}>
+                                                                <TextField
+                                                                    disabled={disabled}
+                                                                    id="outlined-name"
+                                                                    label="Name"
+                                                                    value={userDetails.firstName + " " + userDetails.lastName}
+                                                                />
+                                                            </Grid>
+                                                        ) : (
+                                                            <div>
+                                                                <Grid item lg={6} md={6} xs={12}>
+                                                                    <TextField
+                                                                        fullWidth
+                                                                        label="First Name"
+                                                                        type="text"
+                                                                        variant="outlined"
+                                                                        name="firstName"
+                                                                        value={values.firstName === "" ? userDetails.firstName : values.firstName}
+                                                                        onChange={handleChange("firstName")}
+                                                                        onBlur={handleBlur}
+                                                                        error={Boolean(
+                                                                            touched && touched && touched.firstName && errors && errors.firstName
+                                                                        )}
+                                                                        helperText={
+                                                                            touched && touched.firstName && errors && errors.firstName
+                                                                                ? errors.firstName
+                                                                                : ""
+                                                                        }
+                                                                    />
+                                                                </Grid>
+                                                                <Grid item lg={6} md={6} xs={12}>
+                                                                    <TextField
+                                                                        fullWidth
+                                                                        label="Last Name"
+                                                                        type="text"
+                                                                        variant="outlined"
+                                                                        name="lastName"
+                                                                        value={values.lastName === "" ? userDetails.lastName : values.lastName}
+                                                                        onChange={handleChange("lastName")}
+                                                                        onBlur={handleBlur}
+                                                                        error={Boolean(touched && touched.lastName && errors && errors.lastName)}
+                                                                        helperText={
+                                                                            touched && touched.lastName && errors && errors.lastName
+                                                                                ? errors.lastName
+                                                                                : ""
+                                                                        }
+                                                                    />
+                                                                </Grid>
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    <Grid item lg={12} md={12} xs={12}>
+                                                        <TextField
+                                                            fullWidth
+                                                            disabled={disabled}
+                                                            id="outlined-description"
+                                                            className={classes.input}
+                                                            multiline
+                                                            maxRows={4}
+                                                            label="Candidate headline"
+                                                            type="text"
+                                                            variant="outlined"
+                                                            name="headline"
+                                                            value={values.headline === "" ? userDetails.headline : values.headline}
+                                                            onChange={handleChange("headline")}
+                                                            onBlur={handleBlur}
+                                                            error={Boolean(touched && touched.headline && errors && errors.headline)}
+                                                            helperText={
+                                                                touched && touched.headline && errors && errors.headline ? errors.headline : ""
+                                                            }
+                                                        />
+                                                    </Grid>
+                                                    <Grid item lg={6} md={6} xs={12}>
+                                                        <Slider
+                                                            controlled
+                                                            disabled={disabled}
+                                                            id="slider-years"
+                                                            size="medium"
+                                                            name={"yearsInIndustry"}
+                                                            valueLabelFormat={valueLabelFormat}
+                                                            getAriaValueText={valueLabelFormat}
+                                                            step={1}
+                                                            value={userDetails.yearsInIndustry ? userDetails.yearsInIndustry : values.yearsInIndustry}
+                                                            onChange={handleChange("yearsInIndustry")}
+                                                            marks
+                                                            valueLabelDisplay="on"
+                                                            min={0}
+                                                            max={5}
+                                                            style={disabled ? { color: "#FFBF50", opacity: "70%" } : { color: "#FFBF50" }}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item lg={6} md={6} xs={12}>
+                                                        <SelectTechnologies
+                                                            disabled={disabled}
+                                                            handleChange={handleChange}
+                                                            value={userDetails.technology ? userDetails.technology : ["JavaScript"]}
+                                                            onBlur={handleBlur}
+                                                            error={touched && touched.technology && errors && errors.technology}
+                                                            helperText={
+                                                                touched && touched.technology && errors && errors.technology ? errors.technology : ""
+                                                            }
+                                                        />
+                                                    </Grid>
+                                                    <Grid item lg={6} md={6} xs={12}>
+                                                        <TextField
+                                                            fullWidth
+                                                            disabled={disabled}
+                                                            id="email"
+                                                            name="email"
+                                                            label="Email"
+                                                            type="email"
+                                                            variant="outlined"
+                                                            value={values.email === "" ? userDetails.email : values.email}
+                                                            onChange={handleChange("email")}
+                                                            onBlur={handleBlur}
+                                                            error={Boolean(touched && touched.email && errors && errors.email)}
+                                                            helperText={touched && touched.email && errors && errors.email ? errors.email : ""}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item lg={6} md={6} xs={12}>
+                                                        <MuiPhoneNumber
+                                                            fullWidth
+                                                            disabled={disabled}
+                                                            id="phoneNumber"
+                                                            name="phoneNumber"
+                                                            label="Phone number"
+                                                            data-cy="user-phone"
+                                                            defaultCountry="gb"
+                                                            regions={"europe"}
+                                                            value={values.phoneNumber === "" ? userDetails.phoneNumber : values.phoneNumber}
+                                                            onChange={handleChange("phoneNumber")}
+                                                            variant="outlined"
+                                                            onBlur={handleBlur}
+                                                            error={Boolean(touched && touched.phoneNumber && errors && errors.phoneNumber)}
+                                                            helperText={
+                                                                touched && touched.phoneNumber && errors && errors.phoneNumber
+                                                                    ? errors.phoneNumber
+                                                                    : ""
+                                                            }
+                                                        />
+                                                    </Grid>
+                                                    {!disabled ? (
+                                                        <div className={classes.row}>
+                                                            <Grid item lg={6} md={6} xs={12}>
+                                                                <TextField
+                                                                    fullWidth
+                                                                    label="Password"
+                                                                    type={showPassword ? "text" : "password"}
+                                                                    variant="outlined"
+                                                                    name="password"
+                                                                    value={values.password}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    error={Boolean(touched && touched.password && errors && errors.password)}
+                                                                    helperText={
+                                                                        touched && touched.password && errors && errors.password
+                                                                            ? errors.password
+                                                                            : ""
+                                                                    }
+                                                                />
+                                                            </Grid>
+                                                            <Grid item lg={6} md={6} xs={12}>
+                                                                <TextField
+                                                                    fullWidth
+                                                                    label="Confirm Password"
+                                                                    type={showPassword ? "text" : "password"}
+                                                                    variant="outlined"
+                                                                    name="passwordConfirmation"
+                                                                    value={values.passwordConfirmation}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    error={Boolean(
+                                                                        touched &&
+                                                                            touched.passwordConfirmation &&
+                                                                            errors &&
+                                                                            errors.passwordConfirmation
+                                                                    )}
+                                                                    helperText={
+                                                                        touched &&
+                                                                        touched.passwordConfirmation &&
+                                                                        errors &&
+                                                                        errors.passwordConfirmation
+                                                                            ? errors.passwordConfirmation
+                                                                            : ""
+                                                                    }
+                                                                />
+                                                            </Grid>
+                                                            <InputAdornment position="end">
+                                                                <IconButton
+                                                                    aria-label="toggle password visibility"
+                                                                    onClick={handleClickShowPassword}
+                                                                    onMouseDown={handleMouseDownPassword}
+                                                                    edge="end">
+                                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                                </IconButton>
+                                                            </InputAdornment>
+                                                        </div>
+                                                    ) : null}
+                                                </Grid>
+                                                <Button type="submit" color="primary" variant="contained" className={clsx(classes.mt4, classes.mb3)}>
+                                                    submit
+                                                </Button>
+                                            </CardContent>
+                                        </Card>
+                                    </Grid>
+                                </div>
+                            </Grid>
+                        </Form>
+                    )
+                }}
+            </Formik>
             {disabled ? <Button onClick={() => setDisabled(false)}>Edit</Button> : <Button onClick={() => setDisabled(true)}>Save</Button>}
         </div>
     )
-
-    // return (
-    //     <div>
-    //         <form onSubmit={formik.handleSubmit}>
-    //             <TextField
-    //                 fullWidth
-    //                 id="email"
-    //                 name="email"
-    //                 label="Email"
-    //                 value={formik.values.email}
-    //                 onChange={formik.handleChange}
-    //                 error={formik.touched.email && Boolean(formik.errors.email)}
-    //                 helperText={formik.touched.email && formik.errors.email}
-    //             />
-    //             <TextField
-    //                 fullWidth
-    //                 id="password"
-    //                 name="password"
-    //                 label="Password"
-    //                 type="password"
-    //                 value={formik.values.password}
-    //                 onChange={formik.handleChange}
-    //                 error={formik.touched.password && Boolean(formik.errors.password)}
-    //                 helperText={formik.touched.password && formik.errors.password}
-    //             />
-    //             <Button color="primary" variant="contained" fullWidth type="submit">
-    //                 Submit
-    //             </Button>
-    //         </form>
-    //     </div>
-    // )
 }
 
-export default CandidateProfileForm
+function updateUser() {
+    console.log("hello")
+}
+
+export default Experiment
