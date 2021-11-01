@@ -42,7 +42,7 @@ function App() {
                     <Candidates />
                 </Route>
                 <Route exact path="/login">
-                    <Login />
+                    <Login setLoggedIn={setLoggedIn} setUserType={setUserType} />
                 </Route>
                 <Route exact path="/register">
                     <Register userType={userType} redirectHome={redirectHome} />
