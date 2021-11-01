@@ -30,25 +30,24 @@ async function getUser(values, setLoggedIn, setUserType) {
     const url = "http://localhost:8080/login"
 
     try {
+        console.log(values)
         const response = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(values),
         })
-
         const json = await response.json()
-        console.log(json)
 
         if (response.status === 200) {
-            console.log("Logged in")
             setUserType(json.type)
             setLoggedIn(true)
+            window.location.href = json.url
         } else {
             console.log("This is the error from the backend", json.message)
             return
         }
     } catch (error) {
-        console.log(error)
+        console.log({ error })
     }
 }
 
