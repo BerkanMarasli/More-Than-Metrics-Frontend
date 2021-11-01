@@ -72,8 +72,15 @@ function LoginForm(props) {
                                                 <Typography
                                                     variant="h3"
                                                     className={clsx(classes.center, classes.mb4)}
-                                                    styles={{ fontFamily: "Lato" }}>
-                                                    Login
+                                                    style={{
+                                                        "letter-spacing": "0.01071em",
+                                                        color: "rgba(0, 0, 0, 0.6)",
+                                                        fontWeight: "bold",
+                                                        margin: "4px 0px",
+                                                        textAlign: "center",
+                                                        fontSize: "2em",
+                                                    }}>
+                                                    LOGIN
                                                 </Typography>
                                                 <Grid container spacing={2}>
                                                     <Grid item lg={12} md={12} xs={12}>
@@ -107,9 +114,16 @@ function LoginForm(props) {
                                                         />
                                                     </Grid>
                                                 </Grid>
-                                                <Button type="submit" color="primary" variant="contained" className={clsx(classes.mt4, classes.mb3)}>
-                                                    submit
-                                                </Button>
+                                                <div style={{ display: "flex", justifyContent: "center", margin: "8px 0px" }}>
+                                                    <Button
+                                                        type="submit"
+                                                        color="primary"
+                                                        variant="contained"
+                                                        className={clsx(classes.mt4, classes.mb3)}
+                                                        style={{ backgroundColor: "#FFBF50", color: "black" }}>
+                                                        LOGIN
+                                                    </Button>
+                                                </div>
                                             </CardContent>
                                         </Card>
                                     </Grid>
