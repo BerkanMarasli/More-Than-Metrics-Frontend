@@ -1,7 +1,6 @@
+import { useState, useEffect } from "react"
 import Register from "./Components/Register/Register"
 import Login from "./Components/Login/Login"
-
-import { useState } from "react"
 import Entry from "./Entry/Entry.js"
 import About from "./Menu/About.js"
 import Companies from "./Menu/Companies.js"
@@ -11,16 +10,26 @@ import Profile from "./Profile/Profile.js"
 import JobBoard from "./CandidateArea/JobBoard.js"
 import { Route, Switch, BrowserRouter as Router, Redirect } from "react-router-dom"
 import ReviewCandidates from "./CompanyArea/MatchCandidates.js"
+import { getAccountType, getUserID } from "./handleCookie.js"
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
-    const [userType, setUserType] = useState("candidate")
+    const [userType, setUserType] = useState(null)
+    const [userID, setUserID] = useState(null)
+
+    useEffect(() => {
+        if (document.cookie !== "") {
+            setLoggedIn(true)
+            setUserType(getAccountType(document.cookie))
+            setUserID(getUserID(document.cookie))
+        }
+    }, [])
 
     const redirectHome = () => {
         if (loggedIn && userType === "company") {
-            ;<Redirect from="/" to="/dashboard" />
+            return <Redirect from="/" to="/dashboard" />
         } else if (loggedIn && userType === "candidate") {
-            ;<Redirect from="/" to="/jobs" />
+            return <Redirect from="/" to="/jobs" />
         } else if (!loggedIn) {
             return <Entry userType={userType} setUserType={setUserType} />
         }
@@ -42,20 +51,20 @@ function App() {
                     <Candidates />
                 </Route>
                 <Route exact path="/login">
-                    <Login setLoggedIn={setLoggedIn} setUserType={setUserType} />
+                    <Login setLoggedIn={setLoggedIn} setUserType={setUserType} setUserID={setUserID} />
                 </Route>
                 <Route exact path="/register">
                     <Register userType={userType} redirectHome={redirectHome} />
                 </Route>
                 {/* <Route exact path="/profile">
-          <Profile userType={"userType"} />
-          <Register userType={"userType"} />
-        </Route> */}
+                    <Profile userType={"userType"} />
+                    <Register userType={"userType"} />
+                </Route> */}
                 <Route exact path="/profile">
                     <Profile userType={userType} />
                 </Route>
                 <Route exact path="/dashboard">
-                    <Dashboard />
+                    <Dashboard userType={userType} />
                 </Route>
                 <Route exact path="/match">
                     <ReviewCandidates />
