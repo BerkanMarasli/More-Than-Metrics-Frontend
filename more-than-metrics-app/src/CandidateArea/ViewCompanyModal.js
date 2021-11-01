@@ -16,7 +16,7 @@ const style = {
     border: "4px solid #FFBF50",
     borderRadius: "10px",
     boxShadow: 24,
-    p: 4,
+    p: 5,
 }
 
 export default function ViewCompanyModal(props) {
@@ -51,12 +51,9 @@ export default function ViewCompanyModal(props) {
                             alignItems: "center",
                             justifyContent: "center",
                         }}>
-                        {/* <Avatar alt={`${companyData.company_name} Logo`} src={companyData.image_url} sx={{ width: 56, height: 56, mb: 1 }} /> */}
-                        <Avatar
-                            alt="Instagram Logo"
-                            src="https://cdn-icons-png.flaticon.com/512/5968/5968982.png" // Needs changing to be company specific
-                            sx={{ width: 56, height: 56, mb: 1 }}
-                        />
+                        {companyData ? (
+                            <Avatar alt={`${companyData.company_name} Logo`} src={companyData.image_url} sx={{ width: 56, height: 56, mb: 1 }} />
+                        ) : null}
                         <Typography sx={{ mb: 1, fontSize: 16, fontWeight: "bold" }} id="modal-modal-title" variant="h6" component="h2">
                             {companyData ? companyData.company_name : null}
                         </Typography>
