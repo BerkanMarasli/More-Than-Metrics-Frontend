@@ -54,18 +54,18 @@ function ReviewCandidates() {
     const [swipeLeft, setSwipeLeft] = useState(false)
     const [swipeRight, setSwipeRight] = useState(false)
     const [candidates, setCandidates] = useState([
-        {
-            app_id,
-            candidate_id,
-            headline,
-            technologies,
-            prompt1,
-            answer1,
-            prompt2,
-            answer2,
-            prompt3,
-            answer3,
-        },
+        // {
+        //     app_id,
+        //     candidate_id,
+        //     headline,
+        //     technologies,
+        //     prompt1,
+        //     answer1,
+        //     prompt2,
+        //     answer2,
+        //     prompt3,
+        //     answer3,
+        // },
     ])
     const [counter, setCounter] = useState(null)
 
