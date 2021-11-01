@@ -25,12 +25,8 @@ function Login(props) {
 }
 
 async function getUser(values, setLoggedIn, setUserType, setUserID) {
-    // console.log(`Welcome ${values.email} your password is ${values.password}`)
-
     const url = "http://localhost:8080/login"
-
     try {
-        // console.log(values)
         const response = await fetch(url, {
             method: "POST",
             credentials: "include",
@@ -40,7 +36,6 @@ async function getUser(values, setLoggedIn, setUserType, setUserID) {
         const json = await response.json()
 
         if (response.status === 200) {
-            // setUserType(json.type)
             setLoggedIn(true)
             window.location.href = json.url
         }
