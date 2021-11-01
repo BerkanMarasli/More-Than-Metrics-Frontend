@@ -118,9 +118,11 @@ export default function ViewJobModal(props) {
                                         Responsibilities:
                                     </Typography>
                                 </div>
-                                {jobData.responsibilities.map((responsibility) => {
-                                    return <Chip key={responsibility} label={responsibility} style={{ background: "#FFBF50" }} />
-                                })}
+                                <div style={{ display: "flex", flexDirection: "column" }}>
+                                    {jobData.responsibilities.map((responsibility) => {
+                                        return <Chip key={responsibility} label={responsibility} style={{ background: "#FFBF50", marginBottom: 2 }} />
+                                    })}
+                                </div>
                             </div>
                             {/*  */}
                             <hr />
