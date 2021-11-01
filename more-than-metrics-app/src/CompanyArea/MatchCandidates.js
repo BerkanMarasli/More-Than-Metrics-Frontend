@@ -6,8 +6,6 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle"
 import { IconButton } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { Zoom, Slide } from "@mui/material"
-import ApplicationStatus from "../Components/ApplicationStatus.js"
-import JobBoardDisplayJobs from "../CandidateArea/JobBoardDisplayJobs.js"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,17 +57,17 @@ const useStyles = makeStyles((theme) => ({
 function ReviewCandidates() {
     const classes = useStyles()
     const [enter, setEnter] = useState(false)
-    const [swipeLeft, setSwipeLeft] = useState(false)
-    const [swipeRight, setSwipeRight] = useState(false)
+    const [swipe, setSwipe] = useState()
     const [candidates, setCandidates] = useState(null)
     const [counter, setCounter] = useState(0)
+    const [dir, setDir] = useState(null)
 
     const handleEnter = () => {
         setEnter((prev) => !prev)
     }
 
-    const handleSwipeLeft = () => {
-        setSwipeLeft((prev) => !prev)
+    const handleSwipe = (dir) => {
+        setSwipe({ dir: true })
     }
 
     useEffect(() => {
@@ -109,25 +107,34 @@ function ReviewCandidates() {
                             className={classes.icon}
                             style={{ color: "red" }}
                             onClick={() => {
-                                handleSwipeLeft()
-                                handleEnter()
+                                handleSwipe("left")
+                                // handleEnter()
                             }}
                         />
                     </IconButton>
                     {/* {candidates ? makeCandidateDeck() : null} */}
                     {candidates ? (
-                        // <Zoom in={enter} style={{ transitionDelay: enter ? "2000ms" : "1000ms" }}>
-                        <CandidateCard
-                            key={candidates[counter].applicant_id}
-                            className={classes.card}
-                            number={counter + 1}
-                            candidate={candidates[counter]}
-                        />
-                    ) : // </Zoom>
-                    null}
+                        // <Slide in={true} timeout={1000}>
+                        <Slide direction={dir ? dir : null} in={true} mountOnEnter unmountOnExit>
+                            <CandidateCard
+                                key={candidates[counter].applicant_id}
+                                className={classes.card}
+                                number={counter + 1}
+                                candidate={candidates[counter]}
+                            />
+                        </Slide>
+                    ) : null}
 
                     <IconButton className={classes.iconStyle}>
-                        <CheckCircleIcon className={classes.icon} style={{ color: "green" }} onClick={handleEnter} />
+                        <CheckCircleIcon
+                            className={classes.icon}
+                            style={{ color: "green" }}
+                            onClick={() => {
+                                setDir("right")
+                                setTimeout(handleSwipe(dir), 2000)
+                                // handleEnter()
+                            }}
+                        />
                     </IconButton>
                 </div>
             </main>
