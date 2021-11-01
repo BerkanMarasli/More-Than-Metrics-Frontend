@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function SelectTechnologies(props) {
-    const { handleChange, values, error, helperText } = props
+    const { handleChange, value, error, helperText } = props
     const theme = useTheme()
 
     console.log(error)
@@ -78,10 +78,10 @@ function SelectTechnologies(props) {
         fetchTechnologies()
     }, [])
 
-    console.log("va")
+    console.log("The passed in props: ", value)
 
     return (
-        <div>
+        <div className={props.className}>
             {technologies ? (
                 <Select
                     fullWidth
@@ -89,7 +89,7 @@ function SelectTechnologies(props) {
                     multiple
                     name="technology"
                     label="Technology"
-                    value={values}
+                    value={value}
                     onChange={handleChange}
                     variant="outlined"
                     // onBlur={handleBlur}
@@ -108,7 +108,7 @@ function SelectTechnologies(props) {
                         </Box>
                     )}
                     MenuProps={MenuProps}
-                    error={!values.length}
+                    error={!value.length}
                     //error={!error}
                     helperText={helperText}>
                     <MenuItem value="" disabled>
