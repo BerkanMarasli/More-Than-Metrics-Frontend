@@ -35,11 +35,11 @@ const Item = styled(Paper)(({ theme }) => ({
     lineHeight: "60px",
 }))
 
-function Dashboard() {
+function Dashboard(props) {
     const classes = useStyles()
     return (
         <div className={classes.root}>
-            <Navbar userType={"candidate"} />
+            <Navbar userType={props.userType} />
             <div>
                 <Box className={classes.box}>
                     <Item className={classes.container}>
