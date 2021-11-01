@@ -52,7 +52,7 @@ const style = {
     border: "4px solid #FFBF50",
     borderRadius: "10px",
     boxShadow: 24,
-    p: 4,
+    p: 5,
 }
 
 function ViewApplyModal(props) {
