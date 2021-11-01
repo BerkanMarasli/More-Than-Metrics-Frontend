@@ -1,53 +1,55 @@
-import React from "react";
-import LoginForm from "./LoginForm";
-import Dropdown from "../../Menu/Dropdown";
-import { makeStyles } from "@material-ui/styles";
+import React, { useState } from "react"
+import LoginForm from "./LoginForm"
+import Dropdown from "../../Menu/Dropdown"
+import { makeStyles } from "@material-ui/styles"
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    fontFamily: "Lato",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-  },
-}));
+    root: {
+        fontFamily: "Lato",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+    },
+}))
 
-function Login() {
-  const classes = useStyles();
-  return (
-    <div className={classes.root}>
-      <Dropdown />
-      <LoginForm getUser={getUser} />
-    </div>
-  );
+function Login(props) {
+    const { setLoggedIn, setUserType } = props
+    const classes = useStyles()
+    return (
+        <div className={classes.root}>
+            <Dropdown />
+            <LoginForm getUser={getUser} setLoggedIn={setLoggedIn} setUserType={setUserType} />
+        </div>
+    )
 }
 
-async function getUser(values, setError) {
-  console.log(`Welcome ${values.email} your password is ${values.password}`);
+async function getUser(values, setLoggedIn, setUserType) {
+    console.log(`Welcome ${values.email} your password is ${values.password}`)
 
-  const url = "http://localhost:8080/login";
+    const url = "http://localhost:8080/login"
 
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
+        })
 
-    const json = await response.json();
-    console.log(json);
+        const json = await response.json()
+        console.log(json)
 
-    if (response.status === 200) {
-      console.log("Logged in");
-    } else {
-      console.log("This is the error from the backend", json.message);
-
-      return;
+        if (response.status === 200) {
+            console.log("Logged in")
+            setUserType(json.type)
+            setLoggedIn(true)
+        } else {
+            console.log("This is the error from the backend", json.message)
+            return
+        }
+    } catch (error) {
+        console.log(error)
     }
-  } catch (error) {
-    console.log(error);
-  }
 }
 
-export default Login;
+export default Login
