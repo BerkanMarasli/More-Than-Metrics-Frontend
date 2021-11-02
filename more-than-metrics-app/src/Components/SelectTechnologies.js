@@ -57,10 +57,10 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function SelectTechnologies(props) {
-    const { handleChange, value, error, helperText } = props
+    const { handleChange, value, error, helperText, disabled } = props
     const theme = useTheme()
 
-    console.log(error)
+    // console.log(error)
 
     const [technologies, setTechnologies] = useState(null)
     const signupSchema = yup.object().shape({
@@ -78,12 +78,11 @@ function SelectTechnologies(props) {
         fetchTechnologies()
     }, [])
 
-    console.log("The passed in props: ", value)
-
     return (
         <div className={props.className}>
             {technologies ? (
                 <Select
+                    disabled={disabled !== undefined ? disabled : false}
                     fullWidth
                     id="select-technologies"
                     multiple

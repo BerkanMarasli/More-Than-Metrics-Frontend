@@ -15,6 +15,7 @@ import { Route, Switch, BrowserRouter as Router, Redirect } from "react-router-d
 import ReviewCandidates from "./CompanyArea/MatchCandidates.js"
 import CandidateProfile from "./Profile/CandidateProfile"
 import { getAccountType, getUserID } from "./handleCookie.js"
+import Unauthorised from "./Unauthorised"
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
@@ -37,6 +38,13 @@ function App() {
         } else if (!loggedIn) {
             return <Entry userType={userType} setUserType={setUserType} />
         }
+    }
+
+    const unauthorisedRedirect = (candidateRedirect, companyRedirect) => {
+        if (userType === "company") {
+            return companyRedirect
+        }
+        return candidateRedirect
     }
 
     return (
@@ -63,21 +71,17 @@ function App() {
                 <Route exact path="/register">
                     <Register userType={userType} redirectHome={redirectHome} />
                 </Route>
-                {/* <Route exact path="/profile">
-                    <Profile userType={"userType"} />
-                    <Register userType={"userType"} />
-                </Route> */}
                 <Route exact path="/profile">
                     <Profile userType={userType} />
                 </Route>
                 <Route exact path="/dashboard">
-                    <Dashboard userType={userType} />
+                    {unauthorisedRedirect(<Unauthorised />, <Dashboard userType={userType} />)}
                 </Route>
                 <Route exact path="/match">
                     <ReviewCandidates />
                 </Route>
                 <Route exact path="/jobs">
-                    <JobBoard />
+                    {unauthorisedRedirect(<JobBoard />, <Unauthorised />)}
                 </Route>
             </Switch>
         </Router>
