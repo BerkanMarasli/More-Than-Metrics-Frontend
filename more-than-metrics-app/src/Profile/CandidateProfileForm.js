@@ -16,6 +16,8 @@ import LinearProgress from "@mui/material/LinearProgress"
 
 import SelectTechnologies from "../Components/SelectTechnologies"
 
+import { getUserID } from "../handleCookie.js"
+
 import clsx from "clsx"
 // Formik
 import { Formik, FieldArray, Form } from "formik"
@@ -72,6 +74,8 @@ const marks = [
         label: "5+",
     },
 ]
+const candidateID = getUserID(document.cookie)
+console.log("First log" + candidateID)
 
 function Experiment(props) {
     const [userDetails, setUserDetails] = useState({
@@ -87,7 +91,7 @@ function Experiment(props) {
     })
     const [disabled, setDisabled] = useState(true)
     const [showPassword, setShowPassword] = useState(false)
-    const { id } = props
+
     const classes = useStyles()
 
     const validationSchema = yup.object().shape({
@@ -155,7 +159,8 @@ function Experiment(props) {
                         initialValues={userDetails}
                         onSubmit={(values, actions) => {
                             console.log(values)
-                            updateUser(values)
+
+                            updateUser(values, candidateID)
                         }}
                         validationSchema={validationSchema}>
                         {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => {
@@ -383,9 +388,38 @@ function Experiment(props) {
     return checkDetails()
 }
 
-function updateUser(values) {
-    console.log("Hello")
-    console.log("Inside update user. The values are: ", values)
+async function updateUser(values) {
+    const url = `http://localhost:8080/candidate/update`
+
+    console.log(candidateID)
+
+    const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
+
+    try {
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                candidateID: candidateID,
+                candidateEmail: email,
+                candidatePassword: password,
+                candidateName: `${firstName} ${lastName}`,
+                headline: headline,
+                candidatePhoneNumber: phoneNumber,
+                yearsInIndustryID: yearsInIndustry,
+            }),
+        })
+        const json = await response.json()
+        console.log(json)
+
+        if (!json.msg) {
+            return "That username is taken. Try another."
+        } else {
+            return ""
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export default Experiment

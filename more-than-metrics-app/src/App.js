@@ -22,7 +22,7 @@ function App() {
     const [userID, setUserID] = useState(null)
 
     useEffect(() => {
-        if (!document.cookie) {
+        if (document.cookie !== "") {
             setLoggedIn(true)
             setUserType(getAccountType(document.cookie))
             setUserID(getUserID(document.cookie))
