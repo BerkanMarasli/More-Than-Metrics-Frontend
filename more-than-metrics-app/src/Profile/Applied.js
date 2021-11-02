@@ -7,7 +7,7 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material"
-import ViewApplicationBtn from "../Components/ViewApplicationBtn"
+import ViewApplicationBtn from "../Components/ViewSuccessBtn"
 import ApplicationStatus from "../Components/ApplicationStatus"
 
 const columns = [
