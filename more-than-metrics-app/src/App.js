@@ -76,9 +76,9 @@ function App() {
                 <Route exact path="/match">
                     <ReviewCandidates />
                 </Route>
-                {/* <Route exact path="/jobs">
+                <Route exact path="/jobs">
                     <JobBoard />
-                </Route> */}
+                </Route>
             </Switch>
         </Router>
     )
