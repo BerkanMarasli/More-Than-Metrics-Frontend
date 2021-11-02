@@ -30,10 +30,25 @@ function JobBoardDisplayJobs(props) {
         async function fetchJobs() {
             const applicationsResponse = await fetch(`http://localhost:8080/company/jobs/${companyID}`)
             const applicationsData = await applicationsResponse.json()
-            const applications = applicationsData.reverse().map((job) => {
-                return createJobListing(job.job_title, <ViewApplicantsBtn />)
+            console.log(applicationsData)
+            const jobsStats = applicationsData.map(async (job) => {
+                console.log(job.job_id)
+                const stat = await fetchJobStats(job.job_id)
+                return stat
+            })
+            console.log(jobsStats)
+            // const jobsStats = await fetchJobStats(16)
+            // console.log(jobsStats)
+            const applications = applicationsData.reverse().map((application) => {
+                return createJobListing(application.job_title, <ViewApplicantsBtn />)
             })
             setApplications(applications)
+        }
+        async function fetchJobStats(jobID) {
+            const jobsStatsResponse = await fetch(`http://localhost:8080/job/stats/${jobID}`)
+            const jobStats = await jobsStatsResponse.json()
+            console.log(jobStats)
+            return jobStats
         }
         fetchJobs()
     }, [])
@@ -54,11 +69,11 @@ function JobBoardDisplayJobs(props) {
                     <TableContainer sx={{ maxHeight: 520 }}>
                         <Table stickyHeader aria-label="sticky table">
                             <TableBody>
-                                {applications.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job) => {
+                                {applications.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((application) => {
                                     return (
-                                        <TableRow role="checkbox" tabIndex={-1} key={job.code}>
+                                        <TableRow role="checkbox" tabIndex={-1} key={application.code}>
                                             {columns.map((column) => {
-                                                const value = job[column.id]
+                                                const value = application[column.id]
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
                                                         {value}

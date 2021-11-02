@@ -4,6 +4,8 @@ import DisplayApplications from "./DisplayApplications.js"
 import { Paper, Box, styled } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
 
+import ApplicationBadges from "../Components/ApplicationBadges.js"
+
 const useStyles = makeStyles((theme) => ({
     root: {
         fontFamily: "Lato",
@@ -41,6 +43,7 @@ function Dashboard(props) {
     return (
         <div className={classes.root}>
             <Navbar userType={props.userType} />
+            <ApplicationBadges />
             <div>
                 <Box className={classes.box}>
                     <Item className={classes.container}>
