@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function SelectTechnologies(props) {
-    const { handleChange, value, error, helperText } = props
+    const { handleChange, value, error, helperText, disabled } = props
     const theme = useTheme()
 
     // console.log(error)
@@ -82,6 +82,7 @@ function SelectTechnologies(props) {
         <div className={props.className}>
             {technologies ? (
                 <Select
+                    disabled={disabled !== undefined ? disabled : false}
                     fullWidth
                     id="select-technologies"
                     multiple

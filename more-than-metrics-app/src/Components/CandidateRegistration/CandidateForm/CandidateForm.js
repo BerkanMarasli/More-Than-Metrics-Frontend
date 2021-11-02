@@ -209,7 +209,7 @@ function CandidateForm(props) {
                                                     <Grid item lg={6} md={6} xs={12}>
                                                         <SelectTechnologies
                                                             handleChange={handleChange}
-                                                            values={values.technology}
+                                                            value={values.technology}
                                                             onBlur={handleBlur}
                                                             error={touched && touched.technology && errors && errors.technology}
                                                             helperText={
