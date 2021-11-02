@@ -15,12 +15,20 @@ const useStyles = makeStyles((theme) => ({
     cards: {
         display: "flex",
         flexDirection: "row",
+        border: "solid 2pt #FFBF50",
+        borderRadius: "8pt",
+        padding: "1rem",
     },
 
     card: {
         margin: "0.5rem",
         height: "30rem",
         width: "20rem",
+    },
+
+    actions: {
+        display: "flex",
+        justifyContent: "center",
     },
 }))
 
@@ -30,71 +38,86 @@ function About() {
     return (
         <div className={classes.root}>
             <Dropdown />
-            <h1 style={{ paddingTop: "5rem" }}>About us</h1>
+            <h1 style={{ paddingTop: "5rem", fontFamily: "Lato", color: "gray" }}>ABOUT US</h1>
             <div className={classes.cards}>
                 <Card className={classes.card} sx={{ maxWidth: 345 }}>
                     <CardMedia component="img" alt="" height="60%" image="/assets/MTM/Berkan.jpg" />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Berky boi <Chip label="Chip Filled" style={{ backgroundColor: "#FFBF50" }} />
+                            Berky boi <Chip label="Chip Outlined" variant="outlined" style={{ border: "solid 2pt #FFBF50", borderRadius: "8px" }} />
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except
                             Antarctica
                         </Typography>
                     </CardContent>
-                    <CardActions>
+                    <CardActions className={classes.actions}>
                         <a href="https://www.linkedin.com/in/berkan-m-3777a9ba/" style={{ color: "inherit" }}>
-                            <LinkedIn style={{ color: "#FFBF50" }} />
+                            <LinkedIn style={{ color: "gray", fontSize: "30pt" }} />
                         </a>
-                        <GitHub style={{ color: "#FFBF50" }} />
+                        <a href="https://github.com/BerkanMarasli" style={{ color: "inherit" }}>
+                            <GitHub style={{ color: "gray", fontSize: "24pt" }} />
+                        </a>
                     </CardActions>
                 </Card>
                 <Card className={classes.card} sx={{ maxWidth: 345 }}>
                     <CardMedia component="img" alt="" height="60%" image="/assets/MTM/Kasia.jpg" />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Kasia <Chip label="Chip Outlined" variant="outlined" />
+                            Kasia <Chip label="Chip Outlined" variant="outlined" style={{ border: "solid 2pt #FFBF50", borderRadius: "8px" }} />
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except
                             Antarctica
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <LinkedIn style={{ color: "#FFBF50" }} />
-                        <GitHub style={{ color: "#FFBF50" }} />
+                    <CardActions className={classes.actions}>
+                        <a href="https://www.linkedin.com/in/k-dutch/" style={{ color: "inherit" }}>
+                            <LinkedIn style={{ color: "gray", fontSize: "30pt" }} />
+                        </a>
+                        <a href="https://github.com/kashcoding" style={{ color: "inherit" }}>
+                            <GitHub style={{ color: "gray", fontSize: "24pt" }} />
+                        </a>
                     </CardActions>
                 </Card>
                 <Card className={classes.card} sx={{ maxWidth: 345 }}>
                     <CardMedia component="img" alt="" height="60%" image="/assets/MTM/Kobi.jpg" />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Kobi <Chip label="Chip Filled" style={{ backgroundColor: "#FFBF50" }} />
+                            Kobi <Chip label="Chip Outlined" variant="outlined" style={{ border: "solid 2pt #FFBF50", borderRadius: "8px" }} />
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except
                             Antarctica
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <LinkedIn style={{ color: "#FFBF50" }} />
-                        <GitHub style={{ color: "#FFBF50" }} />
+                    <CardActions className={classes.actions}>
+                        <a href="https://github.com/K-Vasantharajah/" style={{ color: "inherit" }}>
+                            <LinkedIn style={{ color: "gray", fontSize: "30pt" }} />
+                        </a>
+                        <a href="https://github.com/BerkanMarasli" style={{ color: "inherit" }}>
+                            <GitHub style={{ color: "gray", fontSize: "24pt" }} />
+                        </a>
                     </CardActions>
                 </Card>
                 <Card className={classes.card} sx={{ maxWidth: 345 }}>
                     <CardMedia component="img" alt="" height="60%" image="/assets/MTM/Sang.jpg" />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Sang <Chip label="Chip Filled" style={{ backgroundColor: "#FFBF50" }} />
+                            Sang <Chip label="Chip Outlined" variant="outlined" style={{ border: "solid 2pt #FFBF50", borderRadius: "8px" }} />
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except
                             Antarctica
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <GitHub />
+                    <CardActions className={classes.actions}>
+                        <a href="https://www.linkedin.com/in/sang-t-080892172/" style={{ color: "inherit" }}>
+                            <LinkedIn style={{ color: "gray", fontSize: "30pt" }} />
+                        </a>
+                        <a href="https://github.com/gSangsterr" style={{ color: "inherit" }}>
+                            <GitHub style={{ color: "gray", fontSize: "24pt" }} />
+                        </a>
                     </CardActions>
                 </Card>
             </div>
