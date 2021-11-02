@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import Navbar from "../Navbar/Navbar.js"
 import { Paper, Box, styled } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
+import ApplicationsPie from "./ApplicationsPie.js"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,7 +45,7 @@ function Dashboard(props) {
                 <Box className={classes.box}>
                     <Item className={classes.container}>
                         <h1 style={{ margin: "4px 0px" }}>Overview</h1>
-                        {/* <JobBoardDisplayJobs handleViewCompany={handleViewCompany} handleViewJob={handleViewJob} handleViewApply={handleViewApply} /> */}
+                        <ApplicationsPie />
                     </Item>
                 </Box>
                 <Box className={classes.box}>
