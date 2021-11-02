@@ -255,8 +255,8 @@ function Experiment(props) {
                                                     </Grid>
                                                     <Grid item lg={6} md={6} xs={12}>
                                                         <Slider
-                                                            controlled
                                                             disabled={disabled}
+                                                            aria-label="Years"
                                                             id="slider-years"
                                                             size="medium"
                                                             name={"yearsInIndustry"}
@@ -264,7 +264,8 @@ function Experiment(props) {
                                                             getAriaValueText={valueLabelFormat}
                                                             step={1}
                                                             value={userDetails.yearsInIndustry ? userDetails.yearsInIndustry : values.yearsInIndustry}
-                                                            onChange={handleChange("yearsInIndustry")}
+                                                            //onChange={handleChange("yearsInIndustry")}
+                                                            onChange={handleChange}
                                                             marks
                                                             valueLabelDisplay="on"
                                                             min={0}
