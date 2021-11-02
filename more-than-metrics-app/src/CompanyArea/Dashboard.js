@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import Navbar from "../Navbar/Navbar.js"
+import DisplayApplications from "./DisplayApplications.js"
 import { Paper, Box, styled } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
 
@@ -51,6 +52,7 @@ function Dashboard(props) {
                     <Item className={classes.container}>
                         <h1 style={{ margin: "4px 0px" }}>Applications</h1>
                         {/* <JobBoardDisplayJobs handleViewCompany={handleViewCompany} handleViewJob={handleViewJob} handleViewApply={handleViewApply} /> */}
+                        <DisplayApplications />
                     </Item>
                 </Box>
             </div>
