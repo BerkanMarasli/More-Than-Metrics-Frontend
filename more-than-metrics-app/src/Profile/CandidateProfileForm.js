@@ -149,13 +149,11 @@ function Experiment(props) {
             <Formik
                 initialValues={userDetails}
                 onSubmit={(values, actions) => {
-                    console.log(values)
+                    // console.log(values)
                     updateUser(values)
                 }}
                 validationSchema={validationSchema}>
                 {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => {
-                    console.log(touched)
-                    console.log("values: ", values)
                     return (
                         <Form onSubmit={handleSubmit}>
                             <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center">
@@ -263,10 +261,13 @@ function Experiment(props) {
                                                             valueLabelFormat={valueLabelFormat}
                                                             getAriaValueText={valueLabelFormat}
                                                             step={1}
-                                                            value={userDetails.yearsInIndustry ? userDetails.yearsInIndustry : values.yearsInIndustry}
-                                                            //onChange={handleChange("yearsInIndustry")}
-                                                            onChange={handleChange}
                                                             marks
+                                                            defaultValue={
+                                                                userDetails.yearsInIndustry ? userDetails.yearsInIndustry : values.yearsInIndustry
+                                                            }
+                                                            //value={userDetails.yearsInIndustry ? userDetails.yearsInIndustry : values.yearsInIndustry}
+                                                            onChange={handleChange("yearsInIndustry")}
+                                                            //onChange={handleChange}
                                                             valueLabelDisplay="on"
                                                             min={0}
                                                             max={5}
