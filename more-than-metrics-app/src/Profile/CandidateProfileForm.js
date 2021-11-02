@@ -74,7 +74,8 @@ const marks = [
         label: "5+",
     },
 ]
-const candidateID = getUserID(document.cookie)
+// const candidateID = getUserID(document.cookie)
+const candidateID = 2
 console.log("First log" + candidateID)
 
 function Experiment(props) {

@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableContainer, TablePagination, TableRow 
 import ViewApplicantsBtn from "../Components/ViewApplicantsBtn.js"
 import { getUserID } from "../handleCookie"
 import ApplicationBadges from "../Components/ApplicationBadges"
+import ViewSuccessBtn from "../Components/ViewSuccessBtn"
 
 const columns = [
     { id: "jobTitle" },
@@ -15,10 +16,14 @@ const columns = [
         id: "viewApplicantsBtn",
         align: "center",
     },
+    {
+        id: "viewSuccessBtn",
+        align: "center",
+    },
 ]
 
-function createJobListing(jobTitle, applicationBadges, viewApplicantsBtn) {
-    return { jobTitle, applicationBadges, viewApplicantsBtn }
+function createJobListing(jobTitle, applicationBadges, viewApplicantsBtn, viewSuccessBtn) {
+    return { jobTitle, applicationBadges, viewApplicantsBtn, viewSuccessBtn }
 }
 
 function JobBoardDisplayJobs(props) {
@@ -32,7 +37,12 @@ function JobBoardDisplayJobs(props) {
             const applicationsResponse = await fetch(`http://localhost:8080/company/jobStats/${companyID}`)
             const applicationsData = await applicationsResponse.json()
             const applications = applicationsData.reverse().map((application) => {
-                return createJobListing(application.job_title, <ApplicationBadges jobStats={application.jobStats} />, <ViewApplicantsBtn />) // view successful applicants
+                return createJobListing(
+                    application.job_title,
+                    <ApplicationBadges jobStats={application.jobStats} />,
+                    <ViewApplicantsBtn />,
+                    <ViewSuccessBtn />
+                ) // view successful applicants
             })
             setApplications(applications)
         }
