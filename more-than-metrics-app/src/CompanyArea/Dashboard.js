@@ -1,7 +1,10 @@
 import React, { useState } from "react"
 import Navbar from "../Navbar/Navbar.js"
+import DisplayApplications from "./DisplayApplications.js"
 import { Paper, Box, styled } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
+
+import ApplicationBadges from "../Components/ApplicationBadges.js"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,6 +43,7 @@ function Dashboard(props) {
     return (
         <div className={classes.root}>
             <Navbar userType={props.userType} />
+            <ApplicationBadges />
             <div>
                 <Box className={classes.box}>
                     <Item className={classes.container}>
@@ -51,6 +55,7 @@ function Dashboard(props) {
                     <Item className={classes.container}>
                         <h1 style={{ margin: "4px 0px" }}>Applications</h1>
                         {/* <JobBoardDisplayJobs handleViewCompany={handleViewCompany} handleViewJob={handleViewJob} handleViewApply={handleViewApply} /> */}
+                        <DisplayApplications />
                     </Item>
                 </Box>
             </div>
