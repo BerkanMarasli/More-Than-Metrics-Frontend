@@ -3,6 +3,7 @@ import Navbar from "../Navbar/Navbar.js"
 import DisplayApplications from "./DisplayApplications.js"
 import { Paper, Box, styled } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
+import ApplicationsPie from "./ApplicationsPie.js"
 
 import ApplicationBadges from "../Components/ApplicationBadges.js"
 
@@ -48,7 +49,7 @@ function Dashboard(props) {
                 <Box className={classes.box}>
                     <Item className={classes.container}>
                         <h1 style={{ margin: "4px 0px" }}>Overview</h1>
-                        {/* <JobBoardDisplayJobs handleViewCompany={handleViewCompany} handleViewJob={handleViewJob} handleViewApply={handleViewApply} /> */}
+                        <ApplicationsPie />
                     </Item>
                 </Box>
                 <Box className={classes.box}>
