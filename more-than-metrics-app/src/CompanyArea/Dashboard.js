@@ -44,7 +44,6 @@ function Dashboard(props) {
     return (
         <div className={classes.root}>
             <Navbar userType={props.userType} />
-            <ApplicationBadges />
             <div>
                 <Box className={classes.box}>
                     <Item className={classes.container}>

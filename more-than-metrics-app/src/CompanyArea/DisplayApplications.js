@@ -3,21 +3,22 @@ import { Table, TableBody, TableCell, TableContainer, TablePagination, TableRow 
 // import ViewApplicationBtn from "../Components/ViewApplicationBtn.js"
 import ViewApplicantsBtn from "../Components/ViewApplicantsBtn.js"
 import { getUserID } from "../handleCookie"
+import ApplicationBadges from "../Components/ApplicationBadges"
 
 const columns = [
-    { id: "jobTitle", align: "center" },
-    // {
-    //     id: "editApplicationBtn",
-    //     align: "center",
-    // },
+    { id: "jobTitle" },
+    {
+        id: "applicationBadges",
+        align: "center",
+    },
     {
         id: "viewApplicantsBtn",
         align: "center",
     },
 ]
 
-function createJobListing(jobTitle, viewApplicantsBtn) {
-    return { jobTitle, viewApplicantsBtn }
+function createJobListing(jobTitle, applicationBadges, viewApplicantsBtn) {
+    return { jobTitle, applicationBadges, viewApplicantsBtn }
 }
 
 function JobBoardDisplayJobs(props) {
@@ -28,27 +29,12 @@ function JobBoardDisplayJobs(props) {
 
     useEffect(() => {
         async function fetchJobs() {
-            const applicationsResponse = await fetch(`http://localhost:8080/company/jobs/${companyID}`)
+            const applicationsResponse = await fetch(`http://localhost:8080/company/jobStats/${companyID}`)
             const applicationsData = await applicationsResponse.json()
-            console.log(applicationsData)
-            const jobsStats = applicationsData.map(async (job) => {
-                console.log(job.job_id)
-                const stat = await fetchJobStats(job.job_id)
-                return stat
-            })
-            console.log(jobsStats)
-            // const jobsStats = await fetchJobStats(16)
-            // console.log(jobsStats)
             const applications = applicationsData.reverse().map((application) => {
-                return createJobListing(application.job_title, <ViewApplicantsBtn />)
+                return createJobListing(application.job_title, <ApplicationBadges jobStats={application.jobStats} />, <ViewApplicantsBtn />) // view successful applicants
             })
             setApplications(applications)
-        }
-        async function fetchJobStats(jobID) {
-            const jobsStatsResponse = await fetch(`http://localhost:8080/job/stats/${jobID}`)
-            const jobStats = await jobsStatsResponse.json()
-            console.log(jobStats)
-            return jobStats
         }
         fetchJobs()
     }, [])
