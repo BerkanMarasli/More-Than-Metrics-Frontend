@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react"
 import { PieChart, Pie, Cell, Legend } from "recharts"
 
 const COLORS = ["#FFBB28", "#00C49F", "#DD4444"]
-const CHARTWIDTH = 800
-const CHARTHEIGHT = 150
+const CHARTWIDTH = 400
+const CHARTHEIGHT = 180
 
 function ApplicationsPie(props) {
     const [applications, setApplications] = useState(0)
@@ -31,14 +31,18 @@ function ApplicationsPie(props) {
         { name: "Rejected", value: rejected },
     ]
     return (
-        <div>
-            <span>Total Applications: {applications} </span>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <p style={{ height: "10px", width: "120px" }}>Total Listings</p>
+                <p style={{ fontSize: "32px" }}>{jobs}</p>
+            </div>
             <PieChart width={CHARTWIDTH} height={CHARTHEIGHT}>
                 {console.log(data)}
                 <Pie
                     data={data}
                     cx={CHARTWIDTH / 2.1}
                     cy={CHARTHEIGHT / 1.5}
+                    isAnimationActive={false}
                     startAngle={180}
                     endAngle={0}
                     innerRadius={60}
@@ -51,10 +55,12 @@ function ApplicationsPie(props) {
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                 </Pie>
-
                 <Legend verticalAlign="bottom" height={36} />
             </PieChart>
-            <span>Total Jobs: {jobs} </span>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <p style={{ height: "10px", width: "120px" }}>Total Applications</p>
+                <p style={{ fontSize: "32px" }}>{applications}</p>
+            </div>
         </div>
     )
 }

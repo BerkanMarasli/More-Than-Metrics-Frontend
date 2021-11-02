@@ -8,13 +8,13 @@ export default function ApplicationBadges(props) {
     const { job_pending, job_rejected, job_accepted } = props.jobStats
     return (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Badge badgeContent={job_pending} color="primary">
+            <Badge badgeContent={job_pending} color="primary" max={9}>
                 <PendingIcon sx={{ color: "#FFBF50" }} />
             </Badge>
-            <Badge badgeContent={job_rejected} color="primary">
+            <Badge badgeContent={job_rejected} color="primary" max={9}>
                 <CancelIcon sx={{ color: "red", opacity: "70%" }} />
             </Badge>
-            <Badge badgeContent={job_accepted} color="primary">
+            <Badge badgeContent={job_accepted} color="primary" max={9}>
                 <CheckCircleIcon sx={{ color: "green", opacity: "70%" }} />
             </Badge>
         </div>
