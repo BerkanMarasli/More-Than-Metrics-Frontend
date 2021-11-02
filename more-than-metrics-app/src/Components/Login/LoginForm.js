@@ -79,6 +79,8 @@ function LoginForm(props) {
                                                         margin: "4px 0px",
                                                         textAlign: "center",
                                                         fontSize: "2em",
+                                                        fontFamily: "Lato",
+                                                        marginBottom: "1rem",
                                                     }}>
                                                     LOGIN
                                                 </Typography>
@@ -120,8 +122,14 @@ function LoginForm(props) {
                                                         color="primary"
                                                         variant="contained"
                                                         className={clsx(classes.mt4, classes.mb3)}
-                                                        style={{ backgroundColor: "#FFBF50", color: "black" }}>
-                                                        LOGIN
+                                                        style={{
+                                                            backgroundColor: "#FFBF50",
+                                                            color: "black",
+                                                            fontFamily: "Lato",
+                                                            fontWeight: "bold",
+                                                            marginTop: "1rem",
+                                                        }}>
+                                                        LOG IN
                                                     </Button>
                                                 </div>
                                             </CardContent>

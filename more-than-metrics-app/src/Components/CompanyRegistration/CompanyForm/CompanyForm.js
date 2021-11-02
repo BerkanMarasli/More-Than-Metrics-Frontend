@@ -97,6 +97,8 @@ function CompanyForm(props) {
                                                         margin: "4px 0px",
                                                         textAlign: "center",
                                                         fontSize: "2em",
+                                                        fontFamily: "Lato",
+                                                        marginBottom: "1rem",
                                                     }}>
                                                     REGISTRATION
                                                 </Typography>
@@ -280,7 +282,13 @@ function CompanyForm(props) {
                                                         color="primary"
                                                         variant="contained"
                                                         className={clsx(classes.mt4, classes.mb3)}
-                                                        style={{ backgroundColor: "#FFBF50", color: "black" }}>
+                                                        style={{
+                                                            backgroundColor: "#FFBF50",
+                                                            color: "black",
+                                                            fontFamily: "Lato",
+                                                            fontWeight: "bold",
+                                                            marginTop: "1rem",
+                                                        }}>
                                                         REGISTER
                                                     </Button>
                                                 </div>

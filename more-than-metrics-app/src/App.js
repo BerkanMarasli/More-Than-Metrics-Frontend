@@ -52,7 +52,7 @@ function App() {
                     <Companies />
                 </Route>
                 <Route exact path="/candidates">
-                    <Candidates />
+                    <Candidates setUserType={setUserType} />
                 </Route>
                 <Route exact path="/experiment">
                     <CandidateProfileForm id={2} />

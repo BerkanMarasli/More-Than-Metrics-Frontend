@@ -28,10 +28,14 @@ function Companies() {
     return (
         <div className={classes.root}>
             <Dropdown />
-            <h1 style={{ paddingTop: "5rem" }}>Companies </h1>
+            <h1 style={{ paddingTop: "5rem", fontFamily: "Lato", color: "gray" }}>COMPANIES </h1>
             <div>
                 <Accordion expanded={expanded === "panel1"} onChange={handleChange("panel1")}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                        style={expanded === "panel1" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
                         <Typography>How does More Than Metrics work for companies?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -42,7 +46,11 @@ function Companies() {
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === "panel2"} onChange={handleChange("panel2")}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel2a-content"
+                        id="panel2a-header"
+                        style={expanded === "panel2" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
                         <Typography>How do I register as a company?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -53,7 +61,11 @@ function Companies() {
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === "panel3"} onChange={handleChange("panel3")}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content" id="panel3a-header">
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel3a-content"
+                        id="panel3a-header"
+                        style={expanded === "panel3" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
                         <Typography>How do I post a vacancy?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -64,7 +76,11 @@ function Companies() {
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === "panel4"} onChange={handleChange("panel4")}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4a-content" id="panel4a-header">
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel4a-content"
+                        id="panel4a-header"
+                        style={expanded === "panel4" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
                         <Typography>How do I review applicants?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -75,7 +91,11 @@ function Companies() {
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === "panel5"} onChange={handleChange("panel5")}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5a-content" id="panel5a-header">
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel5a-content"
+                        id="panel5a-header"
+                        style={expanded === "panel5" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
                         <Typography>Accordion 5</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -86,7 +106,11 @@ function Companies() {
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === "panel6"} onChange={handleChange("panel6")}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel6a-content" id="panel6a-header">
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel6a-content"
+                        id="panel6a-header"
+                        style={expanded === "panel6" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
                         <Typography>Got a question that hasn't been answered here?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>

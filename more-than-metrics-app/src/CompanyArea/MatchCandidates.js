@@ -5,7 +5,7 @@ import CancelIcon from "@material-ui/icons/Cancel"
 import CheckCircleIcon from "@material-ui/icons/CheckCircle"
 import { IconButton } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
-import { Zoom, Slide } from "@mui/material"
+import { Zoom, Slide, Fade } from "@mui/material"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,6 +61,7 @@ function ReviewCandidates() {
     const [candidates, setCandidates] = useState(null)
     const [counter, setCounter] = useState(0)
     const [dir, setDir] = useState(null)
+    const [currentCard, setCurrentCard] = useState(null)
 
     const handleEnter = () => {
         setEnter((prev) => !prev)
@@ -76,8 +77,8 @@ function ReviewCandidates() {
             const json = await response.json()
             setCandidates(json)
         }
-        getCandidates(4)
-    }, [])
+        if (candidates === null) getCandidates(4)
+    }, [candidates])
 
     async function sendCandidateStatus(applicationID) {
         const response = await fetch(`http://localhost:8080/applications/review/${applicationID}`)
@@ -113,17 +114,22 @@ function ReviewCandidates() {
                         />
                     </IconButton>
                     {/* {candidates ? makeCandidateDeck() : null} */}
+
                     {candidates ? (
-                        // <Slide in={true} timeout={1000}>
-                        <Slide direction={dir ? dir : null} in={true} mountOnEnter unmountOnExit>
-                            <CandidateCard
-                                key={candidates[counter].applicant_id}
-                                className={classes.card}
-                                number={counter + 1}
-                                candidate={candidates[counter]}
-                            />
-                        </Slide>
-                    ) : null}
+                        // <Slide timeout={10000}>
+                        <div>
+                            <Fade in={true} timeout={10000}>
+                                <CandidateCard
+                                    key={candidates[counter].applicant_id}
+                                    className={classes.card}
+                                    number={counter + 1}
+                                    candidate={candidates[counter]}
+                                />
+                            </Fade>
+                        </div>
+                    ) : (
+                        <h1>hello</h1>
+                    )}
 
                     <IconButton className={classes.iconStyle}>
                         <CheckCircleIcon
