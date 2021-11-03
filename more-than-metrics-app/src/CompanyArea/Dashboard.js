@@ -26,8 +26,9 @@ const useStyles = makeStyles((theme) => ({
 
     container: {
         border: "1px solid gray",
-        margin: "1rem",
+        margin: "0.5rem",
         width: "80vw",
+        padding: "0.5rem",
     },
 }))
 
@@ -67,13 +68,13 @@ function Dashboard(props) {
             <div>
                 <Box className={classes.box}>
                     <Item className={classes.container}>
-                        <h1 style={{ margin: "4px 0px" }}>Overview</h1>
+                        <h1 style={{ margin: "0px" }}>Overview</h1>
                         <ApplicationsPie />
                     </Item>
                 </Box>
                 <Box className={classes.box}>
                     <Item className={classes.container}>
-                        <h1 style={{ margin: "4px 0px" }}>Applications</h1>
+                        <h1 tyle={{ margin: "0px" }}>Applications</h1>
                         <DisplayApplications handleViewSuccessful={handleViewSuccessful} />
                     </Item>
                 </Box>
