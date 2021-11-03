@@ -34,8 +34,30 @@ function App() {
         }
     }
 
+    const redirectRegister = () => {
+        if (!loggedIn) {
+            return <Register userType={userType} redirectHome={redirectHome} />
+        } else if (loggedIn && userType === "company") {
+            return <Dashboard userType={userType} />
+        } else {
+            return <JobBoard />
+        }
+    }
+
+    const redirectLogin = () => {
+        if (!loggedIn) {
+            return <Login setLoggedIn={setLoggedIn} />
+        } else if (loggedIn && userType === "company") {
+            return <Dashboard userType={userType} />
+        } else {
+            return <JobBoard />
+        }
+    }
+
     const unauthorisedRedirect = (candidateRedirect, companyRedirect) => {
-        if (userType === "company") {
+        if (!loggedIn) {
+            return <Unauthorised />
+        } else if (userType === "company") {
             return companyRedirect
         }
         return candidateRedirect
@@ -57,10 +79,10 @@ function App() {
                     <Candidates setUserType={setUserType} />
                 </Route>
                 <Route exact path="/login">
-                    <Login setLoggedIn={setLoggedIn} />
+                    {redirectLogin()}
                 </Route>
                 <Route exact path="/register">
-                    <Register userType={userType} redirectHome={redirectHome} />
+                    {redirectRegister()}
                 </Route>
                 <Route exact path="/profile">
                     <Profile userType={userType} />
@@ -69,7 +91,7 @@ function App() {
                     {unauthorisedRedirect(<Unauthorised />, <Dashboard userType={userType} />)}
                 </Route>
                 <Route exact path="/match">
-                    <ReviewCandidates />
+                    {unauthorisedRedirect(<Unauthorised />, <ReviewCandidates />)}
                 </Route>
                 <Route exact path="/jobs">
                     {unauthorisedRedirect(<JobBoard />, <Unauthorised />)}
