@@ -16,19 +16,27 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "row",
         border: "solid 2pt #FFBF50",
-        borderRadius: "8pt",
+        borderRadius: "8px",
         padding: "1rem",
     },
 
     card: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
         margin: "0.5rem",
         height: "30rem",
         width: "20rem",
+        textAlign: "center",
     },
 
     actions: {
-        display: "flex",
-        justifyContent: "center",
+        border: "solid 2pt #FFBF50",
+        borderRadius: "5px",
+        maxWidth: "fit-content",
+        marginBottom: "2rem",
+        paddingTop: "1rem",
     },
 }))
 
@@ -44,7 +52,7 @@ function About() {
                     <CardMedia component="img" alt="" height="60%" image="/assets/MTM/Berkan.jpg" />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Berky boi <Chip label="Chip Outlined" variant="outlined" style={{ border: "solid 2pt #FFBF50", borderRadius: "8px" }} />
+                            Berkan Marasli
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except
@@ -64,7 +72,7 @@ function About() {
                     <CardMedia component="img" alt="" height="60%" image="/assets/MTM/Kasia.jpg" />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Kasia <Chip label="Chip Outlined" variant="outlined" style={{ border: "solid 2pt #FFBF50", borderRadius: "8px" }} />
+                            Kasia Dutch
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except
@@ -84,7 +92,7 @@ function About() {
                     <CardMedia component="img" alt="" height="60%" image="/assets/MTM/Kobi.jpg" />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Kobi <Chip label="Chip Outlined" variant="outlined" style={{ border: "solid 2pt #FFBF50", borderRadius: "8px" }} />
+                            Kobi Vasantharajah
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except
@@ -104,7 +112,7 @@ function About() {
                     <CardMedia component="img" alt="" height="60%" image="/assets/MTM/Sang.jpg" />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Sang <Chip label="Chip Outlined" variant="outlined" style={{ border: "solid 2pt #FFBF50", borderRadius: "8px" }} />
+                            Sang Ta
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except

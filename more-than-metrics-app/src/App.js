@@ -7,7 +7,7 @@ import About from "./Menu/About.js"
 import Companies from "./Menu/Companies.js"
 import Candidates from "./Menu/Candidates.js"
 import Dashboard from "./CompanyArea/Dashboard.js"
-import ReviewCandidates from "./CompanyArea/MatchCandidates.js"
+import MatchCandidates from "./CompanyArea/MatchCandidates.js"
 import JobBoard from "./CandidateArea/JobBoard.js"
 import Profile from "./Profile/Profile.js"
 import Register from "./Components/Register/Register"
@@ -69,7 +69,7 @@ function App() {
                     {unauthorisedRedirect(<Unauthorised />, <Dashboard userType={userType} />)}
                 </Route>
                 <Route exact path="/match">
-                    <ReviewCandidates />
+                    <MatchCandidates />
                 </Route>
                 <Route exact path="/jobs">
                     {unauthorisedRedirect(<JobBoard />, <Unauthorised />)}

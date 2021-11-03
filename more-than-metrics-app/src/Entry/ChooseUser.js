@@ -20,6 +20,8 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         flexDirection: "column",
         marginTop: "10rem",
+        fontSize: "14pt",
+        color: "gray",
     },
 
     buttons: {
@@ -36,6 +38,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "2rem",
         fontFamily: "Lato",
         fontWeight: "bold",
+        backgroundColor: "#FFBF50",
+        color: "white",
         [theme.breakpoints.down("md")]: {
             fontSize: "1.5rem",
         },

@@ -285,7 +285,7 @@ function CandidateForm(props) {
                                                         style={{
                                                             backgroundColor: "#FFBF50",
                                                             color: "white",
-                                                            fontSize: "16pt",
+                                                            fontSize: "12pt",
                                                             fontFamily: "Lato",
                                                             fontWeight: "bold",
                                                             marginTop: "1rem",

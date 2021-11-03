@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
     icon: {
         color: "gray",
-        fontSize: "2rem",
+        fontSize: "2.5rem",
     },
 
     menu: {
