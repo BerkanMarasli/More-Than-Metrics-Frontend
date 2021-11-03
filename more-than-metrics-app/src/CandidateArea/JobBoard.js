@@ -63,7 +63,7 @@ function JobBoard() {
     // View Job
     const handleOpenViewJob = (e) => {
         if (e.target.childElementCount !== 0) {
-            setCompanyViewed(e.target.value)
+            setJobIDViewed(e.target.value)
         } else {
             setJobIDViewed(e.target.parentElement.value)
         }
