@@ -94,10 +94,10 @@ function Candidates(props) {
                             <Link to="/login" style={{ color: "inherit", textDecoration: "underline #FFBF50 2pt" }}>
                                 logged in
                             </Link>
-                            , click <span className={classes.fakeBtn}>JOBS</span> to see a list of vacancies being advertised on our Jobs Board. For
+                            , click <span className={classes.fakeBtn}>JOBS</span> to see a list of vacancies being advertised on our Job Board. For
                             each listing, you have the option to view the company profile and job post in full detail. Make sure you read the vacancy
                             and company information in full and then, if you think it's the right fit for you, go ahead and click{" "}
-                            <span className={classes.fakeBtn}>APPLY</span>! A form will pop-up where you can pick three prompts that you
+                            <span className={classes.fakeBtn}>APPLY</span> ! A form will pop-up where you can pick three prompts that you
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
