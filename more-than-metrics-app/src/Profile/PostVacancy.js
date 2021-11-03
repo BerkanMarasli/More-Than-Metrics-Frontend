@@ -97,7 +97,7 @@ function PostVacancy() {
                 </div>
                 <div className={classes.row}>
                     <InputLabel htmlFor="select-technologies">Key technologies</InputLabel>
-                    <SelectTechnologies value={[]} className={classes.input} />
+                    <SelectTechnologies value={technologies} className={classes.input} />
                 </div>
             </Box>
             <Button>Submit</Button>

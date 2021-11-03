@@ -1,6 +1,6 @@
 import Navbar from "../Navbar/Navbar.js"
 import Applied from "./Applied.js"
-import CandidateProfile from "./CandidateProfile.js"
+import CandidateProfileForm from "./CandidateProfileForm.js"
 import CompanyProfile from "./CompanyProfile.js"
 import PostVacancy from "./PostVacancy.js"
 import { Paper, Box } from "@mui/material"
@@ -47,7 +47,7 @@ function Profile(props) {
             return (
                 <Box className={classes.box}>
                     <Item className={classes.container}>
-                        <CandidateProfile />
+                        <CandidateProfileForm />
                     </Item>
                     <Item className={classes.container}>
                         <Applied />
