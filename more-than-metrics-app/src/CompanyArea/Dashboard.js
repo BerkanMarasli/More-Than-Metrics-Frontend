@@ -74,7 +74,7 @@ function Dashboard(props) {
                 </Box>
                 <Box className={classes.box}>
                     <Item className={classes.container}>
-                        <h1 tyle={{ margin: "0px" }}>Applications</h1>
+                        <h1 style={{ margin: "0px" }}>Applications</h1>
                         <DisplayApplications handleViewSuccessful={handleViewSuccessful} />
                     </Item>
                 </Box>
