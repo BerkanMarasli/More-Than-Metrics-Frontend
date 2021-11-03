@@ -43,9 +43,13 @@ function Registration() {
 
 async function createUser(values) {
     console.log("Candidate details")
-    const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
 
+    const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
     console.log(technology)
+    const techIDArray = technology.map((tech) => {
+        return tech.technology_id
+    })
+    console.log(techIDArray)
 
     console.log(`User details: `, firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation)
 
@@ -58,10 +62,11 @@ async function createUser(values) {
             body: JSON.stringify({
                 candidateName: `${firstName} ${lastName}`,
                 candidateEmail: email,
-                candidateNumber: phoneNumber,
+                candidatePhoneNumber: parseInt(phoneNumber.replaceAll(" ", "").replaceAll("+", "")),
                 candidatePassword: password,
+                candidatePasswordConfirmation: passwordConfirmation,
                 yearsInIndustryID: yearsInIndustry,
-                technologies: technology,
+                technologies: techIDArray,
                 headline: headline,
             }),
         })

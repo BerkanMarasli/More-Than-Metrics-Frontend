@@ -1,18 +1,7 @@
-import { Box, OutlinedInput, FormControl, Select, MenuItem, Chip } from "@mui/material/"
-import { useTheme } from "@mui/material/styles"
-import { makeStyles } from "@material-ui/core/styles"
-import { createStyles, withStyles } from "@material-ui/styles"
+import { Box, OutlinedInput, Select, MenuItem, Chip } from "@mui/material/"
+
 import React, { useState, useEffect } from "react"
 // Material UI
-import Card from "@material-ui/core/Card"
-import CardContent from "@material-ui/core/CardContent"
-import Grid from "@material-ui/core/Grid"
-import Typography from "@material-ui/core/Typography"
-
-// Formik
-import { Formik, Form } from "formik"
-
-const yup = require("yup")
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -25,49 +14,9 @@ const MenuProps = {
     },
 }
 
-function getStyles(tech, techName, theme) {
-    return {
-        fontWeight: techName.indexOf(tech) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
-    }
-}
-
-const CustomMenuItem = withStyles((theme) =>
-    createStyles({
-        root: {
-            "&$selected": {
-                backgroundColor: "red",
-                "&:hover": {
-                    backgroundColor: "green",
-                },
-            },
-            "&:hover": {
-                backgroundColor: "blue",
-            },
-        },
-        selected: { backgroundColor: "green" },
-    })
-)(MenuItem)
-
-const useStyles = makeStyles((theme) => ({
-    selectRoot: {
-        "&:focus": {
-            backgroundColor: "yellow",
-        },
-    },
-}))
-
 function SelectTechnologies(props) {
-    const { handleChange, value, error, helperText, disabled } = props
-    const theme = useTheme()
-
-    // console.log(error)
-
+    const { handleChange, techArray, error, helperText, disabled } = props
     const [technologies, setTechnologies] = useState(null)
-    const signupSchema = yup.object().shape({
-        // technology: yup.string().required("Please select at least one technology"),
-    })
-
-    const classes = useStyles()
 
     useEffect(() => {
         const fetchTechnologies = async () => {
@@ -80,6 +29,7 @@ function SelectTechnologies(props) {
 
     return (
         <div className={props.className}>
+            {console.log(technologies)}
             {technologies ? (
                 <Select
                     disabled={disabled !== undefined ? disabled : false}
@@ -88,26 +38,36 @@ function SelectTechnologies(props) {
                     multiple
                     name="technology"
                     label="Technology"
-                    value={value}
+                    value={techArray}
                     onChange={handleChange}
                     variant="outlined"
                     // onBlur={handleBlur}
                     displayEmpty
                     input={<OutlinedInput id="select-multiple-chip" />}
                     renderValue={(selected) => (
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexWrap: "wrap",
-                                gap: 0.5,
-                            }}>
-                            {selected.map((value) => (
-                                <Chip key={value} label={value} style={{ background: "#ffeab9" }} />
-                            ))}
-                        </Box>
+                        <div>
+                            {console.log(selected)}
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    gap: 0.5,
+                                }}>
+                                {selected.map((singleTechnology) => (
+                                    <div>
+                                        {console.log(singleTechnology)}
+                                        <Chip
+                                            key={singleTechnology.technology_id}
+                                            label={singleTechnology.technology_name}
+                                            style={{ background: "#ffeab9" }}
+                                        />
+                                    </div>
+                                ))}
+                            </Box>
+                        </div>
                     )}
                     MenuProps={MenuProps}
-                    error={!value.length}
+                    error={!techArray.length}
                     //error={!error}
                     helperText={helperText}>
                     <MenuItem value="" disabled>
@@ -115,7 +75,7 @@ function SelectTechnologies(props) {
                     </MenuItem>
                     {technologies
                         ? technologies.map((tech) => (
-                              <MenuItem key={tech.technology_id} value={tech.technology_name}>
+                              <MenuItem key={tech.technology_id} value={tech} name={tech.technology_name}>
                                   {tech.technology_name}
                               </MenuItem>
                           ))

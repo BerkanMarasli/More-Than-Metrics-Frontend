@@ -65,7 +65,7 @@ function CandidateForm(props) {
                     firstName: "",
                     lastName: "",
                     email: "",
-                    phoneNumber: null,
+                    phoneNumber: "",
                     yearsInIndustry: "",
                     technology: [],
                     headline: "",
@@ -198,12 +198,12 @@ function CandidateForm(props) {
                                                                 Years in industry
                                                             </MenuItem>
                                                             {fetchedYearsCategory !== null
-                                                                ? fetchedYearsCategory.map((category) => {
+                                                                ? fetchedYearsCategory.map((years) => {
                                                                       return (
                                                                           <MenuItem
-                                                                              key={category.years_in_industry_id}
-                                                                              value={category.category.years_in_industry_id}>
-                                                                              {category.category}
+                                                                              key={years.years_in_industry_id}
+                                                                              value={years.years_in_industry_id}>
+                                                                              {years.category}
                                                                           </MenuItem>
                                                                       )
                                                                   })
@@ -213,7 +213,7 @@ function CandidateForm(props) {
                                                     <Grid item lg={6} md={6} xs={12}>
                                                         <SelectTechnologies
                                                             handleChange={handleChange}
-                                                            value={values.technology}
+                                                            techArray={values.technology}
                                                             onBlur={handleBlur}
                                                             error={touched && touched.technology && errors && errors.technology}
                                                             helperText={
