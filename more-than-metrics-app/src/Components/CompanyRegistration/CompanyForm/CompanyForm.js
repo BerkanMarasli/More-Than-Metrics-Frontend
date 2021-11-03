@@ -65,6 +65,7 @@ function CompanyForm(props) {
                     numOfEmployees: "",
                     femalePercentage: "",
                     retentionRate: "",
+                    location: "",
                     email: "",
                     password: "",
                     passwordConfirmation: "",
@@ -113,7 +114,7 @@ function CompanyForm(props) {
                                                             value={values.img_url}
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
-                                                            error={Boolean(touched && touched.img_url && errors && errors.img_url)}
+                                                            error={touched && touched.img_url && errors && errors.img_url}
                                                             helperText={touched && touched.img_url && errors && errors.img_url ? errors.img_url : ""}
                                                         />
                                                     </Grid>
@@ -127,7 +128,7 @@ function CompanyForm(props) {
                                                             value={values.companyName}
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
-                                                            error={Boolean(touched && touched.companyName && errors && errors.companyName)}
+                                                            error={touched && touched.companyName && errors && errors.companyName}
                                                             helperText={
                                                                 touched && touched.companyName && errors && errors.companyName
                                                                     ? errors.companyName
@@ -147,7 +148,7 @@ function CompanyForm(props) {
                                                             value={values.companyBio}
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
-                                                            error={Boolean(touched && touched.companyBio && errors && errors.companyBio)}
+                                                            error={touched && touched.companyBio && errors && errors.companyBio}
                                                             helperText={
                                                                 touched && touched.companyBio && errors && errors.companyBio ? errors.companyBio : ""
                                                             }
@@ -162,8 +163,9 @@ function CompanyForm(props) {
                                                             onChange={handleChange}
                                                             variant="outlined"
                                                             onBlur={handleBlur}
+                                                            style={values.numOfEmployees ? { color: "black" } : { color: "grey" }}
                                                             displayEmpty
-                                                            error={Boolean(touched && touched.numOfEmployees && errors && errors.numOfEmployees)}
+                                                            error={touched && touched.numOfEmployees && errors && errors.numOfEmployees}
                                                             helperText={
                                                                 touched && touched.numOfEmployees && errors && errors.numOfEmployees
                                                                     ? errors.numOfEmployees
@@ -174,8 +176,11 @@ function CompanyForm(props) {
                                                             </MenuItem>
                                                             {fetchedNumOfEmployeesCategory !== null
                                                                 ? fetchedNumOfEmployeesCategory.map((category) => {
+                                                                      console.log(category)
                                                                       return (
-                                                                          <MenuItem key={category.years_in_industry_id} value={category.category}>
+                                                                          <MenuItem
+                                                                              key={category.number_of_employees_id}
+                                                                              value={category.number_of_employees_id}>
                                                                               {category.category}
                                                                           </MenuItem>
                                                                       )
@@ -196,7 +201,7 @@ function CompanyForm(props) {
                                                             }}
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
-                                                            error={Boolean(touched && touched.femalePercentage && errors && errors.femalePercentage)}
+                                                            error={touched && touched.femalePercentage && errors && errors.femalePercentage}
                                                             helperText={
                                                                 touched && touched.femalePercentage && errors && errors.femalePercentage
                                                                     ? errors.femalePercentage
@@ -217,11 +222,27 @@ function CompanyForm(props) {
                                                             }}
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
-                                                            error={Boolean(touched && touched.retentionRate && errors && errors.retentionRate)}
+                                                            error={touched && touched.retentionRate && errors && errors.retentionRate}
                                                             helperText={
                                                                 touched && touched.retentionRate && errors && errors.retentionRate
                                                                     ? errors.retentionRate
                                                                     : ""
+                                                            }
+                                                        />
+                                                    </Grid>
+                                                    <Grid item lg={6} md={6} xs={12}>
+                                                        <TextField
+                                                            fullWidth
+                                                            label="Location"
+                                                            type="text"
+                                                            variant="outlined"
+                                                            name="location"
+                                                            value={values.location}
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
+                                                            error={touched && touched.location && errors && errors.location}
+                                                            helperText={
+                                                                touched && touched.location && errors && errors.location ? errors.location : ""
                                                             }
                                                         />
                                                     </Grid>
@@ -235,7 +256,7 @@ function CompanyForm(props) {
                                                             value={values.email}
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
-                                                            error={Boolean(touched && touched.email && errors && errors.email)}
+                                                            error={touched && touched.email && errors && errors.email}
                                                             helperText={touched && touched.email && errors && errors.email ? errors.email : ""}
                                                         />
                                                     </Grid>
@@ -249,7 +270,7 @@ function CompanyForm(props) {
                                                             value={values.password}
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
-                                                            error={Boolean(touched && touched.password && errors && errors.password)}
+                                                            error={touched && touched.password && errors && errors.password}
                                                             helperText={
                                                                 touched && touched.password && errors && errors.password ? errors.password : ""
                                                             }
@@ -265,9 +286,7 @@ function CompanyForm(props) {
                                                             value={values.passwordConfirmation}
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
-                                                            error={Boolean(
-                                                                touched && touched.passwordConfirmation && errors && errors.passwordConfirmation
-                                                            )}
+                                                            error={touched && touched.passwordConfirmation && errors && errors.passwordConfirmation}
                                                             helperText={
                                                                 touched && touched.passwordConfirmation && errors && errors.passwordConfirmation
                                                                     ? errors.passwordConfirmation
