@@ -86,7 +86,7 @@ function CandidateProfile() {
 
     return (
         <div className={classes.root}>
-            <h1>YOUR PROFILE</h1>
+            <h1 style={{ margin: "0px" }}>YOUR PROFILE</h1>
             <Box className={classes.box} component="form" noValidate autoComplete="off">
                 <div className={classes.row}>
                     <InputLabel htmlFor="outlined-name">Name</InputLabel>
