@@ -1,6 +1,6 @@
 import Dropdown from "./Dropdown"
 import { makeStyles } from "@material-ui/core/styles"
-import { Card, CardContent, Typography, CardActions, CardMedia, Button, Chip } from "@mui/material"
+import { Card, CardContent, Typography, CardActions, CardMedia, Chip } from "@mui/material"
 import { LinkedIn, GitHub } from "@material-ui/icons"
 
 const useStyles = makeStyles((theme) => ({
