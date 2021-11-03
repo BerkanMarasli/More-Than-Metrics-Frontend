@@ -50,7 +50,7 @@ function Navbar(props) {
     const handleRedirect = (e) => {
         const target = e.target.innerText.toLowerCase()
         if (target === "exit") {
-            history.goBack()
+            history.push(`/dashboard`)
         } else {
             history.push(`/${target}`)
         }

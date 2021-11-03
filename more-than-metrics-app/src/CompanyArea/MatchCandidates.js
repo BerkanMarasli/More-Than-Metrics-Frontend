@@ -5,7 +5,7 @@ import CancelIcon from "@material-ui/icons/Cancel"
 import CheckCircleIcon from "@material-ui/icons/CheckCircle"
 import { IconButton } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
-import { Zoom, Slide, Fade } from "@mui/material"
+import { Alert } from "@mui/material"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,9 +45,6 @@ const useStyles = makeStyles((theme) => ({
 
     card: {
         width: "5rem",
-        // position: "relative",
-
-        // position: "absolute",
     },
 
     deck: {
@@ -56,21 +53,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-function ReviewCandidates() {
+function MatchCandidates() {
     const classes = useStyles()
-    const [enter, setEnter] = useState(false)
-    const [swipe, setSwipe] = useState()
     const [candidates, setCandidates] = useState(null)
     const [counter, setCounter] = useState(0)
-    const [dir, setDir] = useState(null)
-    const [currentCard, setCurrentCard] = useState(null)
+    const [msg, setMsg] = useState({
+        error: "",
+        success: "All pending applicants have been reviewed",
+    })
 
-    const handleEnter = () => {
-        setEnter((prev) => !prev)
+    const handleSwipeRight = () => {
+        sendCandidateStatus(candidates[counter].application_id, true)
+        setCounter(counter + 1)
     }
 
-    const handleSwipe = (dir) => {
-        setSwipe({ dir: true })
+    const handleSwipeLeft = () => {
+        sendCandidateStatus(candidates[counter].application_id, false)
+        setCounter(counter + 1)
     }
 
     useEffect(() => {
@@ -78,27 +77,56 @@ function ReviewCandidates() {
             const response = await fetch(`http://localhost:8080/applications/review/${jobID}`)
             const json = await response.json()
             setCandidates(json)
+            console.log(json)
+            if (!response.ok) {
+                setMsg({ error: json.message })
+            }
         }
-        if (candidates === null) getCandidates(4)
+        if (candidates === null) getCandidates(1)
     }, [candidates])
 
-    async function sendCandidateStatus(applicationID) {
-        const response = await fetch(`http://localhost:8080/applications/review/${applicationID}`)
+    async function sendCandidateStatus(id, result) {
+        console.log(id)
+        const response = await fetch(`http://localhost:8080/applications/assess/`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                applicationID: id,
+                accepted: result,
+            }),
+        })
+        const json = await response.json()
+        console.log(json)
     }
 
-    // const makeCandidateDeck = () => {
-    //     console.log(candidates)
-    //     return candidates.map((candidate, i) => {
-    //         return (
-    //             <div className={classes.deck}>
-    //                 {/* <Slide direction={swipeLeft ? "left" : swipeRight ? "right" : null} in={swipeLeft || swipeRight} mountOnEnter unmountOnExit>
-    //                 <CandidateCard key={candidate.app_id} className={classes.card} number={i + 1} candidate={candidate} />
-    //                 </Slide> */}
-    //             </div>
-    //         )
-    //     })
-    // }
-
+    const renderCandidate = () => {
+        if (counter >= candidates.length) {
+            return (
+                <Alert size="large" variant="filled" severity="success">
+                    {msg.success}
+                </Alert>
+            )
+        } else {
+            if (candidates.length >= counter) {
+                return (
+                    <div className={classes.play}>
+                        <IconButton className={classes.iconStyle}>
+                            <CancelIcon className={classes.icon} style={{ color: "red" }} onClick={handleSwipeLeft} />
+                        </IconButton>
+                        <CandidateCard
+                            key={candidates[counter].application_id}
+                            className={classes.card}
+                            number={counter + 1}
+                            candidate={candidates[counter]}
+                        />
+                        <IconButton className={classes.iconStyle}>
+                            <CheckCircleIcon className={classes.icon} style={{ color: "green" }} onClick={handleSwipeRight} />
+                        </IconButton>
+                    </div>
+                )
+            }
+        }
+    }
     return (
         <div className={classes.root}>
             <Navbar match={true} />
@@ -110,54 +138,19 @@ function ReviewCandidates() {
                         borderRadius: "8px",
                         padding: "1rem",
                         position: "absolute",
-                        top: "6%",
+                        top: "8%",
                     }}>
                     Find your company's perfect match 💛
                 </h1>
-                <div className={classes.play}>
-                    <IconButton className={classes.iconStyle}>
-                        <CancelIcon
-                            className={classes.icon}
-                            style={{ color: "red" }}
-                            onClick={() => {
-                                handleSwipe("left")
-                                // handleEnter()
-                            }}
-                        />
-                    </IconButton>
-                    {/* {candidates ? makeCandidateDeck() : null} */}
-
-                    {candidates ? (
-                        // <Slide timeout={10000}>
-                        <div>
-                            <Fade in={false} timeout={10000}>
-                                <CandidateCard
-                                    key={candidates[counter].applicant_id}
-                                    className={classes.card}
-                                    number={counter + 1}
-                                    candidate={candidates[counter]}
-                                />
-                            </Fade>
-                        </div>
-                    ) : (
-                        <h1>hello</h1>
-                    )}
-
-                    <IconButton className={classes.iconStyle}>
-                        <CheckCircleIcon
-                            className={classes.icon}
-                            style={{ color: "green" }}
-                            onClick={() => {
-                                setDir("right")
-                                setTimeout(handleSwipe(dir), 2000)
-                                // handleEnter()
-                            }}
-                        />
-                    </IconButton>
-                </div>
+                {candidates ? renderCandidate() : null}
+                {msg.error ? (
+                    <Alert size="large" variant="filled" severity="error">
+                        {msg.error}
+                    </Alert>
+                ) : null}
             </main>
         </div>
     )
 }
 
-export default ReviewCandidates
+export default MatchCandidates

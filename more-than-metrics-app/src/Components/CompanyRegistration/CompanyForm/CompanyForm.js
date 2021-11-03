@@ -284,7 +284,8 @@ function CompanyForm(props) {
                                                         className={clsx(classes.mt4, classes.mb3)}
                                                         style={{
                                                             backgroundColor: "#FFBF50",
-                                                            color: "black",
+                                                            color: "white",
+                                                            fontSize: "12pt",
                                                             fontFamily: "Lato",
                                                             fontWeight: "bold",
                                                             marginTop: "1rem",

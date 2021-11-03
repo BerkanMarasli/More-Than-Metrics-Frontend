@@ -76,7 +76,7 @@ function Candidates(props) {
                             </Link>
                             . You'll be asked to fill out the usual details, such as your name, number, email address and password. You'll also be
                             asked to write a short, attention-grabbing headline about yourself and specify which technologies you're able to work
-                            with.
+                            with. In less than five minutes, you're ready to browse the jobs board and apply to roles 🙂
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
@@ -148,7 +148,7 @@ function Candidates(props) {
                             </Link>
                             , click <span className={classes.fakeBtn}>PROFILE</span> and on the left side, you'll see your account information. Press
                             the <span className={classes.fakeBtn}>EDIT</span> button underneath to enable editing and make changes to your personal
-                            details, headline or technologies. Hit <span className={classes.fakeBtn}>SAVE</span> and your ready to keep applying for
+                            details, headline or technologies. Hit <span className={classes.fakeBtn}>SAVE</span> and you're ready to keep applying for
                             jobs!
                         </Typography>
                     </AccordionDetails>
