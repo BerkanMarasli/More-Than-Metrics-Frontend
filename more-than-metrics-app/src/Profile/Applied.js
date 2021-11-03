@@ -57,7 +57,7 @@ function Applied() {
         <main>
             {appliedApplications ? (
                 <div>
-                    <h1>APPLIED TO</h1>
+                    <h1 style={{ margin: "0px" }}>APPLIED TO</h1>
                     <TableContainer sx={{ maxHeight: 520 }}>
                         <Table stickyHeader aria-label="sticky table">
                             <TableBody>

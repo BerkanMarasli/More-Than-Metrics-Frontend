@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down("md")]: {
             flexDirection: "column",
         },
-        marginTop: "6rem",
+        marginTop: "3rem",
     },
 
     container: {
@@ -35,7 +35,7 @@ const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
     color: theme.palette.text.secondary,
-    height: "70vh",
+    // height: "70vh",
     lineHeight: "60px",
 }))
 

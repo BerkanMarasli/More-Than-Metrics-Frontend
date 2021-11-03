@@ -39,7 +39,7 @@ function PostVacancy() {
 
     return (
         <div className={classes.root}>
-            <h1>POST VACANCY</h1>
+            <h1 style={{ margin: "0px" }}>POST VACANCY</h1>
             <Box className={classes.box} component="form" noValidate autoComplete="off">
                 <div className={classes.row}>
                     <InputLabel htmlFor="outlined-title">Job Title</InputLabel>
