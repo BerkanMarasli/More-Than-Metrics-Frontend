@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import MuiPhoneNumber from "material-ui-phone-number"
-import { MenuItem, Select } from "@material-ui/core"
+import { InputLabel, MenuItem, Select } from "@material-ui/core"
 
 import SelectTechnologies from "../../SelectTechnologies"
 
@@ -182,18 +182,13 @@ function CandidateForm(props) {
                                                         <Select
                                                             fullWidth
                                                             name="yearsInIndustry"
-                                                            label="Years in industry"
+                                                            labelId="years-in-industry-dropdown-label"
                                                             value={values.yearsInIndustry}
                                                             onChange={handleChange}
                                                             variant="outlined"
                                                             onBlur={handleBlur}
-                                                            displayEmpty
-                                                            error={Boolean(touched && touched.yearsInIndustry && errors && errors.yearsInIndustry)}
-                                                            helperText={
-                                                                touched && touched.yearsInIndustry && errors && errors.yearsInIndustry
-                                                                    ? errors.yearsInIndustry
-                                                                    : ""
-                                                            }>
+                                                            style={values.yearsInIndustry ? { color: "black" } : { color: "grey" }}
+                                                            displayEmpty>
                                                             <MenuItem value="" disabled>
                                                                 Years in industry
                                                             </MenuItem>
@@ -209,17 +204,19 @@ function CandidateForm(props) {
                                                                   })
                                                                 : null}
                                                         </Select>
+                                                        {errors.yearsInIndustry && touched.yearsInIndustry && (
+                                                            <div className="input-feedback" style={{ color: "red" }}>
+                                                                {errors.yearsInIndustry}
+                                                            </div>
+                                                        )}
                                                     </Grid>
                                                     <Grid item lg={6} md={6} xs={12}>
-                                                        <SelectTechnologies
-                                                            handleChange={handleChange}
-                                                            techArray={values.technology}
-                                                            onBlur={handleBlur}
-                                                            error={touched && touched.technology && errors && errors.technology}
-                                                            helperText={
-                                                                touched && touched.technology && errors && errors.technology ? errors.technology : ""
-                                                            }
-                                                        />
+                                                        <SelectTechnologies handleChange={handleChange} techArray={values.technology} />
+                                                        {errors.technology && touched.technology && (
+                                                            <div className="input-feedback" style={{ color: "red" }}>
+                                                                {errors.technology}
+                                                            </div>
+                                                        )}
                                                     </Grid>
                                                     <Grid item lg={12} md={12} xs={12}>
                                                         <TextField

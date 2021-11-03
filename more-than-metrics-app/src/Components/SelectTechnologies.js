@@ -1,3 +1,4 @@
+import { FormControl, InputLabel } from "@material-ui/core"
 import { Box, OutlinedInput, Select, MenuItem, Chip } from "@mui/material/"
 
 import React, { useState, useEffect } from "react"
@@ -38,38 +39,38 @@ function SelectTechnologies(props) {
                     multiple
                     name="technology"
                     label="Technology"
+                    labelId="techLabel"
+                    placeholder="Technology"
                     value={techArray}
                     onChange={handleChange}
                     variant="outlined"
-                    // onBlur={handleBlur}
-                    displayEmpty
                     input={<OutlinedInput id="select-multiple-chip" />}
                     renderValue={(selected) => (
-                        <div>
-                            {console.log(selected)}
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexWrap: "wrap",
-                                    gap: 0.5,
-                                }}>
-                                {selected.map((singleTechnology) => (
-                                    <div>
-                                        {console.log(singleTechnology)}
-                                        <Chip
-                                            key={singleTechnology.technology_id}
-                                            label={singleTechnology.technology_name}
-                                            style={{ background: "#ffeab9" }}
-                                        />
-                                    </div>
-                                ))}
-                            </Box>
-                        </div>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: 0.5,
+                            }}>
+                            {" "}
+                            {selected.length < 1 ? (
+                                <MenuItem value="" disabled>
+                                    Technology
+                                </MenuItem>
+                            ) : null}
+                            {selected.map((singleTechnology) => (
+                                <Chip
+                                    key={singleTechnology.technology_id}
+                                    label={singleTechnology.technology_name}
+                                    style={{ background: "#ffeab9" }}
+                                />
+                            ))}
+                        </Box>
                     )}
                     MenuProps={MenuProps}
-                    error={!techArray.length}
-                    //error={!error}
-                    helperText={helperText}>
+                    // error={!techArray.length}
+                    // helperText={helperText}
+                    displayEmpty>
                     <MenuItem value="" disabled>
                         Technology
                     </MenuItem>
