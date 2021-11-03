@@ -172,70 +172,106 @@ function ViewApplyModal(props) {
                     <h1 style={{ margin: "5px auto" }}>
                         {jobInfo.job_title} - {jobInfo.company_name} - APPLICATION FORM
                     </h1>
-                    <div className={classes.rowTopHalf}>
-                        <Avatar
-                            alt={jobInfo.company_name}
-                            src={jobInfo ? jobInfo.image_url : "/broken-image.jpg"}
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                            <div>
+                                <div className={classes.rowTopHalf}>
+                                    <Avatar
+                                        alt={jobInfo.company_name}
+                                        src={jobInfo ? jobInfo.image_url : "/broken-image.jpg"}
+                                        style={{
+                                            height: "3rem",
+                                            width: "3rem",
+                                            padding: "5px",
+                                            border: "0.1px solid lightgray",
+                                        }}
+                                        className={classes.company}
+                                    />
+                                    <TextField
+                                        id="outlined-read-only-name"
+                                        label="Company name"
+                                        defaultValue={jobInfo.company_name}
+                                        InputProps={{
+                                            readOnly: true,
+                                        }}
+                                        className={classes.company}
+                                    />
+                                </div>
+                                <div className={classes.rowTopHalf}>
+                                    <TextField
+                                        id="outlined-read-only-jt"
+                                        label="Job title"
+                                        defaultValue={jobInfo.job_title}
+                                        InputProps={{
+                                            readOnly: true,
+                                        }}
+                                        className={classes.company}
+                                        style={{ width: "25rem" }}
+                                    />
+                                </div>
+                                <div className={classes.rowTopHalf}>
+                                    <TextField
+                                        id="outlined-read-only-location"
+                                        label="Location"
+                                        defaultValue={jobInfo.location}
+                                        InputProps={{
+                                            readOnly: true,
+                                        }}
+                                        size="small"
+                                        className={classes.company}
+                                    />
+                                    <TextField
+                                        id="outlined-read-only-salary"
+                                        label="Salary"
+                                        defaultValue={jobInfo.salary}
+                                        InputProps={{
+                                            readOnly: true,
+                                        }}
+                                        size="small"
+                                        className={classes.company}
+                                    />
+                                </div>
+                                <div className={classes.rowTopHalf}>
+                                    <TextField
+                                        id="outlined-read-only-jd"
+                                        label="Job description"
+                                        defaultValue={jobInfo.job_description}
+                                        InputProps={{
+                                            readOnly: true,
+                                        }}
+                                        className={classes.company}
+                                        style={{ width: "25rem" }}
+                                        multiline
+                                        maxRows={8}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <Box className={classes.box} component="form" noValidate autoComplete="off">
+                                    {returnAnswersForm(1)}
+                                    {returnAnswersForm(2)}
+                                    {returnAnswersForm(3)}
+                                </Box>
+                            </div>
+                        </div>
+                        <Button
+                            type="submit"
+                            color="primary"
+                            variant="contained"
                             style={{
-                                height: "3rem",
-                                width: "3rem",
-                                padding: "5px",
-                                border: "0.1px solid lightgray",
+                                backgroundColor: "#FFBF50",
+                                color: "black",
+                                fontFamily: "Lato",
+                                fontWeight: "bold",
+                                marginTop: "1rem",
+                                width: "15rem",
                             }}
-                            className={classes.company}
-                        />
-                        <TextField
-                            id="outlined-read-only-name"
-                            label="Company name"
-                            defaultValue={jobInfo.company_name}
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                            className={classes.company}
-                        />
+                            onClick={submitApplication}>
+                            Submit Application
+                        </Button>
+                        {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
+                        {successMsg ? <Alert severity="success">{successMsg}</Alert> : null}
                     </div>
-                    <div className={classes.rowTopHalf}>
-                        <TextField
-                            id="outlined-read-only-location"
-                            label="Location"
-                            defaultValue={jobInfo.location}
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                            size="small"
-                            className={classes.company}
-                        />
-                        <TextField
-                            id="outlined-read-only-salary"
-                            label="Salary"
-                            defaultValue={jobInfo.salary}
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                            size="small"
-                            className={classes.company}
-                        />
-                    </div>
-                    <div className={classes.rowTopHalf}>
-                        <TextField
-                            id="outlined-read-only-jd"
-                            label="Job description"
-                            defaultValue={jobInfo.job_description}
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                            className={classes.company}
-                            style={{ width: "25rem" }}
-                        />
-                    </div>
-                    <Box className={classes.box} component="form" noValidate autoComplete="off">
-                        {returnAnswersForm(1)}
-                        {returnAnswersForm(2)}
-                        {returnAnswersForm(3)}
-                    </Box>
-                    <Button onClick={submitApplication}>Submit</Button>
-                    {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
-                    {successMsg ? <Alert severity="success">{successMsg}</Alert> : null}
                 </Box>
             </div>
         </Modal>
