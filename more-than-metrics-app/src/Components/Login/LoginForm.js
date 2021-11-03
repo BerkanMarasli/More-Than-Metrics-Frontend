@@ -1,17 +1,7 @@
-import React, { useState, useEffect, Fragment } from "react"
-// Material UI
+import React from "react"
 import { makeStyles } from "@material-ui/styles"
-import Card from "@material-ui/core/Card"
-import CardContent from "@material-ui/core/CardContent"
-import Grid from "@material-ui/core/Grid"
-import Typography from "@material-ui/core/Typography"
-import TextField from "@material-ui/core/TextField"
-import Button from "@material-ui/core/Button"
-import { MenuItem, Select, InputAdornment } from "@material-ui/core"
-
+import { Card, CardContent, Grid, Typography, TextField, Button } from "@material-ui/core"
 import clsx from "clsx"
-
-// Formik
 import { Formik, Form } from "formik"
 
 const useStyles = makeStyles(() => ({
@@ -43,7 +33,7 @@ const useStyles = makeStyles(() => ({
 
 function LoginForm(props) {
     const classes = useStyles()
-    const { getUser, setLoggedIn, setUserType, setUserID } = props
+    const { getUser, setLoggedIn } = props
 
     return (
         <div>
@@ -54,7 +44,7 @@ function LoginForm(props) {
                 }}
                 onSubmit={(values, actions) => {
                     console.log(values)
-                    getUser(values, setLoggedIn, setUserType, setUserID)
+                    getUser(values, setLoggedIn)
                 }}>
                 {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => {
                     return (
