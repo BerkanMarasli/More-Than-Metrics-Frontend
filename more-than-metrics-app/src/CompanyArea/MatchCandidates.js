@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: "100vh",
         paddingTop: "2rem",
         backgroundColor: "#fff4dc",
+        overflow: "hidden",
     },
 
     main: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        paddingTop: "5rem",
     },
 
     icon: {
@@ -101,7 +103,17 @@ function ReviewCandidates() {
         <div className={classes.root}>
             <Navbar match={true} />
             <main className={classes.main}>
-                <h1>Find your company's perfect match</h1>
+                <h1
+                    style={{
+                        color: "gray",
+                        border: "solid 3pt #ffdf96",
+                        borderRadius: "8px",
+                        padding: "1rem",
+                        position: "absolute",
+                        top: "6%",
+                    }}>
+                    Find your company's perfect match 💛
+                </h1>
                 <div className={classes.play}>
                     <IconButton className={classes.iconStyle}>
                         <CancelIcon

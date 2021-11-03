@@ -1,23 +1,33 @@
 import { useState } from "react"
 import { styled } from "@mui/material/styles"
-import { Card, CardHeader, CardContent, Stack, CardActions, Collapse, Avatar, IconButton, Typography, Paper, Box } from "@mui/material/"
+import {
+    Card,
+    CardHeader,
+    CardContent,
+    Stack,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Avatar,
+    IconButton,
+    Typography,
+    Paper,
+    Box,
+} from "@mui/material/"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import { makeStyles } from "@material-ui/core/styles"
-import CandidateProfile from "../Profile/CandidateProfile"
-import { CalendarViewDayTwoTone } from "@material-ui/icons"
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
+        justifyContent: "center",
         fontFamily: "Lato",
         width: "30rem",
-        height: "max-content",
-        maxHeight: "50rem",
+        maxHeight: "max-content",
+        // maxHeight: "50rem",
         padding: "1rem",
-        overflow: "hidden",
     },
 
     header: {
@@ -29,7 +39,12 @@ const useStyles = makeStyles((theme) => ({
 
     bio: {
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
+        alignItems: "center",
+        overflow: "scroll",
+        maxHeight: "50%",
+        padding: "0rem",
     },
 
     stack: {
@@ -38,16 +53,25 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center",
     },
 
+    box: {
+        padding: "0rem",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
     container: {
         border: "1px solid gray",
         borderRadius: "5px",
-        width: "80%",
+        width: "95%",
         display: "flex",
         flexDirection: "column",
         flexWrap: "wrap",
         justifyContent: "center",
         alignItems: "center",
         paddingBottom: "1rem",
+        textAlign: "center",
     },
 }))
 
@@ -74,11 +98,11 @@ const ExpandMore = styled((props) => {
 function CandidateCard({ candidate, number }) {
     const [expanded, setExpanded] = useState(false)
 
-    const classes = useStyles()
-
-    const handleExpandClick = () => {
-        setExpanded(!expanded)
+    const handleChange = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false)
     }
+
+    const classes = useStyles()
 
     return (
         <Card className={classes.root}>
@@ -92,7 +116,10 @@ function CandidateCard({ candidate, number }) {
                     </Avatar>
                 }
             />
-            <CardContent style={{ padding: "0rem" }}>
+            <Typography variant="body2" color="text.secondary">
+                {candidate.headline}
+            </Typography>
+            <CardContent className={classes.box}>
                 <Box className={classes.container}>
                     <h4>Years in industry:</h4>
                     <Item className={classes.item} style={{ padding: "0.5rem 1rem" }}>
@@ -109,34 +136,53 @@ function CandidateCard({ candidate, number }) {
                         <Item className={classes.item}>Kubernetes</Item>
                     </Stack>
                 </Box>
-                <Typography variant="body2" color="text.secondary">
-                    {candidate.headline}
-                </Typography>
             </CardContent>
-            <CardActions disableSpacing style={{ padding: "0rem" }}>
-                <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded} aria-label="show-more">
-                    <ExpandMoreIcon />
-                </ExpandMore>
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent className={classes.bio} style={{ height: "max-content", padding: "0rem", overflow: "scroll" }}>
-                    <div>
-                        <Typography paragraph>
-                            <h4>{candidate.prompt1}</h4>
-                        </Typography>
-                        <Typography paragraph></Typography>
-                        <Typography paragraph>{candidate.answer1}</Typography>
-                        <Typography paragraph>
-                            <h4>{candidate.prompt2}</h4>
-                        </Typography>
-                        <Typography paragraph>{candidate.answer2}</Typography>
-                        <Typography paragraph>
-                            <h4>{candidate.prompt3}</h4>
-                        </Typography>
-                        <Typography>{candidate.answer3}</Typography>
-                    </div>
-                </CardContent>
-            </Collapse>
+            <CardContent className={classes.bio}>
+                <div>
+                    <Accordion expanded={expanded === "panel1"} onChange={handleChange("panel1")}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                            style={expanded === "panel1" ? { backgroundColor: "#fff4dc" } : null}>
+                            <Typography style={expanded === "panel1" ? { fontWeight: "bold" } : null}>
+                                <h4>{candidate.prompt1}</h4>
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>{candidate.answer1}</Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === "panel2"} onChange={handleChange("panel2")}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel2a-content"
+                            id="panel2a-header"
+                            style={expanded === "panel2" ? { backgroundColor: "#fff4dc" } : null}>
+                            <Typography style={expanded === "panel2" ? { fontWeight: "bold" } : null}>
+                                <h4>{candidate.prompt2}</h4>
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>{candidate.answer2}</Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === "panel3"} onChange={handleChange("panel3")}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel3a-content"
+                            id="panel3a-header"
+                            style={expanded === "panel3" ? { backgroundColor: "#fff4dc" } : null}>
+                            <Typography style={expanded === "panel3" ? { fontWeight: "bold" } : null}>
+                                <h4>{candidate.prompt3}</h4>
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>{candidate.answer3} </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                </div>
+            </CardContent>
         </Card>
     )
 }
