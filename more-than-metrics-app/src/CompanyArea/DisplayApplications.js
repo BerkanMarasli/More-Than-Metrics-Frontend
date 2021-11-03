@@ -26,8 +26,9 @@ function createJobListing(jobTitle, applicationBadges, viewApplicantsBtn, viewSu
     return { jobTitle, applicationBadges, viewApplicantsBtn, viewSuccessBtn }
 }
 
-function JobBoardDisplayJobs(props) {
+function DisplayApplications(props) {
     const companyID = getUserID(document.cookie)
+    const {handleOpenViewSuccessful} = props.handleViewSuccessful
     const [applications, setApplications] = useState(null)
     const [page, setPage] = React.useState(0)
     const [rowsPerPage, setRowsPerPage] = React.useState(3)
@@ -36,13 +37,14 @@ function JobBoardDisplayJobs(props) {
         async function fetchJobs() {
             const applicationsResponse = await fetch(`http://localhost:8080/company/jobStats/${companyID}`)
             const applicationsData = await applicationsResponse.json()
+            console.log(applicationsData)
             const applications = applicationsData.reverse().map((application) => {
                 return createJobListing(
                     application.job_title,
                     <ApplicationBadges jobStats={application.jobStats} />,
                     <ViewApplicantsBtn />,
-                    <ViewSuccessBtn />
-                ) // view successful applicants
+                    <ViewSuccessBtn jobID={application.job_id} handleOpen={handleOpenViewSuccessful} />
+                )
             })
             setApplications(applications)
         }
@@ -104,4 +106,4 @@ function JobBoardDisplayJobs(props) {
     )
 }
 
-export default JobBoardDisplayJobs
+export default DisplayApplications

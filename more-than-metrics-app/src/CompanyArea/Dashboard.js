@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import ApplicationsPie from "./ApplicationsPie.js"
 
 import ApplicationBadges from "../Components/ApplicationBadges.js"
+import ViewSuccessfulApplicantsModal from "./ViewSuccessfulApplicantsModal.js"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,6 +43,25 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Dashboard(props) {
     const classes = useStyles()
+    const [openViewSuccessful, setOpenViewSuccessful] = useState(false)
+
+    // View Successful
+    const handleOpenViewSuccessful = (e) => {
+        if (e.target.childElementCount !== 0) {
+            // setJobIDApplied(e.target.value)
+        } else {
+            // setJobIDApplied(e.target.parentElement.value)
+        }
+        setOpenViewSuccessful(true)
+    }
+    const handleCloseViewSuccessful = () => setOpenViewSuccessful(false)
+
+    const handleViewSuccessful = {
+        openViewSuccessful: openViewSuccessful,
+        handleOpenViewSuccessful: handleOpenViewSuccessful,
+        handleCloseViewSuccessful: handleCloseViewSuccessful,
+    }
+
     return (
         <div className={classes.root}>
             <Navbar userType={props.userType} />
@@ -55,10 +75,10 @@ function Dashboard(props) {
                 <Box className={classes.box}>
                     <Item className={classes.container}>
                         <h1 style={{ margin: "4px 0px" }}>Applications</h1>
-                        {/* <JobBoardDisplayJobs handleViewCompany={handleViewCompany} handleViewJob={handleViewJob} handleViewApply={handleViewApply} /> */}
-                        <DisplayApplications />
+                        <DisplayApplications handleViewSuccessful={handleViewSuccessful} />
                     </Item>
                 </Box>
+                {openViewSuccessful ? <ViewSuccessfulApplicantsModal handleViewSuccessful={handleViewSuccessful} /> : null}
             </div>
         </div>
     )
