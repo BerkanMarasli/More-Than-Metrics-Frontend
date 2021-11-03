@@ -10,7 +10,7 @@ function CandidateRegistration() {
         email: yup.string().email("Email must be a valid email").required("Please enter a valid email address"),
         phoneNumber: yup.number().required("Please include a phone number").min(15, "Please enter a valid phone number"),
         yearsInIndustry: yup.string().required("Please select years in industry"),
-        technology: yup.array().required("Please select at least one technology"),
+        technology: yup.array().min(1).required("Please select at least one technology"),
         headline: yup.string().max(100).required("Please include a headline < 70 characters"),
         password: yup
             .string()
@@ -31,9 +31,13 @@ function CandidateRegistration() {
 
 async function createUser(values) {
     console.log("Candidate details")
-    const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
 
+    const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
     console.log(technology)
+    const techIDArray = technology.map((tech) => {
+        return tech.technology_id
+    })
+    console.log(techIDArray)
 
     console.log(`User details: `, firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation)
 
@@ -46,10 +50,11 @@ async function createUser(values) {
             body: JSON.stringify({
                 candidateName: `${firstName} ${lastName}`,
                 candidateEmail: email,
-                candidateNumber: phoneNumber,
+                candidatePhoneNumber: parseInt(phoneNumber.replaceAll(" ", "").replaceAll("+", "")),
                 candidatePassword: password,
+                candidatePasswordConfirmation: passwordConfirmation,
                 yearsInIndustryID: yearsInIndustry,
-                technologies: technology,
+                technologies: techIDArray,
                 headline: headline,
             }),
         })
