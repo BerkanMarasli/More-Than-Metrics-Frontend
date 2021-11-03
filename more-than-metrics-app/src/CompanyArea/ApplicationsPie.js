@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { PieChart, Pie, Cell, Legend } from "recharts"
 
-const COLORS = ["#FFBB28", "#00C49F", "#DD4444"]
+const COLORS = ["#FFBB28", "#53A659", "#FF4E58"]
 const CHARTWIDTH = 400
 const CHARTHEIGHT = 180
 
