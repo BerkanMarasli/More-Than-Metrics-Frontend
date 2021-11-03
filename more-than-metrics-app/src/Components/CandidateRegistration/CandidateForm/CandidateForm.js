@@ -65,7 +65,7 @@ function CandidateForm(props) {
                     firstName: "",
                     lastName: "",
                     email: "",
-                    phoneNumber: "",
+                    phoneNumber: null,
                     yearsInIndustry: "",
                     technology: [],
                     headline: "",
@@ -200,7 +200,9 @@ function CandidateForm(props) {
                                                             {fetchedYearsCategory !== null
                                                                 ? fetchedYearsCategory.map((category) => {
                                                                       return (
-                                                                          <MenuItem key={category.years_in_industry_id} value={category.category}>
+                                                                          <MenuItem
+                                                                              key={category.years_in_industry_id}
+                                                                              value={category.category.years_in_industry_id}>
                                                                               {category.category}
                                                                           </MenuItem>
                                                                       )
@@ -282,7 +284,8 @@ function CandidateForm(props) {
                                                         className={clsx(classes.mt4, classes.mb3)}
                                                         style={{
                                                             backgroundColor: "#FFBF50",
-                                                            color: "black",
+                                                            color: "white",
+                                                            fontSize: "16pt",
                                                             fontFamily: "Lato",
                                                             fontWeight: "bold",
                                                             marginTop: "1rem",

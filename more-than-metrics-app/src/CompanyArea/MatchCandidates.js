@@ -118,7 +118,7 @@ function ReviewCandidates() {
                     {candidates ? (
                         // <Slide timeout={10000}>
                         <div>
-                            <Fade in={true} timeout={10000}>
+                            <Fade in={false} timeout={10000}>
                                 <CandidateCard
                                     key={candidates[counter].applicant_id}
                                     className={classes.card}
