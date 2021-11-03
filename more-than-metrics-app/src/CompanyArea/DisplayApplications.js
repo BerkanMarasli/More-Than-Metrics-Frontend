@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import { Table, TableBody, TableCell, TableContainer, TablePagination, TableRow } from "@mui/material"
-// import ViewApplicationBtn from "../Components/ViewApplicationBtn.js"
 import ViewApplicantsBtn from "../Components/ViewApplicantsBtn.js"
 import { getUserID } from "../handleCookie"
 import ApplicationBadges from "../Components/ApplicationBadges"
