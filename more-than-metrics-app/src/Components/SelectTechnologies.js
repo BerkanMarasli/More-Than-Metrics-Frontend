@@ -46,26 +46,29 @@ function SelectTechnologies(props) {
                     variant="outlined"
                     input={<OutlinedInput id="select-multiple-chip" />}
                     renderValue={(selected) => (
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexWrap: "wrap",
-                                gap: 0.5,
-                            }}>
-                            {" "}
-                            {selected.length < 1 ? (
-                                <MenuItem value="" disabled>
-                                    Technology
-                                </MenuItem>
-                            ) : null}
-                            {selected.map((singleTechnology) => (
-                                <Chip
-                                    key={singleTechnology.technology_id}
-                                    label={singleTechnology.technology_name}
-                                    style={{ background: "#ffeab9" }}
-                                />
-                            ))}
-                        </Box>
+                        <div>
+                            {console.log(selected)}
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    gap: 0.5,
+                                }}>
+                                {" "}
+                                {selected.length < 1 ? (
+                                    <MenuItem value="" disabled>
+                                        Technology
+                                    </MenuItem>
+                                ) : null}
+                                {selected.map((singleTechnology) => (
+                                    <Chip
+                                        key={singleTechnology.technology_id}
+                                        label={singleTechnology.technology_name}
+                                        style={{ background: "#ffeab9" }}
+                                    />
+                                ))}
+                            </Box>
+                        </div>
                     )}
                     MenuProps={MenuProps}
                     // error={!techArray.length}

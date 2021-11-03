@@ -308,7 +308,7 @@ function Experiment(props) {
                                                                 <SelectTechnologies
                                                                     disabled={disabled}
                                                                     handleChange={handleChange}
-                                                                    value={values.technology}
+                                                                    techArray={values.technology}
                                                                     onBlur={handleBlur}
                                                                     error={errors && errors.technology}
                                                                     helperText={errors && errors.technology ? errors.technology : ""}
