@@ -75,7 +75,7 @@ function Footer(props) {
                         FAQ
                     </Link>
                 ) : props.userType === "candidate" ? (
-                    <Link to="/candidate" className={classes.link}>
+                    <Link to="/candidates" className={classes.link}>
                         FAQ
                     </Link>
                 ) : null}
