@@ -4,8 +4,6 @@ import DisplayApplications from "./DisplayApplications.js"
 import { Paper, Box, styled } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
 import ApplicationsPie from "./ApplicationsPie.js"
-
-import ApplicationBadges from "../Components/ApplicationBadges.js"
 import ViewSuccessfulApplicantsModal from "./ViewSuccessfulApplicantsModal.js"
 
 const useStyles = makeStyles((theme) => ({

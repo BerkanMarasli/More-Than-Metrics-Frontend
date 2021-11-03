@@ -28,7 +28,7 @@ function createJobListing(jobTitle, applicationBadges, viewApplicantsBtn, viewSu
 
 function DisplayApplications(props) {
     const companyID = getUserID(document.cookie)
-    const {handleOpenViewSuccessful} = props.handleViewSuccessful
+    const { handleOpenViewSuccessful } = props.handleViewSuccessful
     const [applications, setApplications] = useState(null)
     const [page, setPage] = React.useState(0)
     const [rowsPerPage, setRowsPerPage] = React.useState(3)
@@ -49,7 +49,7 @@ function DisplayApplications(props) {
             setApplications(applications)
         }
         fetchJobs()
-    }, [])
+    }, [companyID, handleOpenViewSuccessful])
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage)
