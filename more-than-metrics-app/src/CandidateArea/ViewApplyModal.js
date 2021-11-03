@@ -2,6 +2,7 @@ import React from "react"
 import { Box, InputLabel, OutlinedInput, MenuItem, FormControl, Select, Avatar, TextField, Button, Alert, Modal } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
 import { useState, useEffect } from "react"
+import { getUserID } from "../handleCookie.js"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -83,11 +84,22 @@ function ViewApplyModal(props) {
     }, [jobIDApplied])
 
     const submitApplication = async () => {
+        const candidateID = getUserID(document.cookie)
+        const promptIDs = Object.keys(answers)
         const requestOptions = {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ answers }),
+            body: JSON.stringify({
+                candidateID: candidateID,
+                jobID: jobIDApplied,
+                prompt1: promptIDs[0],
+                answer1: answers[promptIDs[0]],
+                prompt2: promptIDs[1],
+                answer2: answers[promptIDs[1]],
+                prompt3: promptIDs[2],
+                answer3: answers[promptIDs[2]],
+            }),
         }
         const response = await fetch(`http://localhost:8080/application`, requestOptions)
         const json = await response.json()

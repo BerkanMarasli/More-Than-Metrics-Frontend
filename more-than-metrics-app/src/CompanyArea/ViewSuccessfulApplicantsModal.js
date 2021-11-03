@@ -85,7 +85,7 @@ export default function ViewSuccessfulApplicantsModal(props) {
                         <div>
                             {acceptedApplicants.map((applicant) => {
                                 return (
-                                    <div>
+                                    <div key={applicant.application_id}>
                                         <h3>
                                             {applicant.candidate_name} - {applicant.account_email} - {applicant.candidate_phone_number}
                                         </h3>

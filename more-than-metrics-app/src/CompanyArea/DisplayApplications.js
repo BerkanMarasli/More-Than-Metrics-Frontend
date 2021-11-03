@@ -48,7 +48,7 @@ function DisplayApplications(props) {
             setApplications(applications)
         }
         fetchJobs()
-    }, [companyID, handleOpenViewSuccessful])
+    }, [])
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage)
@@ -68,7 +68,7 @@ function DisplayApplications(props) {
                             <TableBody>
                                 {applications.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((application) => {
                                     return (
-                                        <TableRow role="checkbox" tabIndex={-1} key={application.jobTitle}>
+                                        <TableRow role="checkbox" tabIndex={-1} key={application.job_id}>
                                             {columns.map((column) => {
                                                 const value = application[column.id]
                                                 return (
