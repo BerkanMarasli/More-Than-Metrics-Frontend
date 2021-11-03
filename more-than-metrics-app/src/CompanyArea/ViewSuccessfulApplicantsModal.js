@@ -57,26 +57,20 @@ const style = {
 
 export default function ViewSuccessfulApplicantsModal(props) {
     const { openViewSuccessful, handleCloseViewSuccessful } = props.handleViewSuccessful
-
+    const jobIDViewed = props.jobIDViewed
+    const [acceptedApplicants, setAcceptedApplicants] = useState(null)
     const classes = useStyles()
-    // const [jobInfo, setJobInfo] = useState(null)
 
-    // useEffect(() => {
-    //     const fetchPrompts = async () => {
-    //         const promptsResponse = await fetch("http://localhost:8080/prompts")
-    //         const promptsJson = await promptsResponse.json()
-    //         setPromptsList(promptsJson)
-    //     }
-    //     async function fetchJobData() {
-    //         const jobDataResponse = await fetch(`http://localhost:8080/job/${jobIDApplied}`)
-    //         const jobData = await jobDataResponse.json()
-    //         setJobInfo(jobData[0])
-    //     }
-    //     fetchPrompts()
-    //     fetchJobData()
-    // }, [jobIDApplied])
+    useEffect(() => {
+        const fetchAcceptedApplicants = async () => {
+            const acceptedApplicantsResponse = await fetch(`http://localhost:8080/applications/accepted/${jobIDViewed}`)
+            const acceptedApplicantsJson = await acceptedApplicantsResponse.json()
+            setAcceptedApplicants(acceptedApplicantsJson)
+        }
+        fetchAcceptedApplicants()
+    }, [jobIDViewed])
 
-    return true ? (
+    return acceptedApplicants ? (
         <Modal
             open={openViewSuccessful}
             onClose={handleCloseViewSuccessful}
@@ -85,6 +79,21 @@ export default function ViewSuccessfulApplicantsModal(props) {
             <div className={classes.root}>
                 <Box className={classes.box} sx={style}>
                     <h1>Accepted Applicants</h1>
+                    {acceptedApplicants.message ? (
+                        <h2>No Accepted Applicants</h2>
+                    ) : (
+                        <div>
+                            {acceptedApplicants.map((applicant) => {
+                                return (
+                                    <div>
+                                        <h3>
+                                            {applicant.candidate_name} - {applicant.account_email} - {applicant.candidate_phone_number}
+                                        </h3>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    )}
                 </Box>
             </div>
         </Modal>

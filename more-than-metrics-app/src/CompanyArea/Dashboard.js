@@ -44,13 +44,14 @@ const Item = styled(Paper)(({ theme }) => ({
 function Dashboard(props) {
     const classes = useStyles()
     const [openViewSuccessful, setOpenViewSuccessful] = useState(false)
+    const [jobIDViewed, setJobIDviewed] = useState(null)
 
     // View Successful
     const handleOpenViewSuccessful = (e) => {
         if (e.target.childElementCount !== 0) {
-            // setJobIDApplied(e.target.value)
+            setJobIDviewed(e.target.value)
         } else {
-            // setJobIDApplied(e.target.parentElement.value)
+            setJobIDviewed(e.target.parentElement.value)
         }
         setOpenViewSuccessful(true)
     }
@@ -78,7 +79,7 @@ function Dashboard(props) {
                         <DisplayApplications handleViewSuccessful={handleViewSuccessful} />
                     </Item>
                 </Box>
-                {openViewSuccessful ? <ViewSuccessfulApplicantsModal handleViewSuccessful={handleViewSuccessful} /> : null}
+                {openViewSuccessful ? <ViewSuccessfulApplicantsModal handleViewSuccessful={handleViewSuccessful} jobIDViewed={jobIDViewed} /> : null}
             </div>
         </div>
     )
