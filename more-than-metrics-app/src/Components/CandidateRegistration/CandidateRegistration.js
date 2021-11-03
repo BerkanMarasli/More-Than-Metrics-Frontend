@@ -11,7 +11,7 @@ function Registration() {
         firstName: yup.string().required("Please include a first name").min(2, "Must be more then one character"),
         lastName: yup.string().required("Please include a last name").min(2, "Must be more than 1 characters"),
         email: yup.string().email("Email must be a valid email").required("Please enter a valid email address"),
-        phoneNumber: yup.string().required("Please include a phone number").min(15, "Please enter a valid phone number"),
+        phoneNumber: yup.number().required("Please include a phone number").min(15, "Please enter a valid phone number"),
         yearsInIndustry: yup.string().required("Please select years in industry"),
         technology: yup.array().required("Please select at least one technology"),
         headline: yup.string().max(100).required("Please include a headline < 70 characters"),
@@ -55,10 +55,18 @@ async function createUser(values) {
         const response = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(values),
+            body: JSON.stringify({
+                candidateName: `${firstName} ${lastName}`,
+                candidateEmail: email,
+                candidateNumber: phoneNumber,
+                candidatePassword: password,
+                yearsInIndustryID: yearsInIndustry,
+                technologies: technology,
+                headline: headline,
+            }),
         })
         const json = await response.json()
-
+        console.log(json)
         if (!json.msg) {
             return "That username is taken. Try another."
         } else {

@@ -83,7 +83,7 @@ function Experiment(props) {
         firstName: "",
         lastName: "",
         email: "",
-        phoneNumber: "",
+        phoneNumber: null,
         yearsInIndustry: null,
         technology: [],
         headline: "",
@@ -119,6 +119,42 @@ function Experiment(props) {
             }
         })
     }
+
+    async function updateUser(values) {
+        const url = `http://localhost:8080/candidate/update`
+
+        console.log(candidateID)
+
+        const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
+
+        try {
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    candidateID: candidateID,
+                    candidateEmail: email,
+                    candidatePassword: password,
+                    candidateName: `${firstName} ${lastName}`,
+                    headline: headline,
+                    candidatePhoneNumber: phoneNumber,
+                    yearsInIndustryID: yearsInIndustry,
+                }),
+            })
+            const json = await response.json()
+            console.log(json)
+
+            if (!json.msg) {
+                return "That username is taken. Try another."
+            } else {
+                setDisabled(true)
+                return ""
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword)
     }
@@ -359,13 +395,16 @@ function Experiment(props) {
                                                                 </div>
                                                             ) : null}
                                                         </Grid>
-                                                        <Button
-                                                            type="submit"
-                                                            color="primary"
-                                                            variant="contained"
-                                                            className={clsx(classes.mt4, classes.mb3)}>
-                                                            submit
-                                                        </Button>
+                                                        {!disabled ? (
+                                                            <Button
+                                                                type="submit"
+                                                                color="primary"
+                                                                variant="contained"
+                                                                className={clsx(classes.mt4, classes.mb3)}>
+                                                                submit
+                                                            </Button>
+                                                        ) : // <Button onClick={() => setDisabled(true)}>Save</Button>
+                                                        null}
                                                     </CardContent>
                                                 </Card>
                                             </Grid>
@@ -375,7 +414,7 @@ function Experiment(props) {
                             )
                         }}
                     </Formik>
-                    {disabled ? <Button onClick={() => setDisabled(false)}>Edit</Button> : <Button onClick={() => setDisabled(true)}>Save</Button>}
+                    {disabled ? <Button onClick={() => setDisabled(false)}>Edit</Button> : null}
                 </div>
             )
         } else
@@ -387,40 +426,6 @@ function Experiment(props) {
     }
 
     return checkDetails()
-}
-
-async function updateUser(values) {
-    const url = `http://localhost:8080/candidate/update`
-
-    console.log(candidateID)
-
-    const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
-
-    try {
-        const response = await fetch(url, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                candidateID: candidateID,
-                candidateEmail: email,
-                candidatePassword: password,
-                candidateName: `${firstName} ${lastName}`,
-                headline: headline,
-                candidatePhoneNumber: phoneNumber,
-                yearsInIndustryID: yearsInIndustry,
-            }),
-        })
-        const json = await response.json()
-        console.log(json)
-
-        if (!json.msg) {
-            return "That username is taken. Try another."
-        } else {
-            return ""
-        }
-    } catch (error) {
-        console.log(error)
-    }
 }
 
 export default Experiment
