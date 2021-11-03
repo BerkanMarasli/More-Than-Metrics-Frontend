@@ -36,7 +36,6 @@ function ApplicationsPie(props) {
                 <p style={{ fontSize: "32px" }}>{jobs}</p>
             </div>
             <PieChart width={CHARTWIDTH} height={CHARTHEIGHT}>
-                {console.log(data)}
                 <Pie
                     data={data}
                     cx={CHARTWIDTH / 2.1}

@@ -37,7 +37,6 @@ function DisplayApplications(props) {
         async function fetchJobs() {
             const applicationsResponse = await fetch(`http://localhost:8080/company/jobStats/${companyID}`)
             const applicationsData = await applicationsResponse.json()
-            console.log(applicationsData)
             const applications = applicationsData.reverse().map((application) => {
                 return createJobListing(
                     application.job_title,
@@ -69,7 +68,7 @@ function DisplayApplications(props) {
                             <TableBody>
                                 {applications.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((application) => {
                                     return (
-                                        <TableRow role="checkbox" tabIndex={-1} key={application.code}>
+                                        <TableRow role="checkbox" tabIndex={-1} key={application.jobTitle}>
                                             {columns.map((column) => {
                                                 const value = application[column.id]
                                                 return (
