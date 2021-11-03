@@ -6,6 +6,7 @@ import PostVacancy from "./PostVacancy.js"
 import { Paper, Box } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
 import { styled } from "@mui/material/styles"
+import Footer from "../Navbar/Footer.js"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -72,6 +73,7 @@ function Profile(props) {
         <div className={classes.root}>
             <Navbar userType={props.userType} />
             {renderItems(props)}
+            <Footer userType={props.userType} />
         </div>
     )
 }

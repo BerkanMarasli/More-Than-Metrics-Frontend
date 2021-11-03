@@ -6,6 +6,7 @@ import ViewJobModal from "./ViewJobModal"
 import ViewApplyModal from "./ViewApplyModal"
 import { Paper, Box, styled } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
+import Footer from "../Navbar/Footer"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -103,7 +104,7 @@ function JobBoard() {
             <Navbar userType={"candidate"} />
             <Box className={classes.box}>
                 <Item className={classes.container}>
-                    <h1 style={{ margin: "4px 0px" }}>JOBS BOARD</h1>
+                    <h1 style={{ margin: "4px 0px", fontFamily: "Lato" }}>JOB BOARD</h1>
                     <JobBoardDisplayJobs handleViewCompany={handleViewCompany} handleViewJob={handleViewJob} handleViewApply={handleViewApply} />
                     {openViewCompany ? (
                         <ViewCompanyModal
@@ -117,6 +118,7 @@ function JobBoard() {
                     {openViewApply ? <ViewApplyModal jobIDApplied={jobIDApplied} handleViewApply={handleViewApply} /> : null}
                 </Item>
             </Box>
+            <Footer userType={"candidate"} />
         </div>
     )
 }

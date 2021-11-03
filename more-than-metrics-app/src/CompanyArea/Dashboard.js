@@ -5,6 +5,7 @@ import { Paper, Box, styled } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
 import ApplicationsPie from "./ApplicationsPie.js"
 import ViewSuccessfulApplicantsModal from "./ViewSuccessfulApplicantsModal.js"
+import Footer from "../Navbar/Footer.js"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -68,18 +69,19 @@ function Dashboard(props) {
             <div>
                 <Box className={classes.box}>
                     <Item className={classes.container}>
-                        <h1 style={{ margin: "0px" }}>Overview</h1>
+                        <h1 style={{ margin: "0px", fontFamily: "Lato" }}>OVERVIEW</h1>
                         <ApplicationsPie />
                     </Item>
                 </Box>
                 <Box className={classes.box}>
                     <Item className={classes.container}>
-                        <h1 style={{ margin: "0px" }}>Applications</h1>
+                        <h1 style={{ margin: "0px", fontFamily: "Lato" }}>OPEN VACANCIES</h1>
                         <DisplayApplications handleViewSuccessful={handleViewSuccessful} />
                     </Item>
                 </Box>
                 {openViewSuccessful ? <ViewSuccessfulApplicantsModal handleViewSuccessful={handleViewSuccessful} jobIDViewed={jobIDViewed} /> : null}
             </div>
+            <Footer userType={"company"} />
         </div>
     )
 }
