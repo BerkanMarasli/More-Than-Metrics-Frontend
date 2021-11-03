@@ -1,32 +1,26 @@
 import { useState, useEffect } from "react"
-import Register from "./Components/Register/Register"
-import Login from "./Components/Login/Login"
+import { Route, Switch, BrowserRouter as Router, Redirect } from "react-router-dom"
+import { getAccountType } from "./handleCookie.js"
+import Unauthorised from "./Unauthorised"
 import Entry from "./Entry/Entry.js"
 import About from "./Menu/About.js"
 import Companies from "./Menu/Companies.js"
 import Candidates from "./Menu/Candidates.js"
 import Dashboard from "./CompanyArea/Dashboard.js"
-import Profile from "./Profile/Profile.js"
-import JobBoard from "./CandidateArea/JobBoard.js"
-
-import CandidateProfileForm from "./Profile/CandidateProfileForm"
-
-import { Route, Switch, BrowserRouter as Router, Redirect } from "react-router-dom"
 import ReviewCandidates from "./CompanyArea/MatchCandidates.js"
-import CandidateProfile from "./Profile/CandidateProfile"
-import { getAccountType, getUserID } from "./handleCookie.js"
-import Unauthorised from "./Unauthorised"
+import JobBoard from "./CandidateArea/JobBoard.js"
+import Profile from "./Profile/Profile.js"
+import Register from "./Components/Register/Register"
+import Login from "./Components/Login/Login"
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [userType, setUserType] = useState(null)
-    const [userID, setUserID] = useState(null)
 
     useEffect(() => {
         if (document.cookie !== "") {
             setLoggedIn(true)
             setUserType(getAccountType(document.cookie))
-            setUserID(getUserID(document.cookie))
         }
     }, [])
 
@@ -62,11 +56,8 @@ function App() {
                 <Route exact path="/candidates">
                     <Candidates setUserType={setUserType} />
                 </Route>
-                <Route exact path="/experiment">
-                    <CandidateProfileForm id={2} />
-                </Route>
                 <Route exact path="/login">
-                    <Login setLoggedIn={setLoggedIn} setUserType={setUserType} setUserID={setUserID} />
+                    <Login setLoggedIn={setLoggedIn} />
                 </Route>
                 <Route exact path="/register">
                     <Register userType={userType} redirectHome={redirectHome} />

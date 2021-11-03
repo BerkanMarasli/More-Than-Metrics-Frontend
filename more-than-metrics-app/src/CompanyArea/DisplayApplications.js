@@ -26,8 +26,9 @@ function createJobListing(jobTitle, applicationBadges, viewApplicantsBtn, viewSu
     return { jobTitle, applicationBadges, viewApplicantsBtn, viewSuccessBtn }
 }
 
-function JobBoardDisplayJobs(props) {
+function DisplayApplications(props) {
     const companyID = getUserID(document.cookie)
+    const { handleOpenViewSuccessful } = props.handleViewSuccessful
     const [applications, setApplications] = useState(null)
     const [page, setPage] = React.useState(0)
     const [rowsPerPage, setRowsPerPage] = React.useState(3)
@@ -41,13 +42,13 @@ function JobBoardDisplayJobs(props) {
                     application.job_title,
                     <ApplicationBadges jobStats={application.jobStats} />,
                     <ViewApplicantsBtn />,
-                    <ViewSuccessBtn />
-                ) // view successful applicants
+                    <ViewSuccessBtn jobID={application.job_id} handleOpen={handleOpenViewSuccessful} />
+                )
             })
             setApplications(applications)
         }
         fetchJobs()
-    }, [])
+    }, [companyID, handleOpenViewSuccessful])
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage)
@@ -62,12 +63,12 @@ function JobBoardDisplayJobs(props) {
         <main>
             {applications ? (
                 <div>
-                    <TableContainer sx={{ maxHeight: 520 }}>
+                    <TableContainer sx={{ maxHeight: 210 }}>
                         <Table stickyHeader aria-label="sticky table">
                             <TableBody>
                                 {applications.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((application) => {
                                     return (
-                                        <TableRow role="checkbox" tabIndex={-1} key={application.code}>
+                                        <TableRow role="checkbox" tabIndex={-1} key={application.jobTitle}>
                                             {columns.map((column) => {
                                                 const value = application[column.id]
                                                 return (
@@ -104,4 +105,4 @@ function JobBoardDisplayJobs(props) {
     )
 }
 
-export default JobBoardDisplayJobs
+export default DisplayApplications

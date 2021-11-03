@@ -16,7 +16,6 @@ function ApplicationsPie(props) {
         async function getCompanyStats(companyID) {
             const response = await fetch(`http://localhost:8080/company/stats/${companyID}`)
             const json = await response.json()
-            console.log(json)
             setApplications(json.company_applications)
             setPending(json.company_pending)
             setAccepted(json.company_accepted)
@@ -37,7 +36,6 @@ function ApplicationsPie(props) {
                 <p style={{ fontSize: "32px" }}>{jobs}</p>
             </div>
             <PieChart width={CHARTWIDTH} height={CHARTHEIGHT}>
-                {console.log(data)}
                 <Pie
                     data={data}
                     cx={CHARTWIDTH / 2.1}

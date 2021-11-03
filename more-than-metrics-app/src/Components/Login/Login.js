@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React from "react"
+import { makeStyles } from "@material-ui/styles"
 import LoginForm from "./LoginForm"
 import Dropdown from "../../Menu/Dropdown"
-import { makeStyles } from "@material-ui/styles"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,17 +14,17 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Login(props) {
-    const { setLoggedIn, setUserType, setUserID } = props
+    const { setLoggedIn } = props
     const classes = useStyles()
     return (
         <div className={classes.root}>
             <Dropdown />
-            <LoginForm getUser={getUser} setLoggedIn={setLoggedIn} setUserType={setUserType} setUserID={setUserID} />
+            <LoginForm getUser={getUser} setLoggedIn={setLoggedIn} />
         </div>
     )
 }
 
-async function getUser(values, setLoggedIn, setUserType, setUserID) {
+async function getUser(values, setLoggedIn) {
     const url = "http://localhost:8080/login"
     try {
         const response = await fetch(url, {

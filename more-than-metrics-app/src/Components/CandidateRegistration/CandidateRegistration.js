@@ -1,12 +1,9 @@
-import React, { useState, useEffect, Fragment } from "react"
+import React from "react"
 import CandidateForm from "./CandidateForm/CandidateForm"
 
-// Yup
 const yup = require("yup")
 
-function Registration() {
-    const [fetchedYearsCategory, setCategory] = useState(null)
-
+function CandidateRegistration() {
     const signupSchema = yup.object().shape({
         firstName: yup.string().required("Please include a first name").min(2, "Must be more then one character"),
         lastName: yup.string().required("Please include a last name").min(2, "Must be more than 1 characters"),
@@ -24,15 +21,6 @@ function Registration() {
             ),
         passwordConfirmation: yup.string().oneOf([yup.ref("password"), null], "Passwords must match"),
     })
-
-    useEffect(() => {
-        async function getYearsInIndustryCategory(setCategory) {
-            const response = await fetch("http://localhost:8080/years_in_industry")
-            const json = await response.json()
-            setCategory(json)
-        }
-        getYearsInIndustryCategory(setCategory)
-    }, [])
 
     return (
         <div>
@@ -77,4 +65,4 @@ async function createUser(values) {
     }
 }
 
-export default Registration
+export default CandidateRegistration
