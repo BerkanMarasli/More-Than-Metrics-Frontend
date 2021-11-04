@@ -73,12 +73,10 @@ function CandidateForm(props) {
                     passwordConfirmation: "",
                 }}
                 onSubmit={(values, actions) => {
-                    console.log(values)
                     createUser(values)
                 }}
                 validationSchema={signupSchema}>
                 {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => {
-                    console.log(touched)
                     return (
                         <Form onSubmit={handleSubmit}>
                             <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center">
