@@ -1,3 +1,4 @@
+import React, { useState } from "react"
 import Navbar from "../Navbar/Navbar.js"
 import Applied from "./Applied.js"
 import CandidateProfileForm from "./CandidateProfileForm.js"
@@ -7,6 +8,7 @@ import { Paper, Box } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
 import { styled } from "@mui/material/styles"
 import Footer from "../Navbar/Footer.js"
+import Alert from "@mui/material/Alert"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,13 +44,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Profile(props) {
     const classes = useStyles()
+    const [errorMsg, setErrorMsg] = useState("")
 
     const renderItems = (props) => {
         if (props.userType === "candidate") {
             return (
                 <Box className={classes.box}>
                     <Item className={classes.container}>
-                        <CandidateProfileForm />
+                        <CandidateProfileForm setErrorMsg={setErrorMsg} />
+                        {errorMsg === "Updated candidate details!" ? <Alert severity="success">{errorMsg}</Alert> : null}
                     </Item>
                     <Item className={classes.container}>
                         <Applied />
