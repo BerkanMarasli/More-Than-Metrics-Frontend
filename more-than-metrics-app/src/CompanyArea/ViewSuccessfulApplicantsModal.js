@@ -7,9 +7,8 @@ import { useState, useEffect } from "react"
 import CallIcon from "@mui/icons-material/Call"
 import EmailIcon from "@mui/icons-material/Email"
 import PersonIcon from "@mui/icons-material/Person"
-import Person from "@mui/icons-material/Person"
-
-import Chip from "@mui/material/Chip"
+import Paper from "@mui/material/Paper"
+import Alert from "@mui/material/Alert"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,6 +45,32 @@ const useStyles = makeStyles((theme) => ({
 
     company: {
         margin: "0.5rem",
+    },
+    candidateListDisplayBox: {
+        display: "flex",
+    },
+    icons: {
+        display: "inline-block",
+        marginRight: "10px",
+        position: "relative",
+        alignItems: "center",
+        // bottom: "0",
+        // left: "left",
+    },
+    candidateList: {
+        borderRadius: "8px",
+        padding: "10px",
+        margin: "5px",
+        justifyContent: "space-around",
+        backgroundColor: "#ffeab9",
+        width: "100%",
+    },
+    candidateInfo: {
+        display: "inline-block",
+
+        position: "relative",
+        alignItems: "center",
+        margin: "0",
     },
 }))
 
@@ -88,18 +113,28 @@ export default function ViewSuccessfulApplicantsModal(props) {
                 <Box className={classes.box} sx={style}>
                     <h1>Accepted Applicants</h1>
                     {acceptedApplicants.message ? (
-                        <h2>No Accepted Applicants</h2>
+                        <Alert severity="info">No Accepted Applicants</Alert>
                     ) : (
                         <div>
                             {acceptedApplicants.map((applicant) => {
                                 return (
-                                    <div key={applicant.application_id}>
-                                        <Chip>
-                                            <PersonIcon />
-                                            {applicant.candidate_name} - <EmailIcon />
-                                            {applicant.account_email} - <CallIcon />
-                                            {applicant.candidate_phone_number}
-                                        </Chip>
+                                    <div key={applicant.application_id} className={classes.candidateListDisplayBox}>
+                                        <Paper label={applicant.candidate_name} className={classes.candidateList}>
+                                            <div className={classes.icons}>
+                                                <PersonIcon style={{}} />
+                                                <p className={classes.candidateInfo}>{applicant.candidate_name}</p>
+                                            </div>
+
+                                            <div className={classes.icons}>
+                                                <EmailIcon />
+                                                {applicant.account_email}
+                                            </div>
+
+                                            <div className={classes.icons}>
+                                                <CallIcon />
+                                                {applicant.candidate_phone_number}
+                                            </div>
+                                        </Paper>
                                     </div>
                                 )
                             })}
