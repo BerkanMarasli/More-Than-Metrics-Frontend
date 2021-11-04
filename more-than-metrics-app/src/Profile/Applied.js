@@ -9,18 +9,22 @@ const columns = [
         id: "companyName",
         align: "center",
     },
-    {
-        id: "viewApplication",
-        align: "center",
-    },
+    // {
+    //     id: "viewApplication",
+    //     align: "center",
+    // },
     {
         id: "applicationStatus",
         align: "center",
     },
 ]
 
-function createData(jobTitle, companyName, viewApplication, applicationStatus) {
-    return { jobTitle, companyName, viewApplication, applicationStatus }
+// function createData(jobTitle, companyName, viewApplication, applicationStatus) {
+//     return { jobTitle, companyName, viewApplication, applicationStatus }
+// }
+
+function createData(jobTitle, companyName, applicationStatus) {
+    return { jobTitle, companyName, applicationStatus }
 }
 
 function Applied() {
@@ -75,8 +79,8 @@ function Applied() {
                                                         style={{
                                                             fontSize: "12pt",
                                                             textAlign: "left",
-                                                            paddingLeft: "4rem",
-                                                            paddingRight: "5rem",
+                                                            paddingLeft: "2rem",
+                                                            // paddingRight: "5rem",
                                                             letterSpacing: "0.5px",
                                                         }}>
                                                         {value}
