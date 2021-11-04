@@ -9,10 +9,10 @@ export default function ApplicationBadges(props) {
     return (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
             <Badge badgeContent={job_pending} color="primary" max={9}>
-                <PendingIcon fontSize="large" sx={{ color: "#FFBF50", paddingLeft: "2rem" }} />
+                <PendingIcon fontSize="large" sx={{ color: "#FFBF50" }} />
             </Badge>
             <Badge badgeContent={job_rejected} color="primary" max={9}>
-                <CancelIcon fontSize="large" sx={{ color: "red", opacity: "70%", paddingLeft: "2rem" }} />
+                <CancelIcon fontSize="large" sx={{ color: "red", opacity: "70%" }} />
             </Badge>
             <Badge badgeContent={job_accepted} color="primary">
                 <CheckCircleIcon fontSize="large" sx={{ color: "green", opacity: "70%" }} />

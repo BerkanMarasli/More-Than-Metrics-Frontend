@@ -28,8 +28,8 @@ function createJobListing(jobTitle, applicationBadges, viewApplicantsBtn, viewSu
 
 function jobTitle(application) {
     return (
-        <div>
-            <AssignmentIcon style={{ paddingRight: "0.5rem", top: "5px", position: "relative", color: "gray" }} />
+        <div style={{ display: "flex", fontSize: "14pt", textAlign: "left", letterSpacing: "0.5px" }}>
+            <AssignmentIcon style={{ paddingRight: "0.5rem", position: "relative", color: "gray" }} />
             {application.job_title.toUpperCase()}
         </div>
     )
@@ -81,16 +81,7 @@ function DisplayApplications(props) {
                                             {columns.map((column) => {
                                                 const value = application[column.id]
                                                 return (
-                                                    <TableCell
-                                                        key={column.id}
-                                                        align={column.align}
-                                                        style={{
-                                                            fontSize: "14pt",
-                                                            textAlign: "left",
-                                                            paddingLeft: "4rem",
-                                                            paddingRight: "5rem",
-                                                            letterSpacing: "0.5px",
-                                                        }}>
+                                                    <TableCell key={column.id} align={column.align}>
                                                         {value}
                                                     </TableCell>
                                                 )
