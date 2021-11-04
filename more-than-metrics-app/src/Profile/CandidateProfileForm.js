@@ -86,6 +86,7 @@ const marks = [
 const candidateID = 2
 
 function Experiment(props) {
+    const { setErrorMsg } = props
     const [userDetails, setUserDetails] = useState({
         firstName: "",
         lastName: "",
@@ -99,6 +100,8 @@ function Experiment(props) {
     })
     const [disabled, setDisabled] = useState(true)
     const [showPassword, setShowPassword] = useState(false)
+    const [loadedTechList, setLoadedTechList] = useState(null)
+    const [refreshForUpdate, setRefreshForUpdate] = useState(false)
 
     const classes = useStyles()
 
@@ -142,13 +145,14 @@ function Experiment(props) {
             const { candidate_name, headline, technologies, candidate_phone_number, candidate_years_in_industry_id, account_email } = json
             const nameArr = candidate_name.split(" ")
 
+            setLoadedTechList(technologies)
             setUserDetails({
                 firstName: nameArr[0],
                 lastName: nameArr[1],
                 email: account_email,
                 phoneNumber: candidate_phone_number,
                 yearsInIndustry: candidate_years_in_industry_id,
-                technology: technologies,
+                technology: [],
                 headline: headline,
                 password: "",
                 passwordConfirmation: "",
@@ -156,21 +160,24 @@ function Experiment(props) {
         }
 
         getUserDetails(setUserDetails)
-    }, [])
+    }, [refreshForUpdate])
 
     async function updateUser(values) {
         const url = `http://localhost:8080/candidate/update`
 
-        console.log(candidateID)
-
         const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
+
+        if (!technology.length) {
+            console.log("Didn't update technologies")
+        }
 
         const techIDArray = technology.map((tech) => {
             return tech.technology_id
         })
-        console.log(yearsInIndustry)
-        console.log(techIDArray)
-
+        console.log(loadedTechList)
+        const loadedTechIDArray = loadedTechList.map((tech) => {
+            return tech.technology_id
+        })
         try {
             const response = await fetch(url, {
                 method: "PUT",
@@ -179,22 +186,31 @@ function Experiment(props) {
                     candidateID: candidateID,
                     candidateEmail: email,
                     candidatePassword: password,
+                    candidatePasswordConfirmation: passwordConfirmation,
                     candidateName: `${firstName} ${lastName}`,
-                    technologies: techIDArray,
+                    technologies: !technology.length ? loadedTechIDArray : techIDArray,
                     headline: headline,
                     candidatePhoneNumber: parseInt(phoneNumber.replaceAll(" ", "").replaceAll("+", "")),
                     yearsInIndustryID: yearsInIndustry,
                 }),
             })
+            setRefreshForUpdate(true)
             const json = await response.json()
             console.log(json)
 
-            if (!json.msg) {
-                return "That username is taken. Try another."
-            } else {
+            if (response.status === 200) {
                 setDisabled(true)
-                return ""
+                setErrorMsg(json.message)
+            } else {
+                setErrorMsg("")
             }
+
+            // if (!json.msg) {
+            //     return "That username is taken. Try another."
+            // } else {
+            //     setDisabled(true)
+            //     return ""
+            // }
         } catch (error) {
             console.log(error)
         }
@@ -206,12 +222,11 @@ function Experiment(props) {
                 <div className={classes.root}>
                     <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>YOUR PROFILE</h1>
                     <Button onClick={() => setDisabled(!disabled)}>Edit</Button>
-
+                    {console.log(loadedTechList)}
+                    {/*{console.log(userDetails.technology)} */}
                     <Formik
                         initialValues={userDetails}
                         onSubmit={(values, actions) => {
-                            console.log(values)
-
                             updateUser(values, candidateID)
                         }}
                         validationSchema={validationSchema}>
@@ -315,6 +330,7 @@ function Experiment(props) {
                                                             disabled={disabled}
                                                             handleChange={handleChange}
                                                             techArray={values.technology}
+                                                            loadedTechList={loadedTechList}
                                                             onBlur={handleBlur}
                                                             error={errors && errors.technology}
                                                             helperText={errors && errors.technology ? errors.technology : ""}
