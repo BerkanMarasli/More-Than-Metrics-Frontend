@@ -12,7 +12,7 @@ function CompanyRegistration() {
 
             .required("Please include a company logo"),
         companyName: yup.string().required("Please include a company name").min(2, "Must be more than one character"),
-        companyBio: yup.string().max(500).required("Please include a company bio < 400 characters"),
+        companyBio: yup.string().max(500).required("Please include a company bio < 500 characters"),
         numOfEmployees: yup.string().required("Please select number of employees"),
         femalePercentage: yup
             .number()
