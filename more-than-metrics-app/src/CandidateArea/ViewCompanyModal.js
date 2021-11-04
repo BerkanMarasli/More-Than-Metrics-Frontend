@@ -49,7 +49,8 @@ export default function ViewCompanyModal(props) {
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
-                            justifyContent: "center",
+                            justifyContent: "space-between",
+                            height: "75vh",
                         }}>
                         {companyData ? (
                             <Avatar alt={`${companyData.company_name} Logo`} src={companyData.image_url} sx={{ width: 56, height: 56, mb: 1 }} />
