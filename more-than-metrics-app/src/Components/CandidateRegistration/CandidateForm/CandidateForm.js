@@ -9,6 +9,7 @@ import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import MuiPhoneNumber from "material-ui-phone-number"
 import { InputLabel, MenuItem, Select } from "@material-ui/core"
+import Alert from "@mui/material/Alert"
 
 import SelectTechnologies from "../../SelectTechnologies"
 
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 function CandidateForm(props) {
     const classes = useStyles()
     const [fetchedYearsCategory, setCategory] = useState(null)
-    const { createUser, signupSchema } = props
+    const { createUser, signupSchema, errorMsg, setErrorMsg } = props
 
     useEffect(() => {
         async function getYearsInIndustryCategory(setCategory) {
@@ -73,7 +74,7 @@ function CandidateForm(props) {
                     passwordConfirmation: "",
                 }}
                 onSubmit={(values, actions) => {
-                    createUser(values)
+                    createUser(values, setErrorMsg)
                 }}
                 validationSchema={signupSchema}>
                 {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => {
@@ -270,6 +271,7 @@ function CandidateForm(props) {
                                                             }
                                                         />
                                                     </Grid>
+                                                    {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
                                                 </Grid>
                                                 <div style={{ display: "flex", justifyContent: "center", margin: "8px 0px" }}>
                                                     <Button
