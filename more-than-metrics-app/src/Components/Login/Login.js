@@ -15,12 +15,18 @@ const useStyles = makeStyles((theme) => ({
 
 function Login(props) {
     const [errorMsg, setErrorMsg] = useState("")
-    const { setLoggedIn } = props
+    const { setLoggedIn, handleRegisterFromLogin } = props
     const classes = useStyles()
     return (
         <div className={classes.root}>
             <Dropdown />
-            <LoginForm getUser={getUser} setLoggedIn={setLoggedIn} setErrorMsg={setErrorMsg} errorMsg={errorMsg} />
+            <LoginForm
+                getUser={getUser}
+                setLoggedIn={setLoggedIn}
+                setErrorMsg={setErrorMsg}
+                errorMsg={errorMsg}
+                handleRegisterFromLogin={handleRegisterFromLogin}
+            />
         </div>
     )
 }

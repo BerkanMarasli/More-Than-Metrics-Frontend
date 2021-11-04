@@ -1,10 +1,10 @@
 import React from "react"
 import { makeStyles } from "@material-ui/styles"
-import { Card, CardContent, Grid, Typography, TextField, Button } from "@material-ui/core"
+import { Card, CardContent, Grid, Typography, TextField, Button, ButtonGroup } from "@material-ui/core"
 import clsx from "clsx"
 import { Formik, Form } from "formik"
-
 import Alert from "@mui/material/Alert"
+import { Redirect } from "react-router-dom"
 
 const useStyles = makeStyles(() => ({
     center: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
 
 function LoginForm(props) {
     const classes = useStyles()
-    const { getUser, setLoggedIn, errorMsg, setErrorMsg } = props
+    const { getUser, setLoggedIn, errorMsg, setErrorMsg, handleRegisterFromLogin } = props
 
     return (
         <div>
@@ -129,6 +129,20 @@ function LoginForm(props) {
                                                         }}>
                                                         LOG IN
                                                     </Button>
+                                                </div>
+                                                <hr style={{ margin: "1rem 0rem" }} />
+                                                <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                                                    <p style={{ margin: "0rem", marginBottom: "0.5rem" }}>Forgot to register?</p>
+                                                    <div style={{ display: "flex", justifyContent: "center" }}>
+                                                        <ButtonGroup variant="text" aria-label="text button group">
+                                                            <Button value={"candidate"} onClick={handleRegisterFromLogin}>
+                                                                candidate
+                                                            </Button>
+                                                            <Button value={"company"} onClick={handleRegisterFromLogin}>
+                                                                company
+                                                            </Button>
+                                                        </ButtonGroup>
+                                                    </div>
                                                 </div>
                                             </CardContent>
                                         </Card>
