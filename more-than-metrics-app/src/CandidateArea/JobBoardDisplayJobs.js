@@ -36,7 +36,7 @@ function companyInfo(job, handleOpenViewCompany) {
 
 function jobTitle(job) {
     return (
-        <div style={{ display: "flex", fontSize: "14pt", textAlign: "left", letterSpacing: "0.5px" }}>
+        <div style={{ display: "flex", fontSize: "14pt", textAlign: "left", letterSpacing: "0.5px", maxWidth: "300px" }}>
             <AssignmentIcon style={{ paddingRight: "0.5rem", position: "relative", color: "gray" }} />
             {job.job_title.toUpperCase()}
         </div>
