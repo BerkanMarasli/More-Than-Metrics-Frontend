@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        margin: "8px",
+        margin: "1rem",
     },
 
     input: {
@@ -35,10 +35,6 @@ const useStyles = makeStyles((theme) => ({
 
     select: {
         textAlign: "left",
-    },
-
-    company: {
-        margin: "0.5rem",
     },
 }))
 
@@ -181,9 +177,7 @@ function ViewApplyModal(props) {
         <Modal open={openViewApply} onClose={handleCloseViewApply} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
             <div className={classes.root}>
                 <Box className={classes.box} sx={style}>
-                    <h1 style={{ margin: "5px auto" }}>
-                        {jobInfo.job_title} - {jobInfo.company_name} - APPLICATION FORM
-                    </h1>
+                    <h1 style={{ margin: "5px auto" }}>APPLICATION FORM</h1>
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
                             <div>
@@ -197,7 +191,6 @@ function ViewApplyModal(props) {
                                             padding: "5px",
                                             border: "0.1px solid lightgray",
                                         }}
-                                        className={classes.company}
                                     />
                                     <TextField
                                         id="outlined-read-only-name"
@@ -206,7 +199,6 @@ function ViewApplyModal(props) {
                                         InputProps={{
                                             readOnly: true,
                                         }}
-                                        className={classes.company}
                                     />
                                 </div>
                                 <div className={classes.rowTopHalf}>
@@ -272,7 +264,7 @@ function ViewApplyModal(props) {
                             variant="contained"
                             style={{
                                 backgroundColor: "#FFBF50",
-                                color: "black",
+                                color: "white",
                                 fontFamily: "Lato",
                                 fontWeight: "bold",
                                 marginTop: "1rem",
@@ -281,8 +273,16 @@ function ViewApplyModal(props) {
                             onClick={submitApplication}>
                             Submit Application
                         </Button>
-                        {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
-                        {successMsg ? <Alert severity="success">{successMsg}</Alert> : null}
+                        {errorMsg ? (
+                            <Alert style={{ marginTop: "1rem" }} severity="error">
+                                {errorMsg}
+                            </Alert>
+                        ) : null}
+                        {successMsg ? (
+                            <Alert style={{ marginTop: "1rem" }} severity="success">
+                                {successMsg}
+                            </Alert>
+                        ) : null}
                     </div>
                 </Box>
             </div>
