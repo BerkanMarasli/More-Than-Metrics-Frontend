@@ -35,8 +35,8 @@ function Applied() {
             const applications = await applicationsResponse.json()
             const rows = applications.reverse().map((application) => {
                 return createData(
-                    application.job_title,
-                    application.company_name,
+                    application.job_title.toUpperCase(),
+                    application.company_name.toUpperCase(),
                     // <ViewApplicationBtn />,
                     ApplicationStatus(application.reviewed, application.accepted)
                 )
