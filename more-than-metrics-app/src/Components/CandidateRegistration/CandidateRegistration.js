@@ -1,9 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
 import CandidateForm from "./CandidateForm/CandidateForm"
 
 const yup = require("yup")
 
 function CandidateRegistration() {
+    const [errorMsg, setErrorMsg] = useState("")
+
     const signupSchema = yup.object().shape({
         firstName: yup.string().required("Please include a first name").min(2, "Must be more then one character"),
         lastName: yup.string().required("Please include a last name").min(2, "Must be more than 1 characters"),
@@ -24,12 +26,12 @@ function CandidateRegistration() {
 
     return (
         <div>
-            <CandidateForm createUser={createUser} signupSchema={signupSchema} />
+            <CandidateForm createUser={createUser} signupSchema={signupSchema} errorMsg={errorMsg} setErrorMsg={setErrorMsg} />
         </div>
     )
 }
 
-async function createUser(values) {
+async function createUser(values, setErrorMsg) {
     console.log("Candidate details")
 
     const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
@@ -59,12 +61,7 @@ async function createUser(values) {
             }),
         })
         const json = await response.json()
-        console.log(json)
-        if (!json.msg) {
-            return "That username is taken. Try another."
-        } else {
-            return ""
-        }
+        setErrorMsg(json.message)
     } catch (error) {
         console.log(error)
     }
