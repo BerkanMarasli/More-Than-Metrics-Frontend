@@ -11,7 +11,7 @@ function CandidateRegistration() {
         phoneNumber: yup.number().required("Please include a phone number").min(15, "Please enter a valid phone number"),
         yearsInIndustry: yup.string().required("Please select years in industry"),
         technology: yup.array().min(1).required("Please select at least one technology"),
-        headline: yup.string().max(100).required("Please include a headline < 70 characters"),
+        headline: yup.string().max(100).required("Please include a headline < 100 characters"),
         password: yup
             .string()
             .required("Please enter a password")
