@@ -61,13 +61,7 @@ async function createUser(values, setErrorMsg) {
             }),
         })
         const json = await response.json()
-        console.log(json)
         setErrorMsg(json.message)
-        if (!json.msg) {
-            return "That username is taken. Try another."
-        } else {
-            return ""
-        }
     } catch (error) {
         console.log(error)
     }
