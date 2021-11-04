@@ -3,6 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TablePagination, TableRow,
 import ViewCompanyBtn from "../Components/ViewCompanyBtn"
 import ViewJobBtn from "../Components/ViewJobBtn"
 import ApplyBtn from "../Components/ApplyBtn"
+import AssignmentIcon from "@mui/icons-material/Assignment"
 
 const columns = [
     { id: "jobTitle" },
@@ -27,8 +28,17 @@ function createJobListing(jobTitle, viewCompanyBtn, viewJobBtn, applyBtn) {
 function companyInfo(job, handleOpenViewCompany) {
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <Avatar style={{ paddingRight: "1rem" }} alt={`${job.company_name} Logo`} src={job.image_url} sx={{ width: 40, height: 40 }} />
+            <Avatar style={{ marginRight: "1rem" }} alt={`${job.company_name} Logo`} src={job.image_url} sx={{ width: 40, height: 40 }} />
             <ViewCompanyBtn jobID={job.job_id} companyName={job.company_name} handleOpen={handleOpenViewCompany} />
+        </div>
+    )
+}
+
+function jobTitle(job) {
+    return (
+        <div style={{ display: "flex", fontSize: "14pt", textAlign: "left", letterSpacing: "0.5px", maxWidth: "300px" }}>
+            <AssignmentIcon style={{ paddingRight: "0.5rem", position: "relative", color: "gray" }} />
+            {job.job_title.toUpperCase()}
         </div>
     )
 }
@@ -47,7 +57,7 @@ function JobBoardDisplayJobs(props) {
             const jobsData = await jobsResponse.json()
             const jobs = jobsData.reverse().map((job) => {
                 return createJobListing(
-                    job.job_title.toUpperCase(),
+                    jobTitle(job),
                     companyInfo(job, handleOpenViewCompany),
                     <ViewJobBtn jobID={job.job_id} handleOpen={handleOpenViewJob} />,
                     <ApplyBtn jobID={job.job_id} handleOpen={handleOpenViewApply} />

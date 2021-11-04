@@ -43,7 +43,8 @@ export default function ViewJobModal(props) {
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
-                                justifyContent: "center",
+                                justifyContent: "space-between",
+                                height: "75vh",
                             }}>
                             <Typography sx={{ mb: 1, fontSize: 20, fontWeight: "bold" }} id="modal-modal-title" variant="h6" component="h2">
                                 {jobData.job_title}

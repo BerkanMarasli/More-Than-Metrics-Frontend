@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Table, TableBody, TableCell, TableContainer, TablePagination, TableRow } from "@mui/material"
 import ApplicationStatus from "../Components/ApplicationStatus"
+import { getUserID } from "../handleCookie.js"
 
 const columns = [
     { id: "jobTitle" },
@@ -24,12 +25,13 @@ function createData(jobTitle, companyName, viewApplication, applicationStatus) {
 
 function Applied() {
     const [appliedApplications, setAppliedApplications] = useState(null)
+    const userID = getUserID(document.cookie)
     const [page, setPage] = React.useState(0)
     const [rowsPerPage, setRowsPerPage] = React.useState(7)
 
     useEffect(() => {
         async function fetchJobs() {
-            const applicationsResponse = await fetch(`http://localhost:8080/applications/candidate/${"1"}`)
+            const applicationsResponse = await fetch(`http://localhost:8080/applications/candidate/${userID}`)
             const applications = await applicationsResponse.json()
             const rows = applications.reverse().map((application) => {
                 return createData(

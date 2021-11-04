@@ -16,7 +16,7 @@ const MenuProps = {
 }
 
 function SelectTechnologies(props) {
-    const { handleChange, techArray, error, helperText, disabled } = props
+    const { handleChange, techArray, error, helperText, disabled, loadedTechList } = props
     const [technologies, setTechnologies] = useState(null)
 
     useEffect(() => {
@@ -27,9 +27,6 @@ function SelectTechnologies(props) {
         }
         fetchTechnologies()
     }, [])
-
-    //technologies is the WHOLE array of tech
-    //techArray is either empty or contains techs passed depending on what component it is passed from
 
     return (
         <div className={props.className}>
@@ -43,14 +40,12 @@ function SelectTechnologies(props) {
                     label="Technology"
                     labelId="techLabel"
                     placeholder="Technology"
-                    value={techArray}
+                    value={disabled && loadedTechList !== undefined ? loadedTechList : techArray}
                     onChange={handleChange}
                     variant="outlined"
                     input={<OutlinedInput id="select-multiple-chip" />}
                     renderValue={(selected) => (
                         <div>
-                            {console.log("Selected technologies: ", selected)}
-                            {console.log("These are the passed in technologies: ", techArray)}
                             <Box
                                 sx={{
                                     display: "flex",
