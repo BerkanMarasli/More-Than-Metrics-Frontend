@@ -14,7 +14,7 @@ export default function ApplicationBadges(props) {
             <Badge badgeContent={job_rejected} color="primary" max={9}>
                 <CancelIcon fontSize="large" sx={{ color: "red", opacity: "70%" }} />
             </Badge>
-            <Badge badgeContent={job_accepted} color="primary" max={9}>
+            <Badge badgeContent={job_accepted} color="primary">
                 <CheckCircleIcon fontSize="large" sx={{ color: "green", opacity: "70%" }} />
             </Badge>
         </div>
