@@ -18,7 +18,7 @@ function App() {
     const [userType, setUserType] = useState(null)
 
     useEffect(() => {
-        if (document.cookie !== "") {
+        if (document.cookie !== "" && document.cookie.includes("moreThanMetricsID")) {
             setLoggedIn(true)
             setUserType(getAccountType(document.cookie))
         }
@@ -34,8 +34,19 @@ function App() {
         }
     }
 
-    const redirectRegister = () => {
-        if (!loggedIn) {
+    const redirectRegister = (e) => {
+        if (e !== undefined) {
+            if (e.target.innerHTML === "company") {
+                console.log("COMPANY")
+                document.cookie = "redirectToRegister=company;max-age=5"
+                setUserType("company")
+            } else {
+                console.log("CANDIDATE")
+                document.cookie = "redirectToRegister=candidate;max-age=5"
+                setUserType("candidate")
+            }
+            window.location.href = "/register"
+        } else if (!loggedIn) {
             return <Register userType={userType} redirectHome={redirectHome} />
         } else if (loggedIn && userType === "company") {
             return <Dashboard userType={userType} />
@@ -46,7 +57,7 @@ function App() {
 
     const redirectLogin = () => {
         if (!loggedIn) {
-            return <Login setLoggedIn={setLoggedIn} />
+            return <Login setLoggedIn={setLoggedIn} handleRegisterFromLogin={handleRegisterFromLogin} />
         } else if (loggedIn && userType === "company") {
             return <Dashboard userType={userType} />
         } else {
@@ -56,11 +67,15 @@ function App() {
 
     const unauthorisedRedirect = (candidateRedirect, companyRedirect) => {
         if (!loggedIn) {
-            return <Unauthorised />
+            return <Unauthorised userType={userType} />
         } else if (userType === "company") {
             return companyRedirect
         }
         return candidateRedirect
+    }
+
+    const handleRegisterFromLogin = (e) => {
+        redirectRegister(e)
     }
 
     return (
@@ -88,13 +103,13 @@ function App() {
                     <Profile userType={userType} />
                 </Route>
                 <Route exact path="/dashboard">
-                    {unauthorisedRedirect(<Unauthorised />, <Dashboard userType={userType} />)}
+                    {unauthorisedRedirect(<Unauthorised userType={userType} />, <Dashboard userType={userType} />)}
                 </Route>
                 <Route exact path="/match">
-                    {unauthorisedRedirect(<Unauthorised />, <MatchCandidates />)}
+                    {unauthorisedRedirect(<Unauthorised userType={userType} />, <MatchCandidates />)}
                 </Route>
                 <Route exact path="/jobs">
-                    {unauthorisedRedirect(<JobBoard />, <Unauthorised />)}
+                    {unauthorisedRedirect(<JobBoard />, <Unauthorised userType={userType} />)}
                 </Route>
             </Switch>
         </Router>

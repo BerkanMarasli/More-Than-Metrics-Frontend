@@ -1,10 +1,18 @@
 import React from "react"
 import Alert from "@mui/material/Alert"
+import Navbar from "./Navbar/Navbar"
 
-export default function Unauthorised() {
+export default function Unauthorised(props) {
     return (
-        <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <Alert severity="error">Unauthorised Access!</Alert>
+        <div>
+            <div style={{height: "15rem"}}>
+                <Navbar userType={props.userType} />
+            </div>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Alert style={{ background: "#FFBF50" }} severity="error">
+                    UNAUTHORISED ACCESS!
+                </Alert>
+            </div>
         </div>
     )
 }
