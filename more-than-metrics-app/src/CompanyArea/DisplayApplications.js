@@ -5,6 +5,7 @@ import { getUserID } from "../handleCookie"
 import ApplicationBadges from "../Components/ApplicationBadges"
 import ViewSuccessBtn from "../Components/ViewSuccessBtn"
 import AssignmentIcon from "@mui/icons-material/Assignment"
+import CircularProgress from "@mui/material/CircularProgress"
 
 const columns = [
     { id: "jobTitle" },
@@ -109,7 +110,9 @@ function DisplayApplications(props) {
                         />
                     </div>
                 </div>
-            ) : null}
+            ) : (
+                <CircularProgress color="inherit" />
+            )}
         </main>
     )
 }

@@ -308,7 +308,7 @@ function CompanyForm(props) {
                                                             fontSize: "12pt",
                                                             fontFamily: "Lato",
                                                             fontWeight: "bold",
-                                                            marginTop: "1rem",
+                                                            // marginTop: "1rem",
                                                         }}>
                                                         REGISTER
                                                     </Button>
