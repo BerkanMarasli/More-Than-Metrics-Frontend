@@ -273,8 +273,16 @@ function ViewApplyModal(props) {
                             onClick={submitApplication}>
                             Submit Application
                         </Button>
-                        {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
-                        {successMsg ? <Alert severity="success">{successMsg}</Alert> : null}
+                        {errorMsg ? (
+                            <Alert style={{ marginTop: "1rem" }} severity="error">
+                                {errorMsg}
+                            </Alert>
+                        ) : null}
+                        {successMsg ? (
+                            <Alert style={{ marginTop: "1rem" }} severity="success">
+                                {successMsg}
+                            </Alert>
+                        ) : null}
                     </div>
                 </Box>
             </div>
