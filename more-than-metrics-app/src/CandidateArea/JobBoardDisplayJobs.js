@@ -27,7 +27,7 @@ function createJobListing(jobTitle, viewCompanyBtn, viewJobBtn, applyBtn) {
 function companyInfo(job, handleOpenViewCompany) {
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <Avatar style={{ paddingRight: "1rem" }} alt={`${job.company_name} Logo`} src={job.image_url} sx={{ width: 40, height: 40 }} />
+            <Avatar style={{ marginRight: "1rem" }} alt={`${job.company_name} Logo`} src={job.image_url} sx={{ width: 40, height: 40 }} />
             <ViewCompanyBtn jobID={job.job_id} companyName={job.company_name} handleOpen={handleOpenViewCompany} />
         </div>
     )

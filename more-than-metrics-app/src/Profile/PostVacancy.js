@@ -9,11 +9,13 @@ const useStyles = makeStyles((theme) => ({
         display: "grid",
         justifyItems: "center",
         alignContent: "center",
+        padding: "1rem",
     },
 
     box: {
         display: "grid",
         justifyItems: "end",
+        padding: "1rem",
     },
 
     row: {
@@ -24,6 +26,14 @@ const useStyles = makeStyles((theme) => ({
     input: {
         width: "20rem",
         margin: "0.5rem",
+    },
+
+    btn: {
+        backgroundColor: "#FFBF50",
+        color: "white",
+        fontWeight: "bold",
+        fontFamily: "Lato",
+        marginBottom: "1rem",
     },
 }))
 
@@ -39,7 +49,7 @@ function PostVacancy() {
 
     return (
         <div className={classes.root}>
-            <h1 style={{ margin: "0px" }}>POST VACANCY</h1>
+            <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>POST VACANCY</h1>
             <Box className={classes.box} component="form" noValidate autoComplete="off">
                 <div className={classes.row}>
                     <InputLabel htmlFor="outlined-title">Job Title</InputLabel>
@@ -100,7 +110,7 @@ function PostVacancy() {
                     <SelectTechnologies techArray={technologies} className={classes.input} />
                 </div>
             </Box>
-            <Button>Submit</Button>
+            <Button className={classes.btn}>Submit</Button>
         </div>
     )
 }

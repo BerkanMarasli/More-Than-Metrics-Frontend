@@ -32,8 +32,8 @@ function ApplicationsPie(props) {
     ]
     return (
         <div style={{ display: "flex", justifyContent: "space-around" }}>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <span style={{ fontSize: "16px", fontFamily: "Lato" }}>TOTAL LISTINGS</span>
+            <div style={{ width: "15rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <span style={{ fontSize: "16px", fontFamily: "Lato", color: "black" }}>TOTAL LISTINGS</span>
                 <Chip
                     label={jobs}
                     style={{
@@ -67,8 +67,8 @@ function ApplicationsPie(props) {
                 </Pie>
                 <Legend verticalAlign="bottom" height={36} />
             </PieChart>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <span style={{ fontSize: "16px", fontFamily: "Lato" }}>TOTAL APPLICATIONS</span>
+            <div style={{ width: "15rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <span style={{ fontSize: "16px", fontFamily: "Lato", color: "black" }}>TOTAL APPLICATIONS</span>
                 <Chip
                     label={applications}
                     style={{

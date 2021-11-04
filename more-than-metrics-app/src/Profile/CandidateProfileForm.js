@@ -27,9 +27,10 @@ const yup = require("yup")
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: "grid",
-        justifyItems: "center",
-        alignContent: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
     },
 
     box: {
@@ -45,6 +46,13 @@ const useStyles = makeStyles((theme) => ({
     input: {
         width: "20rem",
         margin: "0.5rem",
+    },
+
+    btn: {
+        backgroundColor: "#FFBF50",
+        color: "white",
+        fontWeight: "bold",
+        fontFamily: "Lato",
     },
 }))
 
@@ -195,7 +203,10 @@ function Experiment(props) {
     const checkDetails = () => {
         if (userDetails.firstName) {
             return (
-                <div>
+                <div className={classes.root}>
+                    <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>YOUR PROFILE</h1>
+                    <Button onClick={() => setDisabled(!disabled)}>Edit</Button>
+
                     <Formik
                         initialValues={userDetails}
                         onSubmit={(values, actions) => {
@@ -207,210 +218,196 @@ function Experiment(props) {
                         {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => {
                             return (
                                 <Form onSubmit={handleSubmit}>
-                                    <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center">
+                                    <Grid
+                                        container
+                                        spacing={0}
+                                        direction="column"
+                                        alignItems="center"
+                                        justifyContent="center"
+                                        style={{ border: "none" }}>
                                         <div>
                                             <Grid item>
-                                                <Card
-                                                    style={{
-                                                        marginBottom: 20,
-                                                        maxWidth: 900,
-                                                        marginTop: 20,
-                                                    }}>
-                                                    <CardContent>
-                                                        <Typography
-                                                            variant="h3"
-                                                            className={clsx(
-                                                                classes.center,
-
-                                                                classes.mb4
-                                                            )}>
-                                                            Your Profile
-                                                        </Typography>
-                                                        <Grid container spacing={2}>
+                                                <Grid container spacing={2}>
+                                                    <div>
+                                                        {disabled ? (
+                                                            <Grid item lg={6} md={6} xs={12}>
+                                                                <TextField
+                                                                    disabled={disabled}
+                                                                    id="outlined-name"
+                                                                    label="Name"
+                                                                    value={userDetails.firstName + " " + userDetails.lastName}
+                                                                />
+                                                            </Grid>
+                                                        ) : (
                                                             <div>
-                                                                {disabled ? (
-                                                                    <Grid item lg={6} md={6} xs={12}>
-                                                                        <TextField
-                                                                            disabled={disabled}
-                                                                            id="outlined-name"
-                                                                            label="Name"
-                                                                            value={userDetails.firstName + " " + userDetails.lastName}
-                                                                        />
-                                                                    </Grid>
-                                                                ) : (
-                                                                    <div>
-                                                                        <Grid item lg={6} md={6} xs={12}>
-                                                                            <TextField
-                                                                                fullWidth
-                                                                                label="First Name"
-                                                                                type="text"
-                                                                                variant="outlined"
-                                                                                name="firstName"
-                                                                                value={values.firstName}
-                                                                                onChange={handleChange("firstName")}
-                                                                                onBlur={handleBlur}
-                                                                                error={errors && errors.firstName}
-                                                                                helperText={errors && errors.firstName ? errors.firstName : ""}
-                                                                            />
-                                                                        </Grid>
-                                                                        <Grid item lg={6} md={6} xs={12}>
-                                                                            <TextField
-                                                                                fullWidth
-                                                                                label="Last Name"
-                                                                                type="text"
-                                                                                variant="outlined"
-                                                                                name="lastName"
-                                                                                value={values.lastName}
-                                                                                onChange={handleChange("lastName")}
-                                                                                onBlur={handleBlur}
-                                                                                error={errors && errors.lastName}
-                                                                                helperText={errors && errors.lastName ? errors.lastName : ""}
-                                                                            />
-                                                                        </Grid>
-                                                                    </div>
-                                                                )}
+                                                                <Grid item lg={6} md={6} xs={12}>
+                                                                    <TextField
+                                                                        fullWidth
+                                                                        label="First Name"
+                                                                        type="text"
+                                                                        variant="outlined"
+                                                                        name="firstName"
+                                                                        value={values.firstName}
+                                                                        onChange={handleChange("firstName")}
+                                                                        onBlur={handleBlur}
+                                                                        error={errors && errors.firstName}
+                                                                        helperText={errors && errors.firstName ? errors.firstName : ""}
+                                                                    />
+                                                                </Grid>
+                                                                <Grid item lg={6} md={6} xs={12}>
+                                                                    <TextField
+                                                                        fullWidth
+                                                                        label="Last Name"
+                                                                        type="text"
+                                                                        variant="outlined"
+                                                                        name="lastName"
+                                                                        value={values.lastName}
+                                                                        onChange={handleChange("lastName")}
+                                                                        onBlur={handleBlur}
+                                                                        error={errors && errors.lastName}
+                                                                        helperText={errors && errors.lastName ? errors.lastName : ""}
+                                                                    />
+                                                                </Grid>
                                                             </div>
+                                                        )}
+                                                    </div>
 
-                                                            <Grid item lg={12} md={12} xs={12}>
+                                                    <Grid item lg={12} md={12} xs={12}>
+                                                        <TextField
+                                                            fullWidth
+                                                            disabled={disabled}
+                                                            id="outlined-description"
+                                                            className={classes.input}
+                                                            multiline
+                                                            maxRows={4}
+                                                            label="Candidate headline"
+                                                            type="text"
+                                                            variant="outlined"
+                                                            name="headline"
+                                                            value={values.headline}
+                                                            onChange={handleChange("headline")}
+                                                            onBlur={handleBlur}
+                                                            error={errors && errors.headline}
+                                                            helperText={errors && errors.headline ? errors.headline : ""}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item lg={6} md={6} xs={12}>
+                                                        <Slider
+                                                            disabled={disabled}
+                                                            aria-label="Years"
+                                                            id="slider-years"
+                                                            size="medium"
+                                                            name={"yearsInIndustry"}
+                                                            valueLabelFormat={valueLabelFormat}
+                                                            getAriaValueText={valueLabelFormat}
+                                                            step={1}
+                                                            marks
+                                                            defaultValue={values.yearsInIndustry}
+                                                            onChange={handleChange("yearsInIndustry")}
+                                                            valueLabelDisplay="on"
+                                                            min={0}
+                                                            max={5}
+                                                            style={disabled ? { color: "#FFBF50", opacity: "70%" } : { color: "#FFBF50" }}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item lg={6} md={6} xs={12}>
+                                                        <SelectTechnologies
+                                                            disabled={disabled}
+                                                            handleChange={handleChange}
+                                                            techArray={values.technology}
+                                                            onBlur={handleBlur}
+                                                            error={errors && errors.technology}
+                                                            helperText={errors && errors.technology ? errors.technology : ""}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item lg={6} md={6} xs={12}>
+                                                        <TextField
+                                                            fullWidth
+                                                            disabled={disabled}
+                                                            id="email"
+                                                            name="email"
+                                                            label="Email"
+                                                            type="email"
+                                                            variant="outlined"
+                                                            value={values.email}
+                                                            onChange={handleChange("email")}
+                                                            onBlur={handleBlur}
+                                                            error={errors && errors.email}
+                                                            helperText={errors && errors.email ? errors.email : ""}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item lg={6} md={6} xs={12}>
+                                                        <MuiPhoneNumber
+                                                            fullWidth
+                                                            disabled={disabled}
+                                                            id="phoneNumber"
+                                                            name="phoneNumber"
+                                                            label="Phone number"
+                                                            data-cy="user-phone"
+                                                            defaultCountry="gb"
+                                                            regions={"europe"}
+                                                            value={values.phoneNumber}
+                                                            onChange={handleChange("phoneNumber")}
+                                                            variant="outlined"
+                                                            onBlur={handleBlur}
+                                                            error={errors && errors.phoneNumber}
+                                                            helperText={errors && errors.phoneNumber ? errors.phoneNumber : ""}
+                                                        />
+                                                    </Grid>
+                                                    {!disabled ? (
+                                                        <div className={classes.row}>
+                                                            <Grid item lg={6} md={6} xs={12}>
                                                                 <TextField
                                                                     fullWidth
-                                                                    disabled={disabled}
-                                                                    id="outlined-description"
-                                                                    className={classes.input}
-                                                                    multiline
-                                                                    maxRows={4}
-                                                                    label="Candidate headline"
-                                                                    type="text"
+                                                                    label="Password"
+                                                                    type={showPassword ? "text" : "password"}
                                                                     variant="outlined"
-                                                                    name="headline"
-                                                                    value={values.headline}
-                                                                    onChange={handleChange("headline")}
+                                                                    name="password"
+                                                                    value={values.password}
+                                                                    onChange={handleChange("password")}
                                                                     onBlur={handleBlur}
-                                                                    error={errors && errors.headline}
-                                                                    helperText={errors && errors.headline ? errors.headline : ""}
-                                                                />
-                                                            </Grid>
-                                                            <Grid item lg={6} md={6} xs={12}>
-                                                                <Slider
-                                                                    disabled={disabled}
-                                                                    aria-label="Years"
-                                                                    id="slider-years"
-                                                                    size="medium"
-                                                                    name={"yearsInIndustry"}
-                                                                    valueLabelFormat={valueLabelFormat}
-                                                                    getAriaValueText={valueLabelFormat}
-                                                                    step={1}
-                                                                    marks
-                                                                    defaultValue={values.yearsInIndustry}
-                                                                    onChange={handleChange("yearsInIndustry")}
-                                                                    valueLabelDisplay="on"
-                                                                    min={0}
-                                                                    max={5}
-                                                                    style={disabled ? { color: "#FFBF50", opacity: "70%" } : { color: "#FFBF50" }}
-                                                                />
-                                                            </Grid>
-                                                            <Grid item lg={6} md={6} xs={12}>
-                                                                <SelectTechnologies
-                                                                    disabled={disabled}
-                                                                    handleChange={handleChange}
-                                                                    techArray={values.technology}
-                                                                    onBlur={handleBlur}
-                                                                    error={errors && errors.technology}
-                                                                    helperText={errors && errors.technology ? errors.technology : ""}
+                                                                    error={errors && errors.password}
+                                                                    helperText={errors && errors.password ? errors.password : ""}
                                                                 />
                                                             </Grid>
                                                             <Grid item lg={6} md={6} xs={12}>
                                                                 <TextField
                                                                     fullWidth
-                                                                    disabled={disabled}
-                                                                    id="email"
-                                                                    name="email"
-                                                                    label="Email"
-                                                                    type="email"
+                                                                    label="Confirm Password"
+                                                                    type={showPassword ? "text" : "password"}
                                                                     variant="outlined"
-                                                                    value={values.email}
-                                                                    onChange={handleChange("email")}
+                                                                    name="passwordConfirmation"
+                                                                    value={values.passwordConfirmation}
+                                                                    onChange={handleChange("passwordConfirmation")}
                                                                     onBlur={handleBlur}
-                                                                    error={errors && errors.email}
-                                                                    helperText={errors && errors.email ? errors.email : ""}
+                                                                    error={errors && errors.passwordConfirmation}
+                                                                    helperText={
+                                                                        errors && errors.passwordConfirmation ? errors.passwordConfirmation : ""
+                                                                    }
                                                                 />
                                                             </Grid>
-                                                            <Grid item lg={6} md={6} xs={12}>
-                                                                <MuiPhoneNumber
-                                                                    fullWidth
-                                                                    disabled={disabled}
-                                                                    id="phoneNumber"
-                                                                    name="phoneNumber"
-                                                                    label="Phone number"
-                                                                    data-cy="user-phone"
-                                                                    defaultCountry="gb"
-                                                                    regions={"europe"}
-                                                                    value={values.phoneNumber}
-                                                                    onChange={handleChange("phoneNumber")}
-                                                                    variant="outlined"
-                                                                    onBlur={handleBlur}
-                                                                    error={errors && errors.phoneNumber}
-                                                                    helperText={errors && errors.phoneNumber ? errors.phoneNumber : ""}
-                                                                />
-                                                            </Grid>
-                                                            {!disabled ? (
-                                                                <div className={classes.row}>
-                                                                    <Grid item lg={6} md={6} xs={12}>
-                                                                        <TextField
-                                                                            fullWidth
-                                                                            label="Password"
-                                                                            type={showPassword ? "text" : "password"}
-                                                                            variant="outlined"
-                                                                            name="password"
-                                                                            value={values.password}
-                                                                            onChange={handleChange("password")}
-                                                                            onBlur={handleBlur}
-                                                                            error={errors && errors.password}
-                                                                            helperText={errors && errors.password ? errors.password : ""}
-                                                                        />
-                                                                    </Grid>
-                                                                    <Grid item lg={6} md={6} xs={12}>
-                                                                        <TextField
-                                                                            fullWidth
-                                                                            label="Confirm Password"
-                                                                            type={showPassword ? "text" : "password"}
-                                                                            variant="outlined"
-                                                                            name="passwordConfirmation"
-                                                                            value={values.passwordConfirmation}
-                                                                            onChange={handleChange("passwordConfirmation")}
-                                                                            onBlur={handleBlur}
-                                                                            error={errors && errors.passwordConfirmation}
-                                                                            helperText={
-                                                                                errors && errors.passwordConfirmation
-                                                                                    ? errors.passwordConfirmation
-                                                                                    : ""
-                                                                            }
-                                                                        />
-                                                                    </Grid>
-                                                                    <InputAdornment position="end">
-                                                                        <IconButton
-                                                                            aria-label="toggle password visibility"
-                                                                            onClick={handleClickShowPassword}
-                                                                            onMouseDown={handleMouseDownPassword}
-                                                                            edge="end">
-                                                                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                                        </IconButton>
-                                                                    </InputAdornment>
-                                                                </div>
-                                                            ) : null}
-                                                        </Grid>
-                                                        {!disabled ? (
-                                                            <Button
-                                                                type="submit"
-                                                                color="primary"
-                                                                variant="contained"
-                                                                className={clsx(classes.mt4, classes.mb3)}>
-                                                                submit
-                                                            </Button>
-                                                        ) : // <Button onClick={() => setDisabled(true)}>Save</Button>
-                                                        null}
-                                                    </CardContent>
-                                                </Card>
+                                                            <InputAdornment position="end">
+                                                                <IconButton
+                                                                    aria-label="toggle password visibility"
+                                                                    onClick={handleClickShowPassword}
+                                                                    onMouseDown={handleMouseDownPassword}
+                                                                    edge="end">
+                                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                                </IconButton>
+                                                            </InputAdornment>
+                                                        </div>
+                                                    ) : null}
+                                                </Grid>
+                                                {!disabled ? (
+                                                    <Button
+                                                        type="submit"
+                                                        color="primary"
+                                                        variant="contained"
+                                                        className={clsx(classes.mt4, classes.mb3, classes.btn)}>
+                                                        submit
+                                                    </Button>
+                                                ) : // <Button onClick={() => setDisabled(true)}>Save</Button>
+                                                null}
                                             </Grid>
                                         </div>
                                     </Grid>
@@ -418,7 +415,6 @@ function Experiment(props) {
                             )
                         }}
                     </Formik>
-                    {disabled ? <Button onClick={() => setDisabled(false)}>Edit</Button> : null}
                 </div>
             )
         } else
