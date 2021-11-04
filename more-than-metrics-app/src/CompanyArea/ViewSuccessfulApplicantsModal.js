@@ -3,6 +3,14 @@ import { Box, Modal } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
 import { useState, useEffect } from "react"
 
+//Icons for AMAZING applicants
+import CallIcon from "@mui/icons-material/Call"
+import EmailIcon from "@mui/icons-material/Email"
+import PersonIcon from "@mui/icons-material/Person"
+import Person from "@mui/icons-material/Person"
+
+import Chip from "@mui/material/Chip"
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: "grid",
@@ -86,9 +94,12 @@ export default function ViewSuccessfulApplicantsModal(props) {
                             {acceptedApplicants.map((applicant) => {
                                 return (
                                     <div key={applicant.application_id}>
-                                        <h3>
-                                            {applicant.candidate_name} - {applicant.account_email} - {applicant.candidate_phone_number}
-                                        </h3>
+                                        <Chip>
+                                            <PersonIcon />
+                                            {applicant.candidate_name} - <EmailIcon />
+                                            {applicant.account_email} - <CallIcon />
+                                            {applicant.candidate_phone_number}
+                                        </Chip>
                                     </div>
                                 )
                             })}
