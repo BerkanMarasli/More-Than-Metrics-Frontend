@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
         ontFamily: "Lato",
         display: "flex",
         justifyContent: "center",
+        fontFamily: "Lato",
+        color: "gray",
+        margin: "4px 0px",
     },
 
     box: {
