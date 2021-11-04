@@ -145,7 +145,7 @@ function Experiment(props) {
 
     useEffect(() => {
         async function getUserDetails(setUserDetails) {
-            const response = await fetch(`http://localhost:8080/candidate/information/2`)
+            const response = await fetch(`http://localhost:8080/company/information/4`)
             const [json] = await response.json()
             const { candidate_name, headline, technologies, candidate_phone_number, candidate_years_in_industry_id, account_email } = json
             const nameArr = candidate_name.split(" ")
@@ -165,7 +165,7 @@ function Experiment(props) {
         }
 
         getUserDetails(setUserDetails)
-    }, [refreshForUpdate])
+    }, [])
 
     async function updateUser(values) {
         const url = `http://localhost:8080/candidate/update`
@@ -441,12 +441,13 @@ function Experiment(props) {
                     </Formik>
                 </div>
             )
-        } else
+        } else {
             return (
                 <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
                     <LinearProgress color="success" />
                 </Stack>
             )
+        }
     }
 
     return checkDetails()

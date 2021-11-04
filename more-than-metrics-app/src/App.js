@@ -13,6 +13,8 @@ import Profile from "./Profile/Profile.js"
 import Register from "./Components/Register/Register"
 import Login from "./Components/Login/Login"
 
+import CompanyProfileForm from "./Profile/CompanyProfileForm.js"
+
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [userType, setUserType] = useState(null)
@@ -92,6 +94,9 @@ function App() {
                 </Route>
                 <Route exact path="/candidates">
                     <Candidates setUserType={setUserType} />
+                </Route>
+                <Route exact path="/experiment">
+                    <CompanyProfileForm setUserType={setUserType} />
                 </Route>
                 <Route exact path="/login">
                     {redirectLogin()}
