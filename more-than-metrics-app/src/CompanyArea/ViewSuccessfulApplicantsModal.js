@@ -3,11 +3,25 @@ import { Box, Modal } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
 import { useState, useEffect } from "react"
 
+//Icons for AMAZING applicants
+import CallIcon from "@mui/icons-material/Call"
+import EmailIcon from "@mui/icons-material/Email"
+import PersonIcon from "@mui/icons-material/Person"
+import Paper from "@mui/material/Paper"
+import Alert from "@mui/material/Alert"
+
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: "grid",
+        display: "flex",
         justifyItems: "center",
         alignContent: "center",
+    },
+    title: {
+        ontFamily: "Lato",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
     },
 
     box: {
@@ -38,6 +52,29 @@ const useStyles = makeStyles((theme) => ({
 
     company: {
         margin: "0.5rem",
+    },
+    candidateListDisplayBox: {
+        display: "flex",
+    },
+    icons: {
+        display: "flex",
+        marginRight: "2px",
+        position: "relative",
+        alignItems: "end",
+    },
+    candidateList: {
+        display: "flex",
+        justifyContent: "space-evenly",
+        borderRadius: "8px",
+        padding: "10px",
+        margin: "5px",
+        backgroundColor: "#ffeab9",
+        width: "100%",
+    },
+    candidateInfo: {
+        display: "flex",
+        marginBottom: "0.1em",
+        margin: "0",
     },
 }))
 
@@ -78,17 +115,30 @@ export default function ViewSuccessfulApplicantsModal(props) {
             aria-describedby="modal-modal-description">
             <div className={classes.root}>
                 <Box className={classes.box} sx={style}>
-                    <h1>Accepted Applicants</h1>
+                    <h1 className={classes.title}>Accepted Applicants</h1>
                     {acceptedApplicants.message ? (
-                        <h2>No Accepted Applicants</h2>
+                        <Alert severity="info">No Accepted Applicants</Alert>
                     ) : (
                         <div>
                             {acceptedApplicants.map((applicant) => {
                                 return (
-                                    <div key={applicant.application_id}>
-                                        <h3>
-                                            {applicant.candidate_name} - {applicant.account_email} - {applicant.candidate_phone_number}
-                                        </h3>
+                                    <div key={applicant.application_id} className={classes.candidateListDisplayBox}>
+                                        <Paper label={applicant.candidate_name} className={classes.candidateList}>
+                                            <div className={classes.icons}>
+                                                <PersonIcon className={classes.icons} />
+                                                <p className={classes.candidateInfo}>{applicant.candidate_name}</p>
+                                            </div>
+
+                                            <div className={classes.icons}>
+                                                <EmailIcon className={classes.icons} />
+                                                <p className={classes.candidateInfo}>{applicant.account_email}</p>
+                                            </div>
+
+                                            <div className={classes.icons}>
+                                                <CallIcon className={classes.icons} />
+                                                <p className={classes.candidateInfo}>{applicant.candidate_phone_number}</p>
+                                            </div>
+                                        </Paper>
                                     </div>
                                 )
                             })}
