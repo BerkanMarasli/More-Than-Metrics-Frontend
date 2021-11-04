@@ -104,7 +104,7 @@ function JobBoard() {
             <Navbar userType={"candidate"} />
             <Box className={classes.box}>
                 <Item className={classes.container}>
-                    <h1 style={{ margin: "4px 0px", fontFamily: "Lato" }}>JOB BOARD</h1>
+                    <h1 style={{ margin: "4px 0px", fontFamily: "Lato", color: "gray" }}>JOB BOARD</h1>
                     <JobBoardDisplayJobs handleViewCompany={handleViewCompany} handleViewJob={handleViewJob} handleViewApply={handleViewApply} />
                     {openViewCompany ? (
                         <ViewCompanyModal
