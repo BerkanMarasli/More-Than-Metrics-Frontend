@@ -20,8 +20,6 @@ const useStyles = makeStyles((theme) => ({
         ontFamily: "Lato",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
     },
 
     box: {
@@ -115,11 +113,11 @@ export default function ViewSuccessfulApplicantsModal(props) {
             aria-describedby="modal-modal-description">
             <div className={classes.root}>
                 <Box className={classes.box} sx={style}>
-                    <h1 className={classes.title}>Accepted Applicants</h1>
                     {acceptedApplicants.message ? (
                         <Alert severity="info">No Accepted Applicants</Alert>
                     ) : (
                         <div>
+                            <h1 className={classes.title}>Accepted Applicants</h1>
                             {acceptedApplicants.map((applicant) => {
                                 return (
                                     <div key={applicant.application_id} className={classes.candidateListDisplayBox}>
