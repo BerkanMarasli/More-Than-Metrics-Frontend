@@ -4,6 +4,8 @@ import { Card, CardContent, Grid, Typography, TextField, Button } from "@materia
 import clsx from "clsx"
 import { Formik, Form } from "formik"
 
+import Alert from "@mui/material/Alert"
+
 const useStyles = makeStyles(() => ({
     center: {
         // display: "flex",
@@ -33,7 +35,7 @@ const useStyles = makeStyles(() => ({
 
 function LoginForm(props) {
     const classes = useStyles()
-    const { getUser, setLoggedIn } = props
+    const { getUser, setLoggedIn, errorMsg, setErrorMsg } = props
 
     return (
         <div>
@@ -44,7 +46,7 @@ function LoginForm(props) {
                 }}
                 onSubmit={(values, actions) => {
                     console.log(values)
-                    getUser(values, setLoggedIn)
+                    getUser(values, setLoggedIn, setErrorMsg)
                 }}>
                 {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => {
                     return (
@@ -104,6 +106,7 @@ function LoginForm(props) {
                                                                 touched && touched.password && errors && errors.password ? errors.password : ""
                                                             }
                                                         />
+                                                        {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
                                                     </Grid>
                                                 </Grid>
                                                 <div style={{ display: "flex", justifyContent: "center", margin: "8px 0px" }}>
