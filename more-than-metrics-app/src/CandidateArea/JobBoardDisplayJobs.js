@@ -47,7 +47,7 @@ function JobBoardDisplayJobs(props) {
             const jobsData = await jobsResponse.json()
             const jobs = jobsData.reverse().map((job) => {
                 return createJobListing(
-                    job.job_title,
+                    job.job_title.toUpperCase(),
                     companyInfo(job, handleOpenViewCompany),
                     <ViewJobBtn jobID={job.job_id} handleOpen={handleOpenViewJob} />,
                     <ApplyBtn jobID={job.job_id} handleOpen={handleOpenViewApply} />
