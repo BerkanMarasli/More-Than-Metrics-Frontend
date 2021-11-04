@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
     },
 
     box: {
-        display: "grid",
-        justifyItems: "end",
+        display: "flex",
+        justifyItems: "center",
     },
 
     row: {

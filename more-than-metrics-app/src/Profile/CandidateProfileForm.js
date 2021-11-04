@@ -31,20 +31,25 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        padding: "1rem",
     },
 
     box: {
-        display: "grid",
-        justifyItems: "end",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "1rem",
     },
 
     row: {
         display: "flex",
-        alignItems: "center",
+        alignContent: "center",
+        justifyContent: "center",
     },
 
     input: {
-        width: "20rem",
+        width: "15rem",
         margin: "0.5rem",
     },
 
@@ -166,6 +171,13 @@ function Experiment(props) {
         const url = `http://localhost:8080/candidate/update`
 
         const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
+        console.log(values)
+
+        const techIDArray = technology.map((tech) => {
+            return tech.technology_id
+        })
+        console.log(yearsInIndustry)
+        console.log(techIDArray)
 
         if (!technology.length) {
             console.log("Didn't update technologies")
@@ -426,7 +438,56 @@ function Experiment(props) {
                                                 null}
                                             </Grid>
                                         </div>
-                                    </Grid>
+                                        {!disabled ? (
+                                            <div className={classes.row}>
+                                                <TextField
+                                                    className={classes.input}
+                                                    fullWidth
+                                                    label="Password"
+                                                    type={showPassword ? "text" : "password"}
+                                                    variant="outlined"
+                                                    name="password"
+                                                    value={values.password}
+                                                    onChange={handleChange("password")}
+                                                    onBlur={handleBlur}
+                                                    error={errors && errors.password}
+                                                    helperText={errors && errors.password ? errors.password : ""}
+                                                />
+                                                <TextField
+                                                    className={classes.input}
+                                                    fullWidth
+                                                    label="Confirm Password"
+                                                    type={showPassword ? "text" : "password"}
+                                                    variant="outlined"
+                                                    name="passwordConfirmation"
+                                                    value={values.passwordConfirmation}
+                                                    onChange={handleChange("passwordConfirmation")}
+                                                    onBlur={handleBlur}
+                                                    error={errors && errors.passwordConfirmation}
+                                                    helperText={errors && errors.passwordConfirmation ? errors.passwordConfirmation : ""}
+                                                />
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                        edge="end">
+                                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            </div>
+                                        ) : null}
+                                        {!disabled ? (
+                                            <Button
+                                                type="submit"
+                                                color="inherit"
+                                                variant="contained"
+                                                className={clsx(classes.mt4, classes.mb3, classes.btn)}>
+                                                submit
+                                            </Button>
+                                        ) : // <Button onClick={() => setDisabled(true)}>Save</Button>
+                                        null}{" "}
+                                    </Box>
                                 </Form>
                             )
                         }}

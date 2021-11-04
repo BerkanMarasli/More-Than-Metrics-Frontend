@@ -23,7 +23,6 @@ function SelectTechnologies(props) {
         const fetchTechnologies = async () => {
             const techResponse = await fetch("http://localhost:8080/technologies")
             const techJson = await techResponse.json()
-
             setTechnologies(techJson)
         }
         fetchTechnologies()

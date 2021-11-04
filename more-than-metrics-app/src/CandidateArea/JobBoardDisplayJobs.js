@@ -3,6 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TablePagination, TableRow,
 import ViewCompanyBtn from "../Components/ViewCompanyBtn"
 import ViewJobBtn from "../Components/ViewJobBtn"
 import ApplyBtn from "../Components/ApplyBtn"
+import AssignmentIcon from "@mui/icons-material/Assignment"
 
 const columns = [
     { id: "jobTitle" },
@@ -33,6 +34,15 @@ function companyInfo(job, handleOpenViewCompany) {
     )
 }
 
+function jobTitle(job) {
+    return (
+        <div style={{ display: "flex", fontSize: "14pt", textAlign: "left", letterSpacing: "0.5px", maxWidth: "300px" }}>
+            <AssignmentIcon style={{ paddingRight: "0.5rem", position: "relative", color: "gray" }} />
+            {job.job_title.toUpperCase()}
+        </div>
+    )
+}
+
 function JobBoardDisplayJobs(props) {
     const { handleOpenViewCompany } = props.handleViewCompany
     const { handleOpenViewJob } = props.handleViewJob
@@ -47,7 +57,7 @@ function JobBoardDisplayJobs(props) {
             const jobsData = await jobsResponse.json()
             const jobs = jobsData.reverse().map((job) => {
                 return createJobListing(
-                    job.job_title,
+                    jobTitle(job),
                     companyInfo(job, handleOpenViewCompany),
                     <ViewJobBtn jobID={job.job_id} handleOpen={handleOpenViewJob} />,
                     <ApplyBtn jobID={job.job_id} handleOpen={handleOpenViewApply} />
