@@ -106,7 +106,11 @@ function LoginForm(props) {
                                                                 touched && touched.password && errors && errors.password ? errors.password : ""
                                                             }
                                                         />
-                                                        {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
+                                                        {errorMsg ? (
+                                                            <Alert style={{ marginTop: "1rem" }} severity="error">
+                                                                {errorMsg}
+                                                            </Alert>
+                                                        ) : null}
                                                     </Grid>
                                                 </Grid>
                                                 <div style={{ display: "flex", justifyContent: "center", margin: "8px 0px" }}>
