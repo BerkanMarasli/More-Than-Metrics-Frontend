@@ -272,6 +272,25 @@ function CompanyProfileForm(props) {
                                                             : ""
                                                     }
                                                 />
+                                                <div>
+                                                    <Slider
+                                                        aria-label="NumOfEmployees"
+                                                        id="slider-employees"
+                                                        size="medium"
+                                                        name={"numOfEmployees"}
+                                                        valueLabelFormat={valueLabelFormat}
+                                                        getAriaValueText={valueLabelFormat}
+                                                        step={1}
+                                                        marks
+                                                        defaultValue={values.numOfEmployees}
+                                                        onChange={handleChange("numOfEmployees")}
+                                                        valueLabelDisplay="on"
+                                                        min={0}
+                                                        max={5}
+                                                        disabled={disabled}
+                                                        style={disabled ? { color: "#FFBF50", opacity: "70%" } : { color: "#FFBF50" }}
+                                                    />
+                                                </div>
 
                                                 <TextField
                                                     fullWidth
