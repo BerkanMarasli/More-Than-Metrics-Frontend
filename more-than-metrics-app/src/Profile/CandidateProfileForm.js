@@ -183,10 +183,6 @@ function Experiment(props) {
             console.log("Didn't update technologies")
         }
 
-        const techIDArray = technology.map((tech) => {
-            return tech.technology_id
-        })
-        console.log(loadedTechList)
         const loadedTechIDArray = loadedTechList.map((tech) => {
             return tech.technology_id
         })
@@ -245,7 +241,7 @@ function Experiment(props) {
                         {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => {
                             return (
                                 <Form onSubmit={handleSubmit}>
-                                    <Grid
+                                    <Box
                                         container
                                         spacing={0}
                                         direction="column"
@@ -438,55 +434,6 @@ function Experiment(props) {
                                                 null}
                                             </Grid>
                                         </div>
-                                        {!disabled ? (
-                                            <div className={classes.row}>
-                                                <TextField
-                                                    className={classes.input}
-                                                    fullWidth
-                                                    label="Password"
-                                                    type={showPassword ? "text" : "password"}
-                                                    variant="outlined"
-                                                    name="password"
-                                                    value={values.password}
-                                                    onChange={handleChange("password")}
-                                                    onBlur={handleBlur}
-                                                    error={errors && errors.password}
-                                                    helperText={errors && errors.password ? errors.password : ""}
-                                                />
-                                                <TextField
-                                                    className={classes.input}
-                                                    fullWidth
-                                                    label="Confirm Password"
-                                                    type={showPassword ? "text" : "password"}
-                                                    variant="outlined"
-                                                    name="passwordConfirmation"
-                                                    value={values.passwordConfirmation}
-                                                    onChange={handleChange("passwordConfirmation")}
-                                                    onBlur={handleBlur}
-                                                    error={errors && errors.passwordConfirmation}
-                                                    helperText={errors && errors.passwordConfirmation ? errors.passwordConfirmation : ""}
-                                                />
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        aria-label="toggle password visibility"
-                                                        onClick={handleClickShowPassword}
-                                                        onMouseDown={handleMouseDownPassword}
-                                                        edge="end">
-                                                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            </div>
-                                        ) : null}
-                                        {!disabled ? (
-                                            <Button
-                                                type="submit"
-                                                color="inherit"
-                                                variant="contained"
-                                                className={clsx(classes.mt4, classes.mb3, classes.btn)}>
-                                                submit
-                                            </Button>
-                                        ) : // <Button onClick={() => setDisabled(true)}>Save</Button>
-                                        null}{" "}
                                     </Box>
                                 </Form>
                             )
