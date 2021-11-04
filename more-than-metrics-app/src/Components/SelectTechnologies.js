@@ -23,6 +23,10 @@ function SelectTechnologies(props) {
         const fetchTechnologies = async () => {
             const techResponse = await fetch("http://localhost:8080/technologies")
             const techJson = await techResponse.json()
+            const ids = techArray.map((tech) => tech.technology_id)
+
+            const updatedList = techJson.filter((item) => !ids.includes(item.technology_id))
+            console.log(updatedList)
             setTechnologies(techJson)
         }
         fetchTechnologies()

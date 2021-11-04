@@ -157,6 +157,12 @@ function Experiment(props) {
 
         const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
 
+        const techIDArray = technology.map((tech) => {
+            return tech.technology_id
+        })
+        console.log(yearsInIndustry)
+        console.log(techIDArray)
+
         try {
             const response = await fetch(url, {
                 method: "PUT",
@@ -166,8 +172,9 @@ function Experiment(props) {
                     candidateEmail: email,
                     candidatePassword: password,
                     candidateName: `${firstName} ${lastName}`,
+                    technologies: techIDArray,
                     headline: headline,
-                    candidatePhoneNumber: phoneNumber,
+                    candidatePhoneNumber: parseInt(phoneNumber.replaceAll(" ", "").replaceAll("+", "")),
                     yearsInIndustryID: yearsInIndustry,
                 }),
             })
