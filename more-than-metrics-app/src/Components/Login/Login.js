@@ -35,7 +35,6 @@ async function getUser(values, setLoggedIn, setErrorMsg) {
             body: JSON.stringify(values),
         })
         const json = await response.json()
-        console.log("This is the response from the backend ", json)
         setErrorMsg(json.message)
 
         if (response.status === 200) {
