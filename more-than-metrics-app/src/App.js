@@ -56,7 +56,7 @@ function App() {
 
     const unauthorisedRedirect = (candidateRedirect, companyRedirect) => {
         if (!loggedIn) {
-            return <Unauthorised />
+            return <Unauthorised userType={userType} />
         } else if (userType === "company") {
             return companyRedirect
         }
@@ -88,13 +88,13 @@ function App() {
                     <Profile userType={userType} />
                 </Route>
                 <Route exact path="/dashboard">
-                    {unauthorisedRedirect(<Unauthorised />, <Dashboard userType={userType} />)}
+                    {unauthorisedRedirect(<Unauthorised userType={userType} />, <Dashboard userType={userType} />)}
                 </Route>
                 <Route exact path="/match">
-                    {unauthorisedRedirect(<Unauthorised />, <MatchCandidates />)}
+                    {unauthorisedRedirect(<Unauthorised userType={userType} />, <MatchCandidates />)}
                 </Route>
                 <Route exact path="/jobs">
-                    {unauthorisedRedirect(<JobBoard />, <Unauthorised />)}
+                    {unauthorisedRedirect(<JobBoard />, <Unauthorised userType={userType} />)}
                 </Route>
             </Switch>
         </Router>

@@ -62,7 +62,7 @@ function DisplayApplications(props) {
         <main>
             {applications ? (
                 <div>
-                    <TableContainer sx={{ maxHeight: 210 }}>
+                    <TableContainer sx={{ maxHeight: 220 }}>
                         <Table stickyHeader aria-label="sticky table">
                             <TableBody>
                                 {applications.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((application) => {
