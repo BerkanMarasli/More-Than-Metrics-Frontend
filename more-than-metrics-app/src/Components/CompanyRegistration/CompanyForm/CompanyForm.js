@@ -84,9 +84,9 @@ function CompanyForm(props) {
                                     <Grid item>
                                         <Card
                                             style={{
-                                                marginBottom: 20,
+                                                // marginBottom: 20,
                                                 maxWidth: 900,
-                                                marginTop: 20,
+                                                marginTop: "3rem",
                                             }}>
                                             <CardContent>
                                                 <Typography
@@ -104,7 +104,7 @@ function CompanyForm(props) {
                                                     }}>
                                                     REGISTRATION
                                                 </Typography>
-                                                <Grid container spacing={2}>
+                                                <Grid style={{ justifyContent: "center" }} container spacing={2}>
                                                     <Grid item lg={6} md={6} xs={12}>
                                                         <TextField
                                                             fullWidth
@@ -294,7 +294,9 @@ function CompanyForm(props) {
                                                             }
                                                         />
                                                     </Grid>
+                                                    {/* <div style={{ display: "flex", justifyContent: "center" }}> */}
                                                     {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
+                                                    {/* </div> */}
                                                 </Grid>
                                                 <div style={{ display: "flex", justifyContent: "center", margin: "8px 0px" }}>
                                                     <Button
