@@ -60,7 +60,7 @@ function About() {
                         </Typography>
                     </CardContent>
                     <CardActions className={classes.actions}>
-                        <a href="https://www.linkedin.com/in/berkan-m-3777a9ba/" style={{ color: "inherit" }}>
+                        <a href="https://www.linkedin.com/in/berkanmarasli/" style={{ color: "inherit" }}>
                             <LinkedIn style={{ color: "gray", fontSize: "30pt" }} />
                         </a>
                         <a href="https://github.com/BerkanMarasli" style={{ color: "inherit" }}>
