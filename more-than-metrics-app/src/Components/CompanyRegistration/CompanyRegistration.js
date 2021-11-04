@@ -1,10 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
 import CompanyForm from "../CompanyRegistration/CompanyForm/CompanyForm"
 
 // Yup
 const yup = require("yup")
 
 function CompanyRegistration() {
+    const [errorMsg, setErrorMsg] = useState("")
     const signupSchema = yup.object().shape({
         img_url: yup
             .string()
@@ -38,18 +39,17 @@ function CompanyRegistration() {
 
     return (
         <div>
-            <CompanyForm createUser={createUser} signupSchema={signupSchema} />
+            <CompanyForm createUser={createUser} signupSchema={signupSchema} errorMsg={errorMsg} setErrorMsg={setErrorMsg} />
         </div>
     )
 }
 
-async function createUser(values) {
+async function createUser(values, setErrorMsg) {
     const url = `http://localhost:8080/company/register`
 
     const { img_url, companyName, companyBio, numOfEmployees, femalePercentage, retentionRate, location, email, password, passwordConfirmation } =
         values
 
-    console.log(numOfEmployees)
     try {
         const response = await fetch(url, {
             method: "POST",
@@ -68,13 +68,7 @@ async function createUser(values) {
             }),
         })
         const json = await response.json()
-        console.log(json)
-
-        if (!json.msg) {
-            return "That username is taken. Try another."
-        } else {
-            return ""
-        }
+        setErrorMsg(json.message)
     } catch (error) {
         console.log(error)
     }

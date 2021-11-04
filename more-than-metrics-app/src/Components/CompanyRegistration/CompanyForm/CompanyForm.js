@@ -9,6 +9,8 @@ import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import { MenuItem, Select, InputAdornment } from "@material-ui/core"
 
+import Alert from "@mui/material/Alert"
+
 import clsx from "clsx"
 
 // Formik
@@ -44,7 +46,7 @@ const useStyles = makeStyles(() => ({
 function CompanyForm(props) {
     const classes = useStyles()
     const [fetchedNumOfEmployeesCategory, setNumOfEmployees] = useState(null)
-    const { createUser, signupSchema } = props
+    const { createUser, signupSchema, errorMsg, setErrorMsg } = props
 
     useEffect(() => {
         async function getNumOfEmployees(setNumOfEmployees) {
@@ -71,8 +73,7 @@ function CompanyForm(props) {
                     passwordConfirmation: "",
                 }}
                 onSubmit={(values, actions) => {
-                    console.log(values)
-                    createUser(values)
+                    createUser(values, setErrorMsg)
                 }}
                 validationSchema={signupSchema}>
                 {({ values, touched, errors, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
@@ -176,7 +177,6 @@ function CompanyForm(props) {
                                                             </MenuItem>
                                                             {fetchedNumOfEmployeesCategory !== null
                                                                 ? fetchedNumOfEmployeesCategory.map((category) => {
-                                                                      console.log(category)
                                                                       return (
                                                                           <MenuItem
                                                                               key={category.number_of_employees_id}
@@ -246,7 +246,7 @@ function CompanyForm(props) {
                                                             }
                                                         />
                                                     </Grid>
-                                                    <Grid item lg={6} md={6} xs={12}>
+                                                    <Grid item lg={12} md={12} xs={12}>
                                                         <TextField
                                                             fullWidth
                                                             label="Email"
@@ -294,6 +294,7 @@ function CompanyForm(props) {
                                                             }
                                                         />
                                                     </Grid>
+                                                    {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
                                                 </Grid>
                                                 <div style={{ display: "flex", justifyContent: "center", margin: "8px 0px" }}>
                                                     <Button
