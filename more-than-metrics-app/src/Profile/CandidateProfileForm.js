@@ -119,6 +119,37 @@ function Experiment(props) {
         })
     }
 
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword)
+    }
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault()
+    }
+
+    useEffect(() => {
+        async function getUserDetails(setUserDetails) {
+            const response = await fetch(`http://localhost:8080/candidate/information/2`)
+            const [json] = await response.json()
+            const { candidate_name, headline, technologies, candidate_phone_number, candidate_years_in_industry_id, account_email } = json
+            const nameArr = candidate_name.split(" ")
+
+            setUserDetails({
+                firstName: nameArr[0],
+                lastName: nameArr[1],
+                email: account_email,
+                phoneNumber: candidate_phone_number,
+                yearsInIndustry: candidate_years_in_industry_id,
+                technology: technologies,
+                headline: headline,
+                password: "",
+                passwordConfirmation: "",
+            })
+        }
+
+        getUserDetails(setUserDetails)
+    }, [])
+
     async function updateUser(values) {
         const url = `http://localhost:8080/candidate/update`
 
@@ -153,39 +184,6 @@ function Experiment(props) {
             console.log(error)
         }
     }
-
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword)
-    }
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault()
-    }
-
-    useEffect(() => {
-        async function getUserDetails(setUserDetails) {
-            const response = await fetch(`http://localhost:8080/candidate/information/2`)
-            const [json] = await response.json()
-            console.log(json)
-            const { candidate_name, headline, technologies, candidate_phone_number, candidate_years_in_industry_id, account_email } = json
-
-            const nameArr = candidate_name.split(" ")
-
-            setUserDetails({
-                firstName: nameArr[0],
-                lastName: nameArr[1],
-                email: account_email,
-                phoneNumber: candidate_phone_number,
-                yearsInIndustry: candidate_years_in_industry_id,
-                technology: technologies,
-                headline: headline,
-                password: "",
-                passwordConfirmation: "",
-            })
-        }
-
-        getUserDetails(setUserDetails)
-    }, [])
 
     const checkDetails = () => {
         if (userDetails.firstName) {

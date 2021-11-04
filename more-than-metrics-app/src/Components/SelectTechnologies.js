@@ -28,9 +28,11 @@ function SelectTechnologies(props) {
         fetchTechnologies()
     }, [])
 
+    //technologies is the WHOLE array of tech
+    //techArray is either empty or contains techs passed depending on what component it is passed from
+
     return (
         <div className={props.className}>
-            {console.log(technologies)}
             {technologies ? (
                 <Select
                     disabled={disabled !== undefined ? disabled : false}
@@ -47,14 +49,14 @@ function SelectTechnologies(props) {
                     input={<OutlinedInput id="select-multiple-chip" />}
                     renderValue={(selected) => (
                         <div>
-                            {console.log(selected)}
+                            {console.log("Selected technologies: ", selected)}
+                            {console.log("These are the passed in technologies: ", techArray)}
                             <Box
                                 sx={{
                                     display: "flex",
                                     flexWrap: "wrap",
                                     gap: 0.5,
                                 }}>
-                                {" "}
                                 {selected.length < 1 ? (
                                     <MenuItem value="" disabled>
                                         Technology
@@ -71,8 +73,6 @@ function SelectTechnologies(props) {
                         </div>
                     )}
                     MenuProps={MenuProps}
-                    // error={!techArray.length}
-                    // helperText={helperText}
                     displayEmpty>
                     <MenuItem value="" disabled>
                         Technology
