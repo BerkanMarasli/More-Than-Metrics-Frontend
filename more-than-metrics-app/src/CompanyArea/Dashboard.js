@@ -69,13 +69,13 @@ function Dashboard(props) {
             <div>
                 <Box className={classes.box}>
                     <Item className={classes.container}>
-                        <h1 style={{ margin: "0px", fontFamily: "Lato" }}>OVERVIEW</h1>
+                        <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>OVERVIEW</h1>
                         <ApplicationsPie />
                     </Item>
                 </Box>
                 <Box className={classes.box}>
                     <Item className={classes.container}>
-                        <h1 style={{ margin: "0px", fontFamily: "Lato" }}>OPEN VACANCIES</h1>
+                        <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>OPEN VACANCIES</h1>
                         <DisplayApplications handleViewSuccessful={handleViewSuccessful} />
                     </Item>
                 </Box>

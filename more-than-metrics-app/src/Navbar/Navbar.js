@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "1.2rem",
         margin: "0.2rem",
         fontSize: "12pt",
+        textDecoration: "underline 2pt #FFBF50",
+        "&:hover": {
+            textDecoration: "underline 3pt #FFBF50",
+        },
     },
 
     exit: {
