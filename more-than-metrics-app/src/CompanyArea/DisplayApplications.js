@@ -4,6 +4,7 @@ import ViewApplicantsBtn from "../Components/ViewApplicantsBtn.js"
 import { getUserID } from "../handleCookie"
 import ApplicationBadges from "../Components/ApplicationBadges"
 import ViewSuccessBtn from "../Components/ViewSuccessBtn"
+import AssignmentIcon from "@mui/icons-material/Assignment"
 
 const columns = [
     { id: "jobTitle" },
@@ -25,6 +26,15 @@ function createJobListing(jobTitle, applicationBadges, viewApplicantsBtn, viewSu
     return { jobTitle, applicationBadges, viewApplicantsBtn, viewSuccessBtn }
 }
 
+function jobTitle(application) {
+    return (
+        <div>
+            <AssignmentIcon style={{ paddingRight: "0.5rem", top: "5px", position: "relative", color: "gray" }} />
+            {application.job_title.toUpperCase()}
+        </div>
+    )
+}
+
 function DisplayApplications(props) {
     const companyID = getUserID(document.cookie)
     const { handleOpenViewSuccessful } = props.handleViewSuccessful
@@ -38,7 +48,7 @@ function DisplayApplications(props) {
             const applicationsData = await applicationsResponse.json()
             const applications = applicationsData.reverse().map((application) => {
                 return createJobListing(
-                    application.job_title,
+                    jobTitle(application),
                     <ApplicationBadges jobStats={application.jobStats} />,
                     <ViewApplicantsBtn />,
                     <ViewSuccessBtn jobID={application.job_id} handleOpen={handleOpenViewSuccessful} />
@@ -59,7 +69,7 @@ function DisplayApplications(props) {
     }
 
     return (
-        <main>
+        <main style={{ overflow: "hidden" }}>
             {applications ? (
                 <div>
                     <TableContainer sx={{ maxHeight: 220 }}>
@@ -71,7 +81,16 @@ function DisplayApplications(props) {
                                             {columns.map((column) => {
                                                 const value = application[column.id]
                                                 return (
-                                                    <TableCell key={column.id} align={column.align}>
+                                                    <TableCell
+                                                        key={column.id}
+                                                        align={column.align}
+                                                        style={{
+                                                            fontSize: "14pt",
+                                                            textAlign: "left",
+                                                            paddingLeft: "4rem",
+                                                            paddingRight: "5rem",
+                                                            letterSpacing: "0.5px",
+                                                        }}>
                                                         {value}
                                                     </TableCell>
                                                 )

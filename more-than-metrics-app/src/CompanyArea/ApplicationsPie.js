@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { PieChart, Pie, Cell, Legend } from "recharts"
+import { Chip } from "@mui/material"
 
 const COLORS = ["#FFBB28", "#53A659", "#FF4E58"]
 const CHARTWIDTH = 400
@@ -30,10 +31,21 @@ function ApplicationsPie(props) {
         { name: "Rejected", value: rejected },
     ]
     return (
-        <div style={{ display: "flex", justifyContent: "center" }}>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <p style={{ height: "10px", width: "120px" }}>Total Listings</p>
-                <p style={{ fontSize: "32px" }}>{jobs}</p>
+        <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <div style={{ width: "15rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <span style={{ fontSize: "16px", fontFamily: "Lato", color: "black" }}>TOTAL LISTINGS</span>
+                <Chip
+                    label={jobs}
+                    style={{
+                        textAlign: "center",
+                        fontFamily: "Lato",
+                        fontSize: "28px",
+                        backgroundColor: "#ffeab9",
+                        height: "4rem",
+                        width: "4rem",
+                        borderRadius: "50%",
+                    }}
+                />
             </div>
             <PieChart width={CHARTWIDTH} height={CHARTHEIGHT}>
                 <Pie
@@ -55,9 +67,20 @@ function ApplicationsPie(props) {
                 </Pie>
                 <Legend verticalAlign="bottom" height={36} />
             </PieChart>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <p style={{ height: "10px", width: "120px" }}>Total Applications</p>
-                <p style={{ fontSize: "32px" }}>{applications}</p>
+            <div style={{ width: "15rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <span style={{ fontSize: "16px", fontFamily: "Lato", color: "black" }}>TOTAL APPLICATIONS</span>
+                <Chip
+                    label={applications}
+                    style={{
+                        textAlign: "center",
+                        fontFamily: "Lato",
+                        fontSize: "28px",
+                        backgroundColor: "#ffeab9",
+                        height: "4rem",
+                        width: "4rem",
+                        borderRadius: "50%",
+                    }}
+                />
             </div>
         </div>
     )

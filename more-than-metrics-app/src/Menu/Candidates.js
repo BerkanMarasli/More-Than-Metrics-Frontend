@@ -45,7 +45,7 @@ function Candidates(props) {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"
                         id="panel1a-header"
-                        style={expanded === "panel1" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
+                        style={expanded === "panel1" ? { backgroundColor: "#fff4dc" } : null}>
                         <Typography style={expanded === "panel1" ? { fontWeight: "bold" } : null}>
                             How does More Than Metrics work for candidates?
                         </Typography>
@@ -62,7 +62,7 @@ function Candidates(props) {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel2a-content"
                         id="panel2a-header"
-                        style={expanded === "panel2" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
+                        style={expanded === "panel2" ? { backgroundColor: "#fff4dc" } : null}>
                         <Typography style={expanded === "panel2" ? { fontWeight: "bold" } : null}>How do I register as a candidate?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -85,7 +85,7 @@ function Candidates(props) {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel3a-content"
                         id="panel3a-header"
-                        style={expanded === "panel3" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
+                        style={expanded === "panel3" ? { backgroundColor: "#fff4dc" } : null}>
                         <Typography style={expanded === "panel3" ? { fontWeight: "bold" } : null}>How do I apply to a vacancy?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -106,7 +106,7 @@ function Candidates(props) {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel4a-content"
                         id="panel4a-header"
-                        style={expanded === "panel4" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
+                        style={expanded === "panel4" ? { backgroundColor: "#fff4dc" } : null}>
                         <Typography style={expanded === "panel4" ? { fontWeight: "bold" } : null}>
                             How can I track the progress of my application?
                         </Typography>
@@ -135,7 +135,7 @@ function Candidates(props) {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel5a-content"
                         id="panel5a-header"
-                        style={expanded === "panel5" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
+                        style={expanded === "panel5" ? { backgroundColor: "#fff4dc" } : null}>
                         <Typography style={expanded === "panel5" ? { fontWeight: "bold" } : null}>
                             How can I update the information on my profile?
                         </Typography>
@@ -158,7 +158,7 @@ function Candidates(props) {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel6a-content"
                         id="panel6a-header"
-                        style={expanded === "panel6" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
+                        style={expanded === "panel6" ? { backgroundColor: "#fff4dc" } : null}>
                         <Typography style={expanded === "panel6" ? { fontWeight: "bold" } : null}>
                             Got a question that hasn't been answered here?
                         </Typography>

@@ -66,7 +66,7 @@ function LoginForm(props) {
                                                     className={clsx(classes.center, classes.mb4)}
                                                     style={{
                                                         "letter-spacing": "0.01071em",
-                                                        color: "rgba(0, 0, 0, 0.6)",
+                                                        color: "gray",
                                                         fontWeight: "bold",
                                                         margin: "4px 0px",
                                                         textAlign: "center",

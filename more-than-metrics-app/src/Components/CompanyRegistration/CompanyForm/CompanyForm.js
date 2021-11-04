@@ -94,13 +94,13 @@ function CompanyForm(props) {
                                                     className={clsx(classes.center, classes.mb4)}
                                                     style={{
                                                         "letter-spacing": "0.01071em",
-                                                        color: "rgba(0, 0, 0, 0.6)",
                                                         fontWeight: "bold",
                                                         margin: "4px 0px",
                                                         textAlign: "center",
                                                         fontSize: "2em",
                                                         fontFamily: "Lato",
                                                         marginBottom: "1rem",
+                                                        color: "gray",
                                                     }}>
                                                     REGISTRATION
                                                 </Typography>

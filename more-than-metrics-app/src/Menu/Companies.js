@@ -35,8 +35,10 @@ function Companies() {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"
                         id="panel1a-header"
-                        style={expanded === "panel1" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
-                        <Typography>How does More Than Metrics work for companies?</Typography>
+                        style={expanded === "panel1" ? { backgroundColor: "#fff4dc" } : null}>
+                        <Typography style={expanded === "panel1" ? { fontWeight: "bold" } : null}>
+                            How does More Than Metrics work for companies?
+                        </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
@@ -50,8 +52,8 @@ function Companies() {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel2a-content"
                         id="panel2a-header"
-                        style={expanded === "panel2" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
-                        <Typography>How do I register as a company?</Typography>
+                        style={expanded === "panel2" ? { backgroundColor: "#fff4dc" } : null}>
+                        <Typography style={expanded === "panel2" ? { fontWeight: "bold" } : null}>How do I register as a company?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
@@ -65,8 +67,8 @@ function Companies() {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel3a-content"
                         id="panel3a-header"
-                        style={expanded === "panel3" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
-                        <Typography>How do I post a vacancy?</Typography>
+                        style={expanded === "panel3" ? { backgroundColor: "#fff4dc" } : null}>
+                        <Typography style={expanded === "panel3" ? { fontWeight: "bold" } : null}>How do I post a vacancy?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
@@ -80,8 +82,8 @@ function Companies() {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel4a-content"
                         id="panel4a-header"
-                        style={expanded === "panel4" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
-                        <Typography>How do I review applicants?</Typography>
+                        style={expanded === "panel4" ? { backgroundColor: "#fff4dc" } : null}>
+                        <Typography style={expanded === "panel4" ? { fontWeight: "bold" } : null}>How do I review applicants?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
@@ -95,8 +97,8 @@ function Companies() {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel5a-content"
                         id="panel5a-header"
-                        style={expanded === "panel5" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
-                        <Typography>Accordion 5</Typography>
+                        style={expanded === "panel5" ? { backgroundColor: "#fff4dc" } : null}>
+                        <Typography style={expanded === "panel5" ? { fontWeight: "bold" } : null}>Accordion 5</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
@@ -110,11 +112,19 @@ function Companies() {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel6a-content"
                         id="panel6a-header"
-                        style={expanded === "panel6" ? { backgroundColor: "#fff4dc", fontWeight: "bold" } : null}>
-                        <Typography>Got a question that hasn't been answered here?</Typography>
+                        style={expanded === "panel6" ? { backgroundColor: "#fff4dc" } : null}>
+                        <Typography style={expanded === "panel6" ? { fontWeight: "bold" } : null}>
+                            Got a question that hasn't been answered here?
+                        </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography>We're here to help. Send us an email and we'll aim to reply within 5 working days.</Typography>
+                        <Typography>
+                            We're here to help!{" "}
+                            <a href="mailto:" style={{ color: "inherit", textDecoration: "underline #FFBF50 2pt" }}>
+                                Send us an email
+                            </a>{" "}
+                            and we'll aim to reply within 5 working days.
+                        </Typography>
                     </AccordionDetails>
                 </Accordion>
             </div>

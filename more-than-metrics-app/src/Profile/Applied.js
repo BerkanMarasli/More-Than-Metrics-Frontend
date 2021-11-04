@@ -57,7 +57,7 @@ function Applied() {
         <main>
             {appliedApplications ? (
                 <div>
-                    <h1 style={{ margin: "0px" }}>APPLIED TO</h1>
+                    <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>APPLIED TO</h1>
                     <TableContainer sx={{ maxHeight: 520 }}>
                         <Table stickyHeader aria-label="sticky table">
                             <TableBody>
@@ -67,7 +67,16 @@ function Applied() {
                                             {columns.map((column) => {
                                                 const value = row[column.id]
                                                 return (
-                                                    <TableCell key={column.id} align={column.align}>
+                                                    <TableCell
+                                                        key={column.id}
+                                                        align={column.align}
+                                                        style={{
+                                                            fontSize: "12pt",
+                                                            textAlign: "left",
+                                                            paddingLeft: "4rem",
+                                                            paddingRight: "5rem",
+                                                            letterSpacing: "0.5px",
+                                                        }}>
                                                         {value}
                                                     </TableCell>
                                                 )
