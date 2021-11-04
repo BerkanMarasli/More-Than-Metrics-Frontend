@@ -12,9 +12,16 @@ import Alert from "@mui/material/Alert"
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: "grid",
+        display: "flex",
         justifyItems: "center",
         alignContent: "center",
+    },
+    title: {
+        ontFamily: "Lato",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
     },
 
     box: {
@@ -50,26 +57,23 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
     },
     icons: {
-        display: "inline-block",
-        marginRight: "10px",
+        display: "flex",
+        marginRight: "2px",
         position: "relative",
-        alignItems: "center",
-        // bottom: "0",
-        // left: "left",
+        alignItems: "end",
     },
     candidateList: {
+        display: "flex",
+        justifyContent: "space-evenly",
         borderRadius: "8px",
         padding: "10px",
         margin: "5px",
-        justifyContent: "space-around",
         backgroundColor: "#ffeab9",
         width: "100%",
     },
     candidateInfo: {
-        display: "inline-block",
-
-        position: "relative",
-        alignItems: "center",
+        display: "flex",
+        marginBottom: "0.1em",
         margin: "0",
     },
 }))
@@ -111,7 +115,7 @@ export default function ViewSuccessfulApplicantsModal(props) {
             aria-describedby="modal-modal-description">
             <div className={classes.root}>
                 <Box className={classes.box} sx={style}>
-                    <h1>Accepted Applicants</h1>
+                    <h1 className={classes.title}>Accepted Applicants</h1>
                     {acceptedApplicants.message ? (
                         <Alert severity="info">No Accepted Applicants</Alert>
                     ) : (
@@ -121,18 +125,18 @@ export default function ViewSuccessfulApplicantsModal(props) {
                                     <div key={applicant.application_id} className={classes.candidateListDisplayBox}>
                                         <Paper label={applicant.candidate_name} className={classes.candidateList}>
                                             <div className={classes.icons}>
-                                                <PersonIcon style={{}} />
+                                                <PersonIcon className={classes.icons} />
                                                 <p className={classes.candidateInfo}>{applicant.candidate_name}</p>
                                             </div>
 
                                             <div className={classes.icons}>
-                                                <EmailIcon />
-                                                {applicant.account_email}
+                                                <EmailIcon className={classes.icons} />
+                                                <p className={classes.candidateInfo}>{applicant.account_email}</p>
                                             </div>
 
                                             <div className={classes.icons}>
-                                                <CallIcon />
-                                                {applicant.candidate_phone_number}
+                                                <CallIcon className={classes.icons} />
+                                                <p className={classes.candidateInfo}>{applicant.candidate_phone_number}</p>
                                             </div>
                                         </Paper>
                                     </div>
