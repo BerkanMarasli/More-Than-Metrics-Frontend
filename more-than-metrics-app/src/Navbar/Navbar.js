@@ -74,12 +74,15 @@ function Navbar(props) {
                 const cookieArray = document.cookie.split("; ")
                 for (let cookie of cookieArray) {
                     if (cookie.includes("moreThanMetricsAT")) {
-                        document.cookie = "moreThanMetricsAT=delete;max-age=1"
+                        document.cookie = "moreThanMetricsAT=delete;max-age=0"
                     } else if (cookie.includes("moreThanMetricsID")) {
-                        document.cookie = "moreThanMetricsID=delete;max-age=1"
+                        document.cookie = "moreThanMetricsID=delete;max-age=0"
                     }
                 }
-                window.location.href = json.url
+                setTimeout(() => {
+                    window.location.href = json.url
+                }, 3000)
+                // window.location.href = json.url
             }
         } catch (error) {
             console.log({ error })
