@@ -98,7 +98,7 @@ function App() {
                 <Route exact path="/experiment">
                     <CompanyProfileForm setUserType={setUserType} />
                 </Route>
-                <Route exact path="/login">
+                <Route exact path="https://morethanmetrics.netlify.app/login">
                     {redirectLogin()}
                 </Route>
                 <Route exact path="/register">
