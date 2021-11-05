@@ -2,7 +2,6 @@ export function getAccountType(documentCookie) {
     const cookieArray = documentCookie.split("; ")
     for (let cookie of cookieArray) {
         if (cookie.includes("moreThanMetricsAT")) {
-            console.log(cookie)
             return cookie.split("=")[1]
         }
     }

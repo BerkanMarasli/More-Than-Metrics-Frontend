@@ -117,7 +117,7 @@ export default function ViewSuccessfulApplicantsModal(props) {
             <div className={classes.root}>
                 <Box className={classes.box} sx={style}>
                     {acceptedApplicants.message ? (
-                        <Alert severity="info">No Accepted Applicants</Alert>
+                        <Alert severity="warning">No Accepted Applicants</Alert>
                     ) : (
                         <div>
                             <h1 className={classes.title}>Accepted Applicants</h1>
