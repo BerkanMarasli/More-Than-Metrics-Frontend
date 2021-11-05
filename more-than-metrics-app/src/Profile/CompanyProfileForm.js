@@ -225,7 +225,7 @@ function CompanyProfileForm(props) {
                                             }}>
                                             <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>YOUR PROFILE</h1>
                                             <CardContent>
-                                                <div className={classes.row}>
+                                                <div style={{ display: "flex", justifyContent: "space-between" }}>
                                                     <Button onClick={() => setDisabled(!disabled)}>Edit</Button>
                                                     <Badge
                                                         aria-describedby={id}
