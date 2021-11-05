@@ -87,10 +87,9 @@ const marks = [
         label: "5+",
     },
 ]
-// const candidateID = getUserID(document.cookie)
-const candidateID = 2
 
 function Experiment(props) {
+    const candidateID = getUserID(document.cookie)
     const { setErrorMsg } = props
     const [userDetails, setUserDetails] = useState({
         firstName: "",
@@ -145,7 +144,7 @@ function Experiment(props) {
 
     useEffect(() => {
         async function getUserDetails(setUserDetails) {
-            const response = await fetch(process.env.REACT_APP_API_URL + `/candidate/information/2`)
+            const response = await fetch(process.env.REACT_APP_API_URL + `/candidate/information/${candidateID}`)
             const [json] = await response.json()
             const { candidate_name, headline, technologies, candidate_phone_number, candidate_years_in_industry_id, account_email } = json
             const nameArr = candidate_name.split(" ")

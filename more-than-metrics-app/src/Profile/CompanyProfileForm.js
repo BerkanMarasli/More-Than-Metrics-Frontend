@@ -13,6 +13,7 @@ import LinearProgress from "@mui/material/LinearProgress"
 import { Slider, Box, InputLabel, OutlinedInput, IconButton, Avatar, Badge, Popover } from "@mui/material/"
 import { Visibility, VisibilityOff, AddPhotoAlternate } from "@material-ui/icons"
 import FileUploadIcon from "@mui/icons-material/FileUpload"
+import { getUserID } from "../handleCookie.js"
 
 // Formik
 import { Formik, Form } from "formik"
@@ -46,9 +47,8 @@ const useStyles = makeStyles(() => ({
     },
 }))
 
-const companyID = 1
-
 function CompanyProfileForm(props) {
+    const companyID = getUserID(document.cookie)
     const { setErrorMsg } = props
     const [userDetails, setUserDetails] = useState({
         img_url: "",
@@ -102,7 +102,7 @@ function CompanyProfileForm(props) {
 
     useEffect(() => {
         async function getUserDetails(setUserDetails) {
-            const response = await fetch(process.env.REACT_APP_API_URL + `/company/information/1`)
+            const response = await fetch(process.env.REACT_APP_API_URL + `/company/information/${companyID}`)
             const [json] = await response.json()
             const {
                 company_name,
@@ -229,20 +229,6 @@ function CompanyProfileForm(props) {
                                                 marginTop: 20,
                                             }}>
                                             <CardContent>
-                                                {/* <Typography
-                                                    variant="h3"
-                                                    style={{
-                                                        "letter-spacing": "0.01071em",
-                                                        fontWeight: "bold",
-                                                        margin: "4px 0px",
-                                                        textAlign: "center",
-                                                        fontSize: "2em",
-                                                        fontFamily: "Lato",
-                                                        marginBottom: "1rem",
-                                                        color: "gray",
-                                                    }}>
-                                                    Company Profile
-                                                </Typography> */}
                                                 <div className={classes.row}>
                                                     <Button onClick={() => setDisabled(!disabled)}>Edit</Button>
                                                     <Badge
