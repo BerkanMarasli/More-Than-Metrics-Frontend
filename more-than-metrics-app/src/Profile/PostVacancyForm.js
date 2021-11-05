@@ -70,6 +70,13 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "0",
         marginLeft: "14px",
     },
+    btn: {
+        backgroundColor: "#FFBF50",
+        color: "white",
+        fontWeight: "bold",
+        fontFamily: "Lato",
+        marginBottom: "1rem",
+    },
 }))
 
 const companyID = 1
@@ -97,7 +104,7 @@ function PostVacancyForm() {
     })
 
     async function postJob(values, setErrorMsg, companyID) {
-        const url = `http://localhost:8080/jobs`
+        const url = process.env.REACT_APP_API_URL + `/jobs`
 
         const { title, salary, location, description, responsibilities, technology } = values
 
@@ -170,6 +177,7 @@ function PostVacancyForm() {
                                         onBlur={handleBlur}
                                         error={touched && touched.title && errors && errors.title}
                                         helperText={touched && touched.title && errors && errors.title ? errors.title : ""}
+                                        style={{ margin: "0.5px 0px" }}
                                     />
                                     <TextField
                                         fullWidth
@@ -182,6 +190,7 @@ function PostVacancyForm() {
                                         onBlur={handleBlur}
                                         error={touched && touched.location && errors && errors.location}
                                         helperText={touched && touched.location && errors && errors.location ? errors.location : ""}
+                                        style={{ margin: "0.5px 0px" }}
                                     />
                                     <TextField
                                         fullWidth
@@ -194,6 +203,7 @@ function PostVacancyForm() {
                                         onBlur={handleBlur}
                                         error={touched && touched.salary && errors && errors.salary}
                                         helperText={touched && touched.salary && errors && errors.salary ? errors.salary : ""}
+                                        style={{ margin: "0.5px 0px" }}
                                     />
                                     <TextField
                                         fullWidth
@@ -209,6 +219,7 @@ function PostVacancyForm() {
                                         onBlur={handleBlur}
                                         error={touched && touched.description && errors && errors.description}
                                         helperText={touched && touched.description && errors && errors.description ? errors.description : ""}
+                                        style={{ margin: "0.5px 0px" }}
                                     />
                                     <TextField
                                         fullWidth
@@ -224,11 +235,13 @@ function PostVacancyForm() {
                                         helperText={
                                             touched && touched.responsibilities && errors && errors.responsibilities ? errors.responsibilities : ""
                                         }
+                                        style={{ margin: "0.5px 0px" }}
                                     />
-                                    <SelectTechnologies handleChange={handleChange} techArray={values.technology} />
-                                    {errors.technology && touched.technology && <p className={classes.inputFeedback}>{errors.technology}</p>}
-
-                                    <Button type="submit" color="primary" variant="contained">
+                                    <div style={{ margin: "0.5px 0px" }}>
+                                        <SelectTechnologies handleChange={handleChange} techArray={values.technology} />
+                                        {errors.technology && touched.technology && <p className={classes.inputFeedback}>{errors.technology}</p>}
+                                    </div>
+                                    <Button type="submit" className={classes.btn}>
                                         Post Job
                                     </Button>
                                     {errorMsg === "Added all job details" ? (
