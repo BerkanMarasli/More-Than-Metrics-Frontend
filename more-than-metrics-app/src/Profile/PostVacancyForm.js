@@ -57,6 +57,19 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: "Lato",
         marginBottom: "1rem",
     },
+    inputFeedback: {
+        fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+        fontWeight: "400",
+        fontSize: "0.75rem",
+        lineHeight: "1.66",
+        letterSpacing: "0.03333em",
+        textAlign: "left",
+        marginTop: "3px",
+        marginRight: "14px",
+        color: "#d32f2f",
+        marginBottom: "0",
+        marginLeft: "14px",
+    },
 }))
 
 const companyID = 1
@@ -68,7 +81,7 @@ function PostVacancyForm() {
         salary: null,
         location: "",
         description: "",
-        responsibilities: [],
+        responsibilities: "",
         technology: [],
     })
 
@@ -76,9 +89,9 @@ function PostVacancyForm() {
 
     const validationSchema = yup.object().shape({
         title: yup.string().required("Please include a title").min(2, "Must be more then one character"),
-        salary: yup.number("Salary must be a number").required("Please include a salary").moreThan(-1, "Salary cannot be negative"),
+        salary: yup.number().required("Please include a salary").moreThan(-1, "Salary cannot be negative"),
         location: yup.string().required("Please include company location").min(2, "Must be more than one character"),
-        technology: yup.array().required("Please select at least one technology"),
+        technology: yup.array().min(1, "Please select at least 1 technology").required("Please select at least one technology"),
         responsibilities: yup.string().required("Please include at least one responsibility"),
         description: yup.string().max(600).required("Please include a description < 600 characters"),
     })
@@ -184,7 +197,7 @@ function PostVacancyForm() {
                                     />
                                     <TextField
                                         fullWidth
-                                        // placeholder="Describe the function of the role and the type of candidate you're looking for"
+                                        placeholder="Describe the function of the role and the type of candidate you're looking for"
                                         label="Description"
                                         type="number"
                                         variant="outlined"
@@ -199,7 +212,7 @@ function PostVacancyForm() {
                                     />
                                     <TextField
                                         fullWidth
-                                        // placeholder="Enter responsibilities (comma separated)"
+                                        placeholder="Enter responsibilities (comma separated)"
                                         label="Responsibilities"
                                         type="text"
                                         variant="outlined"
@@ -212,13 +225,8 @@ function PostVacancyForm() {
                                             touched && touched.responsibilities && errors && errors.responsibilities ? errors.responsibilities : ""
                                         }
                                     />
-                                    <SelectTechnologies
-                                        handleChange={handleChange}
-                                        techArray={values.technology}
-                                        onBlur={handleBlur}
-                                        error={errors && errors.technology}
-                                        helperText={errors && errors.technology ? errors.technology : ""}
-                                    />
+                                    <SelectTechnologies handleChange={handleChange} techArray={values.technology} />
+                                    {errors.technology && touched.technology && <p className={classes.inputFeedback}>{errors.technology}</p>}
 
                                     <Button type="submit" color="primary" variant="contained">
                                         Post Job

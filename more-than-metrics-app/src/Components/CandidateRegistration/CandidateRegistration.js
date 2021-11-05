@@ -12,7 +12,7 @@ function CandidateRegistration() {
         email: yup.string().email("Email must be a valid email").required("Please enter a valid email address"),
         phoneNumber: yup.number().required("Please include a phone number").min(15, "Please enter a valid phone number"),
         yearsInIndustry: yup.string().required("Please select years in industry"),
-        technology: yup.array().min(1).required("Please select at least one technology"),
+        technology: yup.array().min(1, "Please select at least 1 technology").required("Please select at least one technology"),
         headline: yup.string().max(100).required("Please include a headline < 100 characters"),
         password: yup
             .string()
@@ -21,7 +21,10 @@ function CandidateRegistration() {
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
                 "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
             ),
-        passwordConfirmation: yup.string().oneOf([yup.ref("password"), null], "Passwords must match"),
+        passwordConfirmation: yup
+            .string()
+            .required("Please confirm password")
+            .oneOf([yup.ref("password"), null], "Passwords must match"),
     })
 
     return (
@@ -39,9 +42,6 @@ async function createUser(values, setErrorMsg) {
     const techIDArray = technology.map((tech) => {
         return tech.technology_id
     })
-    console.log(techIDArray)
-
-    console.log(`User details: `, firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation)
 
     const url = `http://localhost:8080/candidate/register`
 
