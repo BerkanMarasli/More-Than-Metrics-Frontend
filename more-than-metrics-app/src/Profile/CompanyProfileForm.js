@@ -19,6 +19,9 @@ import { Formik, Form } from "formik"
 const yup = require("yup")
 
 const useStyles = makeStyles(() => ({
+    root: {
+        padding: "4px",
+    },
     center: {
         display: "flex",
         flexDirection: "column",
