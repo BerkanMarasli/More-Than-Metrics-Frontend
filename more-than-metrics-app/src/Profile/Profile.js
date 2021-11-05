@@ -3,7 +3,7 @@ import Navbar from "../Navbar/Navbar.js"
 import Applied from "./Applied.js"
 import CandidateProfileForm from "./CandidateProfileForm.js"
 import CompanyProfile from "./CompanyProfile.js"
-import PostVacancy from "./PostVacancy.js"
+import PostVacancyForm from "./PostVacancyForm.js"
 import { Paper, Box } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
 import { styled } from "@mui/material/styles"
@@ -69,7 +69,7 @@ function Profile(props) {
                         {errorMsg === "Updated company details!" ? <Alert severity="success">{errorMsg}</Alert> : null}
                     </Item>
                     <Item className={classes.container}>
-                        <PostVacancy />
+                        <PostVacancyForm />
                     </Item>
                 </Box>
             )
