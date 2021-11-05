@@ -90,7 +90,7 @@ function App() {
                     <About />
                 </Route>
                 <Route exact path="/companies">
-                    <Companies />
+                    <Companies setUserType={setUserType} />
                 </Route>
                 <Route exact path="/candidates">
                     <Candidates setUserType={setUserType} />

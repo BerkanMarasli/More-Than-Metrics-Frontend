@@ -1,4 +1,3 @@
-import { CssBaseline } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import Welcome from "./Welcome"
 import ChooseUser from "./ChooseUser"
@@ -23,7 +22,6 @@ function Entry(props) {
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
             <Welcome userType={props.userType} />
             <ChooseUser setUserType={props.setUserType} />
         </div>

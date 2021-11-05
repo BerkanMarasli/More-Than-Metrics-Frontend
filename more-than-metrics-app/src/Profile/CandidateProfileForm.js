@@ -171,13 +171,13 @@ function Experiment(props) {
         const url = `http://localhost:8080/candidate/update`
 
         const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
-        console.log(values)
+        // console.log(values)
 
         const techIDArray = technology.map((tech) => {
             return tech.technology_id
         })
-        console.log(yearsInIndustry)
-        console.log(techIDArray)
+        // console.log(yearsInIndustry)
+        // console.log(techIDArray)
 
         if (!technology.length) {
             console.log("Didn't update technologies")
@@ -230,7 +230,7 @@ function Experiment(props) {
                 <div className={classes.root}>
                     <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>YOUR PROFILE</h1>
                     <Button onClick={() => setDisabled(!disabled)}>Edit</Button>
-                    {console.log(loadedTechList)}
+                    {/* {console.log(loadedTechList)} */}
                     {/*{console.log(userDetails.technology)} */}
                     <Formik
                         initialValues={userDetails}
@@ -250,10 +250,10 @@ function Experiment(props) {
                                         style={{ border: "none" }}>
                                         <div>
                                             <Grid item>
-                                                <Grid container spacing={2}>
+                                                <Grid style={{ justifyContent: "center" }} container spacing={2}>
                                                     <div>
                                                         {disabled ? (
-                                                            <Grid item lg={6} md={6} xs={12}>
+                                                            <Grid style={{ maxWidth: "100%", marginTop: "1rem" }} item lg={6} md={6} xs={12}>
                                                                 <TextField
                                                                     disabled={disabled}
                                                                     id="outlined-name"
@@ -262,8 +262,13 @@ function Experiment(props) {
                                                                 />
                                                             </Grid>
                                                         ) : (
-                                                            <div>
-                                                                <Grid item lg={6} md={6} xs={12}>
+                                                            <div style={{ display: "flex" }}>
+                                                                <Grid
+                                                                    style={{ maxWidth: "100%", marginTop: "0.5rem", marginRight: "1rem" }}
+                                                                    item
+                                                                    lg={6}
+                                                                    md={6}
+                                                                    xs={12}>
                                                                     <TextField
                                                                         fullWidth
                                                                         label="First Name"
@@ -277,7 +282,7 @@ function Experiment(props) {
                                                                         helperText={errors && errors.firstName ? errors.firstName : ""}
                                                                     />
                                                                 </Grid>
-                                                                <Grid item lg={6} md={6} xs={12}>
+                                                                <Grid style={{ maxWidth: "100%", marginTop: "0.5rem" }} item lg={6} md={6} xs={12}>
                                                                     <TextField
                                                                         fullWidth
                                                                         label="Last Name"
@@ -294,7 +299,6 @@ function Experiment(props) {
                                                             </div>
                                                         )}
                                                     </div>
-
                                                     <Grid item lg={12} md={12} xs={12}>
                                                         <TextField
                                                             fullWidth
@@ -314,26 +318,27 @@ function Experiment(props) {
                                                             helperText={errors && errors.headline ? errors.headline : ""}
                                                         />
                                                     </Grid>
-                                                    <Grid item lg={6} md={6} xs={12}>
+                                                    <Grid style={{ maxWidth: "100%", flexBasis: "100%" }} item lg={6} md={6} xs={12}>
                                                         <Slider
                                                             disabled={disabled}
                                                             aria-label="Years"
                                                             id="slider-years"
                                                             size="medium"
                                                             name={"yearsInIndustry"}
+                                                            valueLabelDisplay="auto"
                                                             valueLabelFormat={valueLabelFormat}
                                                             getAriaValueText={valueLabelFormat}
                                                             step={1}
                                                             marks
                                                             defaultValue={values.yearsInIndustry}
                                                             onChange={handleChange("yearsInIndustry")}
-                                                            valueLabelDisplay="on"
                                                             min={0}
                                                             max={5}
                                                             style={disabled ? { color: "#FFBF50", opacity: "70%" } : { color: "#FFBF50" }}
                                                         />
                                                     </Grid>
-                                                    <Grid item lg={6} md={6} xs={12}>
+                                                    {/* <Grid item lg={6} md={6} xs={12}> */}
+                                                    <div style={{ width: "100%" }}>
                                                         <SelectTechnologies
                                                             disabled={disabled}
                                                             handleChange={handleChange}
@@ -343,8 +348,9 @@ function Experiment(props) {
                                                             error={errors && errors.technology}
                                                             helperText={errors && errors.technology ? errors.technology : ""}
                                                         />
-                                                    </Grid>
-                                                    <Grid item lg={6} md={6} xs={12}>
+                                                    </div>
+                                                    {/* </Grid> */}
+                                                    <Grid style={{ marginTop: "1rem" }} item lg={6} md={6} xs={12}>
                                                         <TextField
                                                             fullWidth
                                                             disabled={disabled}
@@ -360,7 +366,7 @@ function Experiment(props) {
                                                             helperText={errors && errors.email ? errors.email : ""}
                                                         />
                                                     </Grid>
-                                                    <Grid item lg={6} md={6} xs={12}>
+                                                    <Grid style={{ marginTop: "1rem" }} item lg={6} md={6} xs={12}>
                                                         <MuiPhoneNumber
                                                             fullWidth
                                                             disabled={disabled}
@@ -380,7 +386,7 @@ function Experiment(props) {
                                                     </Grid>
                                                     {!disabled ? (
                                                         <div className={classes.row}>
-                                                            <Grid item lg={6} md={6} xs={12}>
+                                                            <Grid style={{ marginRight: "1rem" }} item lg={6} md={6} xs={12}>
                                                                 <TextField
                                                                     fullWidth
                                                                     label="Password"
@@ -394,7 +400,7 @@ function Experiment(props) {
                                                                     helperText={errors && errors.password ? errors.password : ""}
                                                                 />
                                                             </Grid>
-                                                            <Grid item lg={6} md={6} xs={12}>
+                                                            <Grid style={{ marginRight: "1rem" }} item lg={6} md={6} xs={12}>
                                                                 <TextField
                                                                     fullWidth
                                                                     label="Confirm Password"
@@ -410,12 +416,12 @@ function Experiment(props) {
                                                                     }
                                                                 />
                                                             </Grid>
-                                                            <InputAdornment position="end">
+                                                            <InputAdornment>
                                                                 <IconButton
+                                                                    style={{ marginTop: "3rem" }}
                                                                     aria-label="toggle password visibility"
                                                                     onClick={handleClickShowPassword}
-                                                                    onMouseDown={handleMouseDownPassword}
-                                                                    edge="end">
+                                                                    onMouseDown={handleMouseDownPassword}>
                                                                     {showPassword ? <VisibilityOff /> : <Visibility />}
                                                                 </IconButton>
                                                             </InputAdornment>

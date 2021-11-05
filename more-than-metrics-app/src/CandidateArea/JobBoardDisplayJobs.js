@@ -4,6 +4,7 @@ import ViewCompanyBtn from "../Components/ViewCompanyBtn"
 import ViewJobBtn from "../Components/ViewJobBtn"
 import ApplyBtn from "../Components/ApplyBtn"
 import AssignmentIcon from "@mui/icons-material/Assignment"
+import CircularProgress from "@mui/material/CircularProgress"
 
 const columns = [
     { id: "jobTitle" },
@@ -119,7 +120,9 @@ function JobBoardDisplayJobs(props) {
                         />
                     </div>
                 </div>
-            ) : null}
+            ) : (
+                <CircularProgress color="inherit" />
+            )}
         </main>
     )
 }

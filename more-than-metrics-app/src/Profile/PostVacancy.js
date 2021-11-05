@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     box: {
         display: "grid",
         justifyItems: "end",
-        padding: "1rem",
+        // padding: "1rem",
     },
 
     row: {
@@ -47,6 +47,10 @@ function PostVacancy() {
 
     const classes = useStyles()
 
+    function handleSummit() {
+        console.log(technologies)
+    }
+
     return (
         <div className={classes.root}>
             <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>POST VACANCY</h1>
@@ -57,8 +61,8 @@ function PostVacancy() {
                         id="outlined-title"
                         className={classes.input}
                         placeholder="Enter the job title"
-                        //   value={name}
-                        //   onChange={handleChange}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
                 </div>
                 <div className={classes.row}>
@@ -67,8 +71,8 @@ function PostVacancy() {
                         id="outlined-location"
                         className={classes.input}
                         placeholder="Enter the location"
-                        //   value={name}
-                        //   onChange={handleChange}
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
                     />
                 </div>
                 <div className={classes.row}>
@@ -78,8 +82,8 @@ function PostVacancy() {
                     <OutlinedInput
                         id="outlined-salary"
                         className={classes.input}
-                        //   value={values.amount}
-                        //   onChange={handleChange("amount")}
+                        value={salary}
+                        onChange={(e) => setSalary(e.target.value)}
                         startAdornment={<InputAdornment position="start">£</InputAdornment>}
                     />
                 </div>
@@ -91,8 +95,8 @@ function PostVacancy() {
                         placeholder="Describe the function of the role and the type of candidate you're looking for"
                         multiline
                         maxRows={4}
-                        //   value={value}
-                        //   onChange={handleChange}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
                 <div className={classes.row}>
@@ -101,8 +105,8 @@ function PostVacancy() {
                         id="outlined-responsibilities"
                         className={classes.input}
                         placeholder="Enter the key responsibilities"
-                        //   value={name}
-                        //   onChange={handleChange}
+                        value={responsibilities}
+                        onChange={(e) => setResponsbilities(e.target.value)}
                     />
                 </div>
                 <div className={classes.row}>
@@ -110,7 +114,9 @@ function PostVacancy() {
                     <SelectTechnologies techArray={technologies} className={classes.input} />
                 </div>
             </Box>
-            <Button className={classes.btn}>Submit</Button>
+            <Button onClick={handleSummit} className={classes.btn}>
+                Submit
+            </Button>
         </div>
     )
 }

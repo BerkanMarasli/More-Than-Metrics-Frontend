@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     box: {
         display: "grid",
         justifyItems: "end",
-        padding: "1rem",
+        // padding: "1rem",
     },
 
     row: {
