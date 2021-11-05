@@ -231,9 +231,9 @@ function CompanyProfileForm(props) {
                                     <div>
                                         <Box
                                             style={{
-                                                marginBottom: 20,
+                                                marginBottom: 5,
                                                 maxWidth: 900,
-                                                marginTop: 20,
+                                                marginTop: 5,
                                             }}>
                                             <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>YOUR PROFILE</h1>
                                             <CardContent>
@@ -254,6 +254,7 @@ function CompanyProfileForm(props) {
                                                                 width: "3rem",
                                                                 padding: "5px",
                                                                 border: "0.1px solid lightgray",
+                                                                marginRight: "5px",
                                                             }}
                                                         />
                                                     </Badge>
