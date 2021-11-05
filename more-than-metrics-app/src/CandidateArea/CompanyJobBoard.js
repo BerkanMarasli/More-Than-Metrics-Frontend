@@ -36,6 +36,7 @@ function CompanyJobBoard(props) {
         async function fetchJobs() {
             const jobsResponse = await fetch(process.env.REACT_APP_API_URL + `/jobs/company/${companyViewed}`)
             const jobsData = await jobsResponse.json()
+            console.log(jobsData)
             const jobs = jobsData.map((job) => {
                 return createData(
                     job.job_title,
