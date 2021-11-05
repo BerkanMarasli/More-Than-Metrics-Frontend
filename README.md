@@ -58,28 +58,26 @@ This user manual is here to help you navigate around the website letting you mak
   - [Candidate Registration](#Candidate-Registration)
   - [Company Registration](#Company-Registration)
 - [Login](#Login)
-- [Canidate](#Candidate)
+- [Candidate](#Candidate)
 - [Company](#Company)
 - [Footer](#Footer)
 
-![Front page]()
-(IMG OF FRONT PAGE)<br />
+![Front page](https://github.com/BerkanMarasli/More-Than-Metrics-Frontend/blob/main/ReadMe_Images/Home.png) <br />
 This is the Front page and the first thing a new user would see, if you have already signed up with us then you can skip to the logging in process by
-clicking the burger menu and clicking the login button <br />
+clicking the burger menu in the top right and clicking the login button <br />
 
 <img src="https://github.com/gsinghlak12/worldbank/blob/main/User_Manual_images/03-BadUsername.jpeg" alternative='Burger Menu' height="500">
-(IMG OF BURGER MENU)<br />
-The login section is [here](#Login). <br/>
+The login section is [here.](#Login)
 If this is your first time and you want to register you can scroll down on the Front page, or click the little arrow which will take you down to the 
 registering buttons.<br />
-(IMG OF BUTTONS)<br />
+![Choose type](https://github.com/BerkanMarasli/More-Than-Metrics-Frontend/blob/main/ReadMe_Images/Choose%20user.png) 
 Depending on who you are you can register for a specific account type, clicking on the respective button to create the account of your type<br />
 
 ### Registration
 
 #### Candidate Registration
 
-(IMG CANDIDATE SIDE)<br />
+![Candidate Register](https://github.com/BerkanMarasli/More-Than-Metrics-Frontend/blob/main/ReadMe_Images/Reg%20candidate.png)
 As a candidate you will first need to fill in your details, this is so that the recruiter can finally contact you when your application gets accepted.
 This page will allow you to register a candidate account with us!<br />
 The candidate register form requires 9 fields to be completed:
@@ -117,7 +115,7 @@ After you finish filling out all the fields correctly and no emails are the same
 
 #### Company Registration
 
-(IMG OF COMPANY REGISTER)<br />
+![Company Register](https://github.com/BerkanMarasli/More-Than-Metrics-Frontend/blob/main/ReadMe_Images/Reg%20company.png)
 We will move onto the company side so that companies can register to list their jobs<br />
 As a company you will first need to fill in your details, this is so that you as a company can start posting jobs for candidates to apply to.
 This page will allow you to register a company account with us!<br />
@@ -147,7 +145,7 @@ Registering a company will also redirect you to the Login page<br />
 
 ### Login
 
-(IMG OF LOGIN PAGE)<br />
+![Login Page](https://github.com/BerkanMarasli/More-Than-Metrics-Frontend/blob/main/ReadMe_Images/Login.png)
 This is the Login page, which is accessible after you register a new account,
 or if you already have an account is accessible by the burger menu in the top right corner of the front page.
 There are also 2 buttons on the page in case you don’t have an account and want to register a new account,
