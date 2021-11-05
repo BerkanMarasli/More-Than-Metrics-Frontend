@@ -17,6 +17,7 @@ import LinearProgress from "@mui/material/LinearProgress"
 import { getUserID } from "../handleCookie.js"
 
 import SelectTechnologies from "../Components/SelectTechnologies"
+import Alert from "@mui/material/Alert"
 
 import clsx from "clsx"
 // Formik
@@ -58,7 +59,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
+const companyID = 1
+
 function PostVacancyForm() {
+    const [errorMsg, setErrorMsg] = useState("")
     const [postDetails, setPostDetails] = useState({
         title: "",
         salary: null,
@@ -72,20 +76,69 @@ function PostVacancyForm() {
 
     const validationSchema = yup.object().shape({
         title: yup.string().required("Please include a title").min(2, "Must be more then one character"),
-        salary: yup.number().required("Please include a salary").moreThan(-1, "Salary cannot be negative"),
+        salary: yup.number("Salary must be a number").required("Please include a salary").moreThan(-1, "Salary cannot be negative"),
         location: yup.string().required("Please include company location").min(2, "Must be more than one character"),
         technology: yup.array().required("Please select at least one technology"),
-        responsibilities: yup.array().required("Please select at least one responsibility"),
-        description: yup.string().max(100).required("Please include a headline < 100 characters"),
+        responsibilities: yup.string().required("Please include at least one responsibility"),
+        description: yup.string().max(600).required("Please include a description < 600 characters"),
     })
+
+    async function postJob(values, setErrorMsg, companyID) {
+        const url = `http://localhost:8080/jobs`
+
+        const { title, salary, location, description, responsibilities, technology } = values
+
+        const responsibilitiesArray = responsibilities.split(", ")
+        // console.log(responsibilitiesArray)
+        console.log(technology)
+
+        const techIDArray = technology.map((tech) => {
+            return tech.technology_id
+        })
+        console.log(techIDArray)
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    companyID: 1,
+                    jobTitle: title,
+                    salary: salary,
+                    location: location,
+                    jobDesc: description,
+                    keyResponsibilities: responsibilitiesArray,
+                    keyTechnologies: techIDArray,
+                }),
+            })
+
+            const json = await response.json()
+            console.log(json)
+
+            if (response.status === 200) {
+                setErrorMsg(json.message)
+                setPostDetails({
+                    title: "",
+                    salary: null,
+                    location: "",
+                    description: "",
+                    responsibilities: [],
+                    technology: [],
+                })
+            } else {
+                setErrorMsg("")
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className={classes.root}>
-            <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>YOUR PROFILE</h1>
+            <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>Job Title</h1>
             <Formik
                 initialValues={postDetails}
                 onSubmit={(values, actions) => {
-                    // postJob(values)
+                    postJob(values, setErrorMsg, companyID)
                 }}
                 validationSchema={validationSchema}>
                 {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => {
@@ -167,9 +220,14 @@ function PostVacancyForm() {
                                         helperText={errors && errors.technology ? errors.technology : ""}
                                     />
 
-                                    <Button type="submit" color="primary" variant="contained" className={clsx(classes.mt4, classes.mb3, classes.btn)}>
-                                        submit
+                                    <Button type="submit" color="primary" variant="contained">
+                                        Post Job
                                     </Button>
+                                    {errorMsg === "Added all job details" ? (
+                                        <Alert severity="success">{errorMsg}</Alert>
+                                    ) : errorMsg !== "" ? (
+                                        <Alert severity="error">{errorMsg}</Alert>
+                                    ) : null}
                                 </div>
                             </Box>
                         </Form>
