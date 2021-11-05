@@ -43,7 +43,7 @@ async function createUser(values, setErrorMsg) {
 
     console.log(`User details: `, firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation)
 
-    const url = `http://localhost:8080/candidate/register`
+    const url = process.env.REACT_APP_API_URL + `/candidate/register`
 
     try {
         const response = await fetch(url, {

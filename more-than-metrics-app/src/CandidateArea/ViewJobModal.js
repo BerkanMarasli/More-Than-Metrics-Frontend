@@ -26,7 +26,7 @@ export default function ViewJobModal(props) {
 
     useEffect(() => {
         async function fetchJobData() {
-            const jobDataResponse = await fetch(`http://localhost:8080/job/${jobIDViewed}`)
+            const jobDataResponse = await fetch(process.env.REACT_APP_API_URL + `/job/${jobIDViewed}`)
             const jobData = await jobDataResponse.json()
             setJobData(jobData[0])
         }

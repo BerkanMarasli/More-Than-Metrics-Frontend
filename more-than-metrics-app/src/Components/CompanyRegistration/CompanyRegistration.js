@@ -45,7 +45,7 @@ function CompanyRegistration() {
 }
 
 async function createUser(values, setErrorMsg) {
-    const url = `http://localhost:8080/company/register`
+    const url = process.env.REACT_APP_API_URL + `/company/register`
 
     const { img_url, companyName, companyBio, numOfEmployees, femalePercentage, retentionRate, location, email, password, passwordConfirmation } =
         values

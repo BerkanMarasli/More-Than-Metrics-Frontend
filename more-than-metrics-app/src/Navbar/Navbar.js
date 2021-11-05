@@ -62,7 +62,7 @@ function Navbar(props) {
     }
 
     const handleLogout = async () => {
-        const url = "http://localhost:8080/logout"
+        const url = process.env.REACT_APP_API_URL + "/logout"
         try {
             const response = await fetch(url, {
                 method: "POST",

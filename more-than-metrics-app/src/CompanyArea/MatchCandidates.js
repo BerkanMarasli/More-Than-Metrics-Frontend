@@ -74,7 +74,7 @@ function MatchCandidates() {
 
     useEffect(() => {
         async function getCandidates(jobID) {
-            const response = await fetch(`http://localhost:8080/applications/review/${jobID}`)
+            const response = await fetch(process.env.REACT_APP_API_URL + `/applications/review/${jobID}`)
             const json = await response.json()
             setCandidates(json)
             console.log(json)
@@ -87,7 +87,7 @@ function MatchCandidates() {
 
     async function sendCandidateStatus(id, result) {
         console.log(id)
-        const response = await fetch(`http://localhost:8080/applications/assess/`, {
+        const response = await fetch(process.env.REACT_APP_API_URL + `/applications/assess/`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

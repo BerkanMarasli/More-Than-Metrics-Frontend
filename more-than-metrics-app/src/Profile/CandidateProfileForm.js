@@ -145,7 +145,7 @@ function Experiment(props) {
 
     useEffect(() => {
         async function getUserDetails(setUserDetails) {
-            const response = await fetch(`http://localhost:8080/candidate/information/2`)
+            const response = await fetch(process.env.REACT_APP_API_URL + `/candidate/information/2`)
             const [json] = await response.json()
             const { candidate_name, headline, technologies, candidate_phone_number, candidate_years_in_industry_id, account_email } = json
             const nameArr = candidate_name.split(" ")
@@ -168,7 +168,7 @@ function Experiment(props) {
     }, [refreshForUpdate])
 
     async function updateUser(values) {
-        const url = `http://localhost:8080/candidate/update`
+        const url = process.env.REACT_APP_API_URL + `/candidate/update`
 
         const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
         // console.log(values)

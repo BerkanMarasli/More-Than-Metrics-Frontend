@@ -32,7 +32,7 @@ function Login(props) {
 }
 
 async function getUser(values, setLoggedIn, setErrorMsg) {
-    const url = "http://localhost:8080/login"
+    const url = process.env.REACT_APP_API_URL + "/login"
     try {
         const response = await fetch(url, {
             method: "POST",

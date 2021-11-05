@@ -52,7 +52,7 @@ function CandidateForm(props) {
 
     useEffect(() => {
         async function getYearsInIndustryCategory(setCategory) {
-            const response = await fetch("http://localhost:8080/years_in_industry")
+            const response = await fetch(process.env.REACT_APP_API_URL + "/years_in_industry")
             const json = await response.json()
             setCategory(json)
         }

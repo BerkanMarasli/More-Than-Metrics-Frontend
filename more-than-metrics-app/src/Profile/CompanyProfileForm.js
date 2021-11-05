@@ -102,7 +102,7 @@ function CompanyProfileForm(props) {
 
     useEffect(() => {
         async function getUserDetails(setUserDetails) {
-            const response = await fetch(`http://localhost:8080/company/information/1`)
+            const response = await fetch(process.env.REACT_APP_API_URL + `/company/information/1`)
             const [json] = await response.json()
             const {
                 company_name,
@@ -134,7 +134,7 @@ function CompanyProfileForm(props) {
 
     useEffect(() => {
         async function getNumOfEmployees(setNumOfEmployees) {
-            const response = await fetch("http://localhost:8080/number_of_employees")
+            const response = await fetch(process.env.REACT_APP_API_URL + "/number_of_employees")
             const json = await response.json()
             setNumOfEmployees(json)
         }
@@ -149,7 +149,7 @@ function CompanyProfileForm(props) {
         })
     }
     async function updateUser(values, setErrorMsg) {
-        const url = `http://localhost:8080/company/update/`
+        const url = process.env.REACT_APP_API_URL + `/company/update/`
 
         const { img_url, companyName, companyBio, location, numOfEmployees, femalePercentage, retentionRate, email, password, passwordConfirmation } =
             values

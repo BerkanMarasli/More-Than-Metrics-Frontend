@@ -66,12 +66,12 @@ function ViewApplyModal(props) {
 
     useEffect(() => {
         const fetchPrompts = async () => {
-            const promptsResponse = await fetch("http://localhost:8080/prompts")
+            const promptsResponse = await fetch(process.env.REACT_APP_API_URL + "/prompts")
             const promptsJson = await promptsResponse.json()
             setPromptsList(promptsJson)
         }
         async function fetchJobData() {
-            const jobDataResponse = await fetch(`http://localhost:8080/job/${jobIDApplied}`)
+            const jobDataResponse = await fetch(process.env.REACT_APP_API_URL + `/job/${jobIDApplied}`)
             const jobData = await jobDataResponse.json()
             setJobInfo(jobData[0])
         }
@@ -97,7 +97,7 @@ function ViewApplyModal(props) {
                 answer3: answers[promptIDs[2]],
             }),
         }
-        const response = await fetch(`http://localhost:8080/application`, requestOptions)
+        const response = await fetch(process.env.REACT_APP_API_URL + `/application`, requestOptions)
         const json = await response.json()
         if (!response.ok) {
             setErrorMsg(json.status)
