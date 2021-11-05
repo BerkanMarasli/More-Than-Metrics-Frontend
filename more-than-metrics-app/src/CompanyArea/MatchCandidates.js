@@ -6,6 +6,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle"
 import { IconButton } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { Alert } from "@mui/material"
+import { getMatchJobID } from "../handleCookie.js"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -82,7 +83,7 @@ function MatchCandidates() {
                 setMsg({ error: json.message })
             }
         }
-        if (candidates === null) getCandidates(1)
+        if (candidates === null) getCandidates(getMatchJobID(document.cookie))
     }, [candidates])
 
     async function sendCandidateStatus(id, result) {

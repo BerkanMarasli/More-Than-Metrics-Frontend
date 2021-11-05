@@ -24,3 +24,12 @@ export function getRegisterUserType(documentCookie) {
         }
     }
 }
+
+export function getMatchJobID(documentCookie) {
+    const cookieArray = documentCookie.split("; ")
+    for (let cookie of cookieArray) {
+        if (cookie.includes("matchJobID")) {
+            return cookie.split("=")[1]
+        }
+    }
+}

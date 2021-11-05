@@ -51,7 +51,7 @@ function DisplayApplications(props) {
                 return createJobListing(
                     jobTitle(application),
                     <ApplicationBadges jobStats={application.jobStats} />,
-                    <ViewApplicantsBtn />,
+                    <ViewApplicantsBtn jobID={application.job_id} />,
                     <ViewSuccessBtn jobID={application.job_id} handleOpen={handleOpenViewSuccessful} />
                 )
             })
