@@ -10,6 +10,8 @@ import { styled } from "@mui/material/styles"
 import Footer from "../Navbar/Footer.js"
 import Alert from "@mui/material/Alert"
 
+import CompanyProfileForm from "./CompanyProfileForm.js"
+
 const useStyles = makeStyles((theme) => ({
     root: {
         fontFamily: "Lato",
@@ -63,7 +65,8 @@ function Profile(props) {
             return (
                 <Box className={classes.box}>
                     <Item className={classes.container}>
-                        <CompanyProfile />
+                        <CompanyProfileForm setErrorMsg={setErrorMsg} />
+                        {errorMsg === "Updated company details!" ? <Alert severity="success">{errorMsg}</Alert> : null}
                     </Item>
                     <Item className={classes.container}>
                         <PostVacancy />
