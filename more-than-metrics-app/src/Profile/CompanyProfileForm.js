@@ -229,7 +229,7 @@ function CompanyProfileForm(props) {
                                                 marginTop: 20,
                                             }}>
                                             <CardContent>
-                                                <Typography
+                                                {/* <Typography
                                                     variant="h3"
                                                     style={{
                                                         "letter-spacing": "0.01071em",
@@ -242,7 +242,7 @@ function CompanyProfileForm(props) {
                                                         color: "gray",
                                                     }}>
                                                     Company Profile
-                                                </Typography>
+                                                </Typography> */}
                                                 <div className={classes.row}>
                                                     <Button onClick={() => setDisabled(!disabled)}>Edit</Button>
                                                     <Badge
