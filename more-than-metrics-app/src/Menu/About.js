@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
         "-moz-user-select": "none",
         "-ms-user-select": "none",
         "user-select": "none",
+        overflow: "hidden",
     },
 
     fakeBtn: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
     icon: {
         color: "#FFBF50",
-        fontSize: "4rem",
+        fontSize: "3rem",
         [theme.breakpoints.down("md")]: {
             alignSelf: "center",
         },
@@ -53,11 +54,20 @@ function About(props) {
     return (
         <div className={classes.root}>
             <Dropdown />
-            <h1 style={{ paddingTop: "5rem", fontFamily: "Lato", color: "gray" }}>ABOUT US</h1>
-            <img alt="" style={{ height: "55vh" }} src={process.env.PUBLIC_URL + "/assets/recruitment11.JPG"} />
-            <h2 style={{ fontFamily: "Lato", color: "gray" }}>
+            <h1 style={{ paddingTop: "4rem", fontFamily: "Lato", color: "gray" }}>ABOUT US</h1>
+            <img alt="" style={{ height: "50vh" }} src={process.env.PUBLIC_URL + "/assets/recruitment11.JPG"} />
+            <h2 style={{ fontFamily: "Lato", color: "gray", padding: "0", margin: "0" }}>
                 Why we created <span className={classes.greaterThan}>{">"}</span>METRICS
             </h2>
+            <p style={{ width: "70vw", textAlign: "center", padding: "0", margin: "0" }}>
+                We noticed the world of recruitment was not moving with the times. In the 21st century, you can teach yourself any skill under the
+                sun, meaning that traditional metrics, such as whether someone went to university or what grades their got should matter less. This is
+                particularly true in tech and software engineering. We want to reinvent the recruitment process for the tech world and get people
+                hired on the basis of their individuality rather than outdated heuristics. On More Than Metrics, candidates answer prompts of their
+                choice to showcase themselves as the unique individuals they are. On the other side of the process, recruiters can quickly view
+                candidates via our Match app and assess their suitability in a quick and easily-digestible way. <br />
+                <b> Join us on this journey to revolutionise recruitment! 🙂 </b>
+            </p>
             <Scroll to="about" smooth={true}>
                 <IconButton>
                     <ExpandMoreIcon className={classes.icon} />

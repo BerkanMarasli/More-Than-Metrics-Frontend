@@ -42,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "2rem",
         paddingTop: "1rem",
     },
+
+    bio: {
+        fontSize: "16pt",
+    },
 }))
 
 function Team() {
@@ -50,7 +54,7 @@ function Team() {
     return (
         <div id="about" className={classes.root}>
             <Dropdown />
-            <h1 style={{ paddingTop: "5rem", fontFamily: "Lato", color: "gray" }}>MEET THE TEAM 🙂</h1>
+            <h1 style={{ paddingTop: "5rem", fontFamily: "Lato", color: "gray" }}>MEET THE TEAM 🤩</h1>
             <div className={classes.cards}>
                 <Card className={classes.card} sx={{ maxWidth: 345 }}>
                     <CardMedia component="img" alt="" height="60%" image="/assets/MTM/Berkan.jpg" />
@@ -58,10 +62,7 @@ function Team() {
                         <Typography gutterBottom variant="h5" component="div">
                             Berkan Marasli
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except
-                            Antarctica
-                        </Typography>
+                        <Typography color="text.secondary">Berkan always knew the right thing to say to get the team pumped!</Typography>
                     </CardContent>
                     <CardActions className={classes.actions}>
                         <a href="https://www.linkedin.com/in/berkanmarasli/" style={{ color: "inherit" }}>
@@ -78,10 +79,7 @@ function Team() {
                         <Typography gutterBottom variant="h5" component="div">
                             Kasia Dutch
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except
-                            Antarctica
-                        </Typography>
+                        <Typography color="text.secondary">Kasia kept the team on track so we could create something awesome!</Typography>
                     </CardContent>
                     <CardActions className={classes.actions}>
                         <a href="https://www.linkedin.com/in/k-dutch/" style={{ color: "inherit" }}>
@@ -98,10 +96,7 @@ function Team() {
                         <Typography gutterBottom variant="h5" component="div">
                             Kobi Vasantharajah
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except
-                            Antarctica
-                        </Typography>
+                        <Typography color="text.secondary">Kobi's positivity motivated the team throughout the project!</Typography>
                     </CardContent>
                     <CardActions className={classes.actions}>
                         <a href="https://github.com/K-Vasantharajah/" style={{ color: "inherit" }}>
@@ -118,10 +113,7 @@ function Team() {
                         <Typography gutterBottom variant="h5" component="div">
                             Sang Ta
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except
-                            Antarctica
-                        </Typography>
+                        <Typography color="text.secondary">Sang kept our energies level up for coding by bringing delicious snacks!</Typography>
                     </CardContent>
                     <CardActions className={classes.actions}>
                         <a href="https://www.linkedin.com/in/sang-t-080892172/" style={{ color: "inherit" }}>

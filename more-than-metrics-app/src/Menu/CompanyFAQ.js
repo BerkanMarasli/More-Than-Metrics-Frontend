@@ -55,8 +55,12 @@ function Companies(props) {
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                            eget.
+                            More Than Metrics is designed to find you the best employee for the job ⭐ We believe there's so much more to a person
+                            than their grades, or their previous salary, or their appearance and our aim is to showcase the individual beyond those
+                            outdated heuristics. In order to find you happy employees who love what they do, we think the recruitment process should
+                            focus on who a person <em>really</em> is: their personality, their values, even their sense of humour. On More Than
+                            Metrics, we want candidates to land interviews by being authentically themselves so leave your judgement at the door and
+                            keep an open mind to get the best hires out of this process.
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
@@ -110,13 +114,27 @@ function Companies(props) {
                         aria-controls="panel4a-content"
                         id="panel4a-header"
                         style={expanded === "panel4" ? { backgroundColor: "#fff4dc" } : null}>
-                        <Typography style={expanded === "panel4" ? { fontWeight: "bold" } : null}>How do I review applicants?</Typography>
+                        <Typography style={expanded === "panel4" ? { fontWeight: "bold" } : null}>What is More Than Metrics Match?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                            eget.
-                        </Typography>
+                        <div className={classes.side}>
+                            <img alt="" height="180px" style={{ padding: "0 1rem" }} src={process.env.PUBLIC_URL + "/assets/recruitment12.png"} />
+                            <Typography>
+                                More Than Metrics Match is our system for reviewing candidates who have applied to your vacancy. It's super easy to
+                                use! When you're{" "}
+                                <Link to="/login" style={{ color: "inherit", textDecoration: "underline #FFBF50 2pt" }}>
+                                    logged in
+                                </Link>
+                                , click <span className={classes.fakeBtn}>DASHBOARD</span> and then{" "}
+                                <span className={classes.fakeBtn}>REVIEW CANDIDATES</span> for a particular vacancy. Our system will load of a deck of
+                                applicants for you to review. You'll see their headline, years in industry, technologies used and three questions
+                                they've chosen to answer. That's the fun bit! Based on the job description you've posted, candidates choose three
+                                prompts they feel will showcase their individuality and suitability for the role the best. They've put lots of effort
+                                into their answers since they want to work for you, so take your time reading their answers. Clicking the red cross
+                                will reject the candidate and clicking the green tick will approve them for interview. Be aware, your decision on
+                                Match is final and can't be changed.
+                            </Typography>
+                        </div>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === "panel5"} onChange={handleChange("panel5")}>
@@ -125,13 +143,25 @@ function Companies(props) {
                         aria-controls="panel5a-content"
                         id="panel5a-header"
                         style={expanded === "panel5" ? { backgroundColor: "#fff4dc" } : null}>
-                        <Typography style={expanded === "panel5" ? { fontWeight: "bold" } : null}>Accordion 5</Typography>
+                        <Typography style={expanded === "panel5" ? { fontWeight: "bold" } : null}>
+                            How can I contact successful applicants?
+                        </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                            eget.
-                        </Typography>
+                        <div className={classes.side}>
+                            <Typography>
+                                When you're{" "}
+                                <Link to="/login" style={{ color: "inherit", textDecoration: "underline #FFBF50 2pt" }}>
+                                    logged in
+                                </Link>
+                                , click <span className={classes.fakeBtn}>DASHBOARD</span> - this is where you'll find statistics about your
+                                recruitment experience so far, as well as vacancies you've posted. For each vacancy, you can view candidates you
+                                accepted on Match and their details to contact them for an interview. More Than Match is here to improve the first
+                                step of the hiring process - finding quality candidates - after which, the usual hiring process of your company
+                                continues.
+                            </Typography>
+                            <img alt="" height="150px" style={{ padding: "0 4rem" }} src={process.env.PUBLIC_URL + "/assets/recruitment9.jpg"} />
+                        </div>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === "panel6"} onChange={handleChange("panel6")}>
