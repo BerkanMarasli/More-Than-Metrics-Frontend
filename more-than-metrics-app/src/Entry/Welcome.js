@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { makeStyles } from "@material-ui/core/styles"
-import { Collapse, IconButton } from "@material-ui/core"
+import { Collapse, IconButton, Box } from "@material-ui/core"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import { Link as Scroll } from "react-scroll"
 import Dropdown from "../Menu/Dropdown"
@@ -15,6 +15,8 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down("md")]: {
             flexDirection: "column",
         },
+        FontFamily: "Lato",
+        color: "gray",
     },
 
     appbar: {
@@ -36,8 +38,11 @@ const useStyles = makeStyles((theme) => ({
     icon: {
         color: "#FFBF50",
         fontSize: "4rem",
+        margin: "0",
+        padding: "0",
         [theme.breakpoints.down("md")]: {
             alignSelf: "center",
+            fontSize: "3rem",
         },
     },
 
@@ -48,28 +53,27 @@ const useStyles = makeStyles((theme) => ({
 
     list: {
         padding: "0.5rem",
-        // "& .MuiTouchRipple-root span": {
-        //   backgroundColor: "red!important",
-        //   opacity: 0.3,
-        // },
     },
 
     questions: {
-        paddingRight: "3.5rem",
-        [theme.breakpoints.down("md")]: {
-            paddingRight: "0",
-            paddingTop: "4rem",
+        paddingRight: "1rem",
+        paddingBottom: "7.5rem",
+        textAlign: "left",
+
+        [theme.breakpoints.down("sm")]: {
+            paddingTop: "35%",
+            fontSize: "80%",
+            paddingBottom: "0",
         },
     },
 
     humans: {
-        paddingTop: "5.6rem",
-        paddingRight: "3rem",
         paddingLeft: "1rem",
-        [theme.breakpoints.down("md")]: {
-            paddingTop: "0",
-            paddingRight: "0",
-            paddingLeft: "0",
+        textAlign: "left",
+
+        [theme.breakpoints.down("sm")]: {
+            padding: "0rem",
+            fontSize: "80%",
         },
     },
 }))
@@ -87,7 +91,7 @@ function Welcome(props) {
             <Dropdown />
             <div className={classes.questions}>
                 <h3>Tired of outdated heuristics?</h3>
-                <h2>We're reinventing recruitment.</h2>{" "}
+                <h2>We're reinventing recruitment.</h2>
             </div>
             <div className={classes.humans}>
                 <Collapse in={checked} {...(checked ? { timeout: 2000 } : {})} collapsedHeight={10}>

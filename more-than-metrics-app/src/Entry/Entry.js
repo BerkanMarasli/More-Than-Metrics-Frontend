@@ -5,9 +5,9 @@ import ChooseUser from "./ChooseUser"
 const useStyles = makeStyles((theme) => ({
     root: {
         minHeight: "100vh",
-        backgroundImage: `url(${process.env.PUBLIC_URL + "/assets/recruitment2.jpeg"})`,
+        backgroundImage: `url(${process.env.PUBLIC_URL + "/assets/recruitment2.png"})`,
         backgroundPosition: "top",
-        backgroundSize: "85%",
+        backgroundSize: "100%",
         backgroundRepeat: "no-repeat",
         backgroundColor: "#FFFFFF",
         fontFamily: "Lato",

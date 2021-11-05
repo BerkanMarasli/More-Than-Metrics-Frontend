@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
         border: "solid 1px grey",
         borderRadius: "4px",
         padding: "3px",
+        marginTop: "10px",
     },
 
     side: {
@@ -57,8 +58,11 @@ function CandidateFAQ(props) {
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                            eget.
+                            More Than Metrics is designed to showcase the real you in all your unique glory 🤩 We believe there's so much more to a
+                            person than their grades, or their previous salary, or their appearance and our aim is to showcase the individual beyond
+                            those outdated heuristics. In order to get you into a work environment that makes you happy, we think the recruitment
+                            process should focus on who you <em>really</em> are: your personality, your values, even your sense of humour. On More
+                            Than Metrics, being authentically yourself is what will land you an interview, so keep shining bright, friend! 🌟
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
@@ -72,7 +76,7 @@ function CandidateFAQ(props) {
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            We're so pleased you trust us to find you your dream job!{" "}
+                            We're so pleased you're ready to find your dream job with us!{" "}
                             <Link
                                 to="/register"
                                 onClick={() => props.setUserType("candidate")}
@@ -80,8 +84,9 @@ function CandidateFAQ(props) {
                                 Click here to be taken to the candidate registration form
                             </Link>
                             . You'll be asked to fill out the usual details, such as your name, number, email address and password. You'll also be
-                            asked to write a short, attention-grabbing headline about yourself and specify which technologies you're able to work
-                            with. In less than five minutes, you're ready to browse the jobs board and apply to roles 🙂
+                            asked to write a short, attention-grabbing headline about yourself and specify which technologies you have experience
+                            working with. In less than five minutes, you're ready to browse the jobs board and apply to roles 🙂 That's when the real
+                            fun begins!
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
@@ -97,7 +102,7 @@ function CandidateFAQ(props) {
                         <div className={classes.side}>
                             <img
                                 alt=""
-                                height="100px"
+                                height="140px"
                                 style={{ padding: "0 3rem", borderRadius: "50%" }}
                                 src={process.env.PUBLIC_URL + "/assets/recruitment7.jpg"}
                             />
@@ -107,9 +112,11 @@ function CandidateFAQ(props) {
                                     logged in
                                 </Link>
                                 , click <span className={classes.fakeBtn}>JOBS</span> to see a list of vacancies being advertised on our Job Board.
-                                For each listing, you have the option to view the company profile and job post in full detail. Make sure you read the
-                                vacancy and company information in full and then, if you think it's the right fit for you, go ahead and click{" "}
-                                <span className={classes.fakeBtn}>APPLY</span> ! A form will pop-up where you can pick three prompts that you
+                                For each listing, you have the option to read more about the company and the job role in more detail. Make sure you
+                                read the vacancy and company information in full and then, if you think it's the right fit for you, go ahead and click{" "}
+                                <span className={classes.fakeBtn}>APPLY</span> ! On the application form, you can choose three prompts out of thirty
+                                to answer, ranging from classic interview questions to less traditional options that will give you an opportunity to
+                                showcase your individuality. Remember - there's no wrong question and no right answer!
                             </Typography>
                         </div>
                     </AccordionDetails>
@@ -135,7 +142,7 @@ function CandidateFAQ(props) {
                                 applied to. Next to the job title and company name, there's a status badge that lets you know the status of your
                                 application. We use a traffic lights system to make it clear where your application is at: <br />
                                 <CancelIcon sx={{ color: "red", opacity: "70%", position: "relative", top: "7px" }} /> a red cross means your
-                                application has not been successful
+                                application was unsuccessful
                                 <br />
                                 <PendingIcon sx={{ color: "#FFBF50", position: "relative", top: "7px" }} /> an amber pending icon means your
                                 application is still under review <br />
@@ -163,9 +170,8 @@ function CandidateFAQ(props) {
                                 logged in
                             </Link>
                             , click <span className={classes.fakeBtn}>PROFILE</span> and on the left side, you'll see your account information. Press
-                            the <span className={classes.fakeBtn}>EDIT</span> button underneath to enable editing and make changes to your personal
-                            details, headline or technologies. Hit <span className={classes.fakeBtn}>SAVE</span> and you're ready to keep applying for
-                            jobs!
+                            the <span className={classes.fakeBtn}>EDIT</span> button to enable editing and make changes to your personal details,
+                            headline or technologies. Hit <span className={classes.fakeBtn}>SAVE</span> and you're ready to keep applying for jobs!
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
