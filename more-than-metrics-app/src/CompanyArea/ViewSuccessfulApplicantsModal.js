@@ -101,7 +101,7 @@ export default function ViewSuccessfulApplicantsModal(props) {
 
     useEffect(() => {
         const fetchAcceptedApplicants = async () => {
-            const acceptedApplicantsResponse = await fetch(`http://localhost:8080/applications/accepted/${jobIDViewed}`)
+            const acceptedApplicantsResponse = await fetch(process.env.REACT_APP_API_URL + `/applications/accepted/${jobIDViewed}`)
             const acceptedApplicantsJson = await acceptedApplicantsResponse.json()
             setAcceptedApplicants(acceptedApplicantsJson)
         }

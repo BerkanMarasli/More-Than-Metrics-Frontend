@@ -50,7 +50,7 @@ function CompanyForm(props) {
 
     useEffect(() => {
         async function getNumOfEmployees(setNumOfEmployees) {
-            const response = await fetch("http://localhost:8080/number_of_employees")
+            const response = await fetch(process.env.REACT_APP_API_URL + "/number_of_employees")
             const json = await response.json()
             setNumOfEmployees(json)
         }
