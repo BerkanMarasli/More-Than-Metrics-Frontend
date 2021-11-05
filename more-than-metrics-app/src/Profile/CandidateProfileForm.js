@@ -212,13 +212,6 @@ function Experiment(props) {
             } else {
                 setErrorMsg("")
             }
-
-            // if (!json.msg) {
-            //     return "That username is taken. Try another."
-            // } else {
-            //     setDisabled(true)
-            //     return ""
-            // }
         } catch (error) {
             console.log(error)
         }
@@ -230,8 +223,6 @@ function Experiment(props) {
                 <div className={classes.root}>
                     <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>YOUR PROFILE</h1>
                     <Button onClick={() => setDisabled(!disabled)}>Edit</Button>
-                    {/* {console.log(loadedTechList)} */}
-                    {/*{console.log(userDetails.technology)} */}
                     <Formik
                         initialValues={userDetails}
                         onSubmit={(values, actions) => {
