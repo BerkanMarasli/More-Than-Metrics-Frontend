@@ -52,12 +52,25 @@ Welcome to "More than metrics", a website that helps candidates to find jobs wit
 right kind of employees through something other than just a CV!
 This user manual is here to help you navigate around the website letting you make the most of our website, I hope you have a pleasnat recruitment journey!
 
+### User Manual Contents
+
+- [Registration](#Registration)
+  - [Candidate Registration](#Candidate-Registration)
+  - [Company Registration](#Company-Registration)
+- [Login](#Login)
+- [Canidate](#Candidate)
+- [Company](#Company)
+- [Footer](#Footer)
+
+![Front page]()
 (IMG OF FRONT PAGE)<br />
 This is the Front page and the first thing a new user would see, if you have already signed up with us then you can skip to the logging in process by
 clicking the burger menu and clicking the login button <br />
+
+<img src="https://github.com/gsinghlak12/worldbank/blob/main/User_Manual_images/03-BadUsername.jpeg" alternative='Burger Menu' height="500">
 (IMG OF BURGER MENU)<br />
 The login section is [here](#Login). <br/>
-If this is your first time and you want to register you can scroll down on the Front page, or click the little arrow which will take you down to the
+If this is your first time and you want to register you can scroll down on the Front page, or click the little arrow which will take you down to the 
 registering buttons.<br />
 (IMG OF BUTTONS)<br />
 Depending on who you are you can register for a specific account type, clicking on the respective button to create the account of your type<br />
@@ -208,6 +221,84 @@ When you successfully update your details you will get a success message like so
 If you are done with applying and want to log out, click the logout screen, you will then be redirected back to the front page.<br/>
 
 ### Company
+
+(IMG OF COMPANY DASHBOARD)<br />
+When you log in as a company, you will be shown the company dashboard. The company dashboard contains 2 sections, the overview and the open vacancies.
+You also have 3 buttons in the navigation bar: <br />
+
+- Dashboard (current page)
+- Profile
+- Logout
+
+The overview contains the general statistics of the company: total applications, total job listings, and the number of accepted, rejected, and pending applications. These are all represented on the company dashboard.
+The open vacancies contains the list of jobs that the company has posted, each job has the statistics of the job, as well as 2 buttons:<br />
+
+- Review applicants
+- Accepted applicants
+
+The statistics of the job are represented by the 3 badges, red for rejected, green for accepted, and yellow for pending.
+When clicking on review applicants you will be taken to the core functionality of the company side, accepting applications.<br />
+(IMG OF MATCHING PAGE)<br />
+This is the page which allows a company to either reject or accept a candidate. To make this process as fair as possible all personal data is excluded from
+the application and you can only see their headline, and their answers with the prompts that they chose. There are 2 buttons, one for accepting (green) and
+one for rejecting (red).<br />
+Note that these applications are only one time views, and that candidates shouldn’t be compared with each other, and instead be judged based on their prompts.
+So if you reject an application you cannot get that application back, each decision is important so take time when going through applications.
+You can stop halfway through and come back later to pick it up again, or you can go through all the applications, if you go through all of them, or there are
+no applications you will get a message like so…<br />
+(IMG OF NO APPLICATIONS)<br />
+You can go back by clicking the back button<br />
+When you click the accepted applicants button, you will see all the candidates that you have accepted in the review stage for that application.<br />
+(IMG OF ACCEPTED APPLICANTS)<br />
+Here you can see all the candidates that have applied and you have deemed successful for the job, you now have their basic information like name, email address
+and phone number, so that you can contact them for your next stages of the recruitment process.
+If there are no successful candidates then you will get a message like so…<br />
+(IMG OF NO SUCCESSFUL APPLICANTS)<br />
+Click outside the modal to return to the dashboard.<br />
+
+(IMG OF PROFILE)<br />
+On the left of the profile you have your details, on the right you have a way to post new jobs to the job board<br />
+Post Vacancy has 6 fields:<br />
+
+- Job Title
+- Location
+- Salary
+- Job description
+- Key Responsibilities
+- Key Technologies
+
+Each of these fields must be filled in for you to submit your details to post a new vacancy, they have similar restrictions to having you register a new account.
+After submitting your vacancy with the correct details you will get an alert telling you it was posted like so…<br />
+(IMG OF SUCCESS JOB POST ALERT)<br />
+
+If you want to change your details you can click the button on the left side indicated as edit, when you click the edit button the form will be changeable and
+all the validation needed for registering will be applied to this form as well.<br />
+(IMG OF EDIT SIDE)<br />
+You need to have all the fields filled in, this is pre-filled for you and will stay the same unless you change it yourself.<br />
+NOTE: the only field you don’t need filled is the password field, if you don’t want to change your password then you can just leave it blank.<br />
+When you successfully update your details you will get a success message like so…<br />
+(IMG OF SUCCESS MSG)<br />
+<br />
+If you are done with applying and want to log out, click the logout screen, you will then be redirected back to the front page.<br />
+
+### Footer
+
+Lastly there is a footer at the bottom of the page when you are logged in, this has 2 buttons:
+
+- About
+- FAQ <br />
+  The about button will take you to the about page<br />
+  (IMG OF ABOUT PAGE)<br />
+  This page will tell you about the page, and why we made it, also have a bit of information about all of us if you’re interested in the makers of this website<br />
+  (IMG OF FAQ PAGE)<br />
+  The FAQ page is different depending on which account you are logged in to, for example we are on the company side FAQ, you can also access the separate FAQ from
+  the burger menu on the front pages. Scroll down on each of them to see the FAQ questions and you will see the questions like so…<br />
+  (IMG OF QUESTIONS)<br />
+  Click on the questions to see our answer to the FAQ.<br />
+
+Last of all please give a round of applause to our amazing developers that worked hard to make this app possible, dedicating their hours and expertise to make
+the website look amazing!<br />
+(IMG OF ABOUT US)<br />
 
 ## Our Team
 
