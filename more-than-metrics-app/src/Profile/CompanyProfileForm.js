@@ -49,6 +49,12 @@ const useStyles = makeStyles(() => ({
     ml4: {
         marginLeft: 4,
     },
+    btn: {
+        backgroundColor: "#FFBF50",
+        color: "white",
+        fontWeight: "bold",
+        fontFamily: "Lato",
+    },
 }))
 
 function CompanyProfileForm(props) {
@@ -299,41 +305,25 @@ function CompanyProfileForm(props) {
                                                         }
                                                     />
                                                 </div>
-                                                <TextField
-                                                    fullWidth
-                                                    disabled={disabled}
-                                                    multiline
-                                                    rows={5}
-                                                    label="Company Bio"
-                                                    type="text"
-                                                    variant="outlined"
-                                                    name="companyBio"
-                                                    value={values.companyBio}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    error={touched && touched.companyBio && errors && errors.companyBio}
-                                                    helperText={touched && touched.companyBio && errors && errors.companyBio ? errors.companyBio : ""}
-                                                />
-                                                <TextField
-                                                    disabled={disabled}
-                                                    fullWidth
-                                                    label="Female percentage"
-                                                    type="number"
-                                                    variant="outlined"
-                                                    name="femalePercentage"
-                                                    value={values.femalePercentage}
-                                                    InputProps={{
-                                                        endAdornment: <InputAdornment position="end">% Female</InputAdornment>,
-                                                    }}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    error={touched && touched.femalePercentage && errors && errors.femalePercentage}
-                                                    helperText={
-                                                        touched && touched.femalePercentage && errors && errors.femalePercentage
-                                                            ? errors.femalePercentage
-                                                            : ""
-                                                    }
-                                                />{" "}
+                                                <div className={classes.row}>
+                                                    <TextField
+                                                        fullWidth
+                                                        disabled={disabled}
+                                                        multiline
+                                                        rows={5}
+                                                        label="Company Bio"
+                                                        type="text"
+                                                        variant="outlined"
+                                                        name="companyBio"
+                                                        value={values.companyBio}
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        error={touched && touched.companyBio && errors && errors.companyBio}
+                                                        helperText={
+                                                            touched && touched.companyBio && errors && errors.companyBio ? errors.companyBio : ""
+                                                        }
+                                                    />
+                                                </div>
                                                 <InputLabel> Number of employees</InputLabel>
                                                 {fetchedNumOfEmployeesCategory ? (
                                                     <Slider
@@ -354,25 +344,48 @@ function CompanyProfileForm(props) {
                                                         style={disabled ? { color: "#FFBF50", opacity: "70%" } : { color: "#FFBF50" }}
                                                     />
                                                 ) : null}
-                                                {console.log(values.numOfEmployees)}
-                                                <TextField
-                                                    fullWidth
-                                                    disabled={disabled}
-                                                    label="Retention Rate"
-                                                    type="number"
-                                                    variant="outlined"
-                                                    name="retentionRate"
-                                                    value={values.retentionRate}
-                                                    InputProps={{
-                                                        endAdornment: <InputAdornment position="end">%</InputAdornment>,
-                                                    }}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    error={touched && touched.retentionRate && errors && errors.retentionRate}
-                                                    helperText={
-                                                        touched && touched.retentionRate && errors && errors.retentionRate ? errors.retentionRate : ""
-                                                    }
-                                                />
+                                                <div className={classes.row}>
+                                                    <TextField
+                                                        disabled={disabled}
+                                                        fullWidth
+                                                        label="Female percentage"
+                                                        type="number"
+                                                        variant="outlined"
+                                                        name="femalePercentage"
+                                                        value={values.femalePercentage}
+                                                        InputProps={{
+                                                            endAdornment: <InputAdornment position="end">% Female</InputAdornment>,
+                                                        }}
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        error={touched && touched.femalePercentage && errors && errors.femalePercentage}
+                                                        helperText={
+                                                            touched && touched.femalePercentage && errors && errors.femalePercentage
+                                                                ? errors.femalePercentage
+                                                                : ""
+                                                        }
+                                                    />
+                                                    <TextField
+                                                        fullWidth
+                                                        disabled={disabled}
+                                                        label="Retention Rate"
+                                                        type="number"
+                                                        variant="outlined"
+                                                        name="retentionRate"
+                                                        value={values.retentionRate}
+                                                        InputProps={{
+                                                            endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                                                        }}
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        error={touched && touched.retentionRate && errors && errors.retentionRate}
+                                                        helperText={
+                                                            touched && touched.retentionRate && errors && errors.retentionRate
+                                                                ? errors.retentionRate
+                                                                : ""
+                                                        }
+                                                    />
+                                                </div>
                                                 <TextField
                                                     fullWidth
                                                     disabled={disabled}
@@ -441,7 +454,7 @@ function CompanyProfileForm(props) {
                                                     </div>
                                                 ) : null}
                                                 {!disabled ? (
-                                                    <Button type="submit" color="primary" variant="contained">
+                                                    <Button type="submit" className={classes.btn}>
                                                         submit
                                                     </Button>
                                                 ) : // <Button onClick={() => setDisabled(true)}>Save</Button>
