@@ -14,8 +14,6 @@ import { Slider, Box, InputLabel, OutlinedInput, IconButton, Avatar, Badge, Popo
 import { Visibility, VisibilityOff, AddPhotoAlternate } from "@material-ui/icons"
 import FileUploadIcon from "@mui/icons-material/FileUpload"
 import { getUserID } from "../handleCookie.js"
-
-// Formik
 import { Formik, Form } from "formik"
 
 const yup = require("yup")
@@ -67,7 +65,6 @@ function CompanyProfileForm(props) {
 
     const [disabled, setDisabled] = useState(true)
     const [showPassword, setShowPassword] = useState(false)
-    const [loadedTechList, setLoadedTechList] = useState(null)
     const [refreshForUpdate, setRefreshForUpdate] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null)
 
@@ -130,7 +127,7 @@ function CompanyProfileForm(props) {
         }
 
         getUserDetails(setUserDetails)
-    }, [])
+    }, [refreshForUpdate])
 
     useEffect(() => {
         async function getNumOfEmployees(setNumOfEmployees) {
@@ -210,8 +207,6 @@ function CompanyProfileForm(props) {
         if (userDetails.companyName) {
             return (
                 <div className={classes.root}>
-                    <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>YOUR PROFILE</h1>
-
                     <Formik
                         initialValues={userDetails}
                         onSubmit={(values, actions) => {
@@ -228,6 +223,7 @@ function CompanyProfileForm(props) {
                                                 maxWidth: 900,
                                                 marginTop: 20,
                                             }}>
+                                            <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>YOUR PROFILE</h1>
                                             <CardContent>
                                                 <div className={classes.row}>
                                                     <Button onClick={() => setDisabled(!disabled)}>Edit</Button>
