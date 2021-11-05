@@ -29,7 +29,7 @@ const yup = require("yup")
 const useStyles = makeStyles((theme) => ({
     root: {
         display: "grid",
-        justifyItems: "center",
+        // justifyItems: "center",
         alignContent: "center",
         padding: "1rem",
     },
@@ -78,7 +78,8 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "1rem",
     },
     addMargin: {
-        margin: "0.5px 0px",
+        margin: "2px 0px",
+        maxWidth: "100%",
     },
 }))
 
