@@ -29,6 +29,7 @@ const useStyles = makeStyles(() => ({
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
+        margin: "4px 0px",
     },
     mb4: {
         marginBottom: 4,
