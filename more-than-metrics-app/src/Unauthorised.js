@@ -1,17 +1,15 @@
 import React from "react"
-import Alert from "@mui/material/Alert"
 import Navbar from "./Navbar/Navbar"
+import Unauthorised401Img from "./401_Error_Message.png"
 
 export default function Unauthorised(props) {
     return (
         <div>
-            <div style={{height: "15rem"}}>
+            <div style={{ height: "15rem" }}>
                 <Navbar userType={props.userType} />
             </div>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <Alert style={{ background: "#FFBF50" }} severity="error">
-                    UNAUTHORISED ACCESS!
-                </Alert>
+                <img src={Unauthorised401Img} alt="401 Error Message" />
             </div>
         </div>
     )

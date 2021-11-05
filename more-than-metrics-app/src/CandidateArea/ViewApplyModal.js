@@ -177,7 +177,7 @@ function ViewApplyModal(props) {
         <Modal open={openViewApply} onClose={handleCloseViewApply} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
             <div className={classes.root}>
                 <Box className={classes.box} sx={style}>
-                    <h1 style={{ margin: "5px auto" }}>APPLICATION FORM</h1>
+                    <h1 style={{ margin: "5px auto", fontFamily: "Lato", color: "gray" }}>APPLICATION FORM</h1>
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
                             <div>
