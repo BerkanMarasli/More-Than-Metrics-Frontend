@@ -158,7 +158,7 @@ function PostVacancyForm() {
 
     return (
         <div className={classes.root}>
-            <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>Job Title</h1>
+            <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>POST VACANCY</h1>
             <Formik
                 initialValues={postDetails}
                 onSubmit={(values, actions) => {
