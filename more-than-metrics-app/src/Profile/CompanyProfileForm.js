@@ -8,9 +8,9 @@ import Typography from "@material-ui/core/Typography"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import { MenuItem, Select, InputAdornment } from "@material-ui/core"
-
 import Stack from "@mui/material/Stack"
 import LinearProgress from "@mui/material/LinearProgress"
+import { Slider } from "@mui/material/"
 
 import Alert from "@mui/material/Alert"
 
@@ -110,11 +110,6 @@ function CompanyProfileForm(props) {
                 image_url,
             } = json
 
-            console.log("Name + bio ", company_name, company_bio)
-            console.log("Location + Category ", location, category)
-            console.log("Female % + Account email ", company_female_employee_percentage, account_email)
-            console.log("Image url + company_retention_rate ", company_retention_rate, image_url)
-
             setUserDetails({
                 img_url: image_url,
                 companyName: company_name,
@@ -140,6 +135,14 @@ function CompanyProfileForm(props) {
         }
         getNumOfEmployees(setNumOfEmployees)
     }, [])
+
+    function valueLabelFormat(value) {
+        return fetchedNumOfEmployeesCategory.map((yearRange) => {
+            if (yearRange.value === value) {
+                return yearRange.category
+            }
+        })
+    }
 
     const checkDetails = () => {
         if (userDetails.companyName) {
@@ -221,38 +224,6 @@ function CompanyProfileForm(props) {
                                                     helperText={touched && touched.companyBio && errors && errors.companyBio ? errors.companyBio : ""}
                                                 />
 
-                                                <Select
-                                                    fullWidth
-                                                    name="numOfEmployees"
-                                                    label="Number of Employees"
-                                                    value={values.numOfEmployees}
-                                                    onChange={handleChange}
-                                                    variant="outlined"
-                                                    onBlur={handleBlur}
-                                                    style={values.numOfEmployees ? { color: "black" } : { color: "grey" }}
-                                                    displayEmpty
-                                                    error={touched && touched.numOfEmployees && errors && errors.numOfEmployees}
-                                                    helperText={
-                                                        touched && touched.numOfEmployees && errors && errors.numOfEmployees
-                                                            ? errors.numOfEmployees
-                                                            : ""
-                                                    }>
-                                                    <MenuItem value="" disabled>
-                                                        Number of Employees
-                                                    </MenuItem>
-                                                    {fetchedNumOfEmployeesCategory !== null
-                                                        ? fetchedNumOfEmployeesCategory.map((category) => {
-                                                              return (
-                                                                  <MenuItem
-                                                                      key={category.number_of_employees_id}
-                                                                      value={category.number_of_employees_id}>
-                                                                      {category.category}
-                                                                  </MenuItem>
-                                                              )
-                                                          })
-                                                        : null}
-                                                </Select>
-
                                                 <TextField
                                                     fullWidth
                                                     label="Female percentage"
@@ -272,26 +243,24 @@ function CompanyProfileForm(props) {
                                                             : ""
                                                     }
                                                 />
-                                                <div>
-                                                    <Slider
-                                                        aria-label="NumOfEmployees"
-                                                        id="slider-employees"
-                                                        size="medium"
-                                                        name={"numOfEmployees"}
-                                                        valueLabelFormat={valueLabelFormat}
-                                                        getAriaValueText={valueLabelFormat}
-                                                        step={1}
-                                                        marks
-                                                        defaultValue={values.numOfEmployees}
-                                                        onChange={handleChange("numOfEmployees")}
-                                                        valueLabelDisplay="on"
-                                                        min={0}
-                                                        max={5}
-                                                        disabled={disabled}
-                                                        style={disabled ? { color: "#FFBF50", opacity: "70%" } : { color: "#FFBF50" }}
-                                                    />
-                                                </div>
 
+                                                <Slider
+                                                    // disabled={disabled}
+                                                    aria-label="NumOfEmployees"
+                                                    id="slider-employees"
+                                                    size="medium"
+                                                    name={"numOfEmployees"}
+                                                    valueLabelDisplay="auto"
+                                                    valueLabelFormat={valueLabelFormat}
+                                                    getAriaValueText={valueLabelFormat}
+                                                    step={1}
+                                                    marks
+                                                    defaultValue={values.numOfEmployees}
+                                                    onChange={handleChange("numOfEmployees")}
+                                                    min={0}
+                                                    max={fetchedNumOfEmployeesCategory.length - 1}
+                                                    // style={disabled ? { color: "#FFBF50", opacity: "70%" } : { color: "#FFBF50" }}
+                                                />
                                                 <TextField
                                                     fullWidth
                                                     label="Retention Rate"
