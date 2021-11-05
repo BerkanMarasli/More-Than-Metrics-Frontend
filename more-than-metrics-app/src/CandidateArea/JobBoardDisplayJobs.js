@@ -54,7 +54,7 @@ function JobBoardDisplayJobs(props) {
 
     useEffect(() => {
         async function fetchJobs() {
-            const jobsResponse = await fetch("http://localhost:8080/jobs/")
+            const jobsResponse = await fetch(process.env.REACT_APP_API_URL + "/jobs/")
             const jobsData = await jobsResponse.json()
             const jobs = jobsData.reverse().map((job) => {
                 return createJobListing(

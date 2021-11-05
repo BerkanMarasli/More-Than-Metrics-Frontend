@@ -131,7 +131,7 @@ function CandidateCard({ candidate, number }) {
                 <Box className={classes.container}>
                     <h3>Years in industry:</h3>
                     <Item className={classes.item} style={{ padding: "0.5rem 1rem" }}>
-                        {candidate.years_in_industry}
+                        {candidate.category}
                     </Item>
                     <h3>Known technologies:</h3>
                     <Stack direction="row" className={classes.stack}>

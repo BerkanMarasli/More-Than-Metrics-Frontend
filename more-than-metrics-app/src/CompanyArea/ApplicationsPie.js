@@ -15,7 +15,7 @@ function ApplicationsPie(props) {
 
     useEffect(() => {
         async function getCompanyStats(companyID) {
-            const response = await fetch(`http://localhost:8080/company/stats/${companyID}`)
+            const response = await fetch(process.env.REACT_APP_API_URL + `/company/stats/${companyID}`)
             const json = await response.json()
             setApplications(json.company_applications)
             setPending(json.company_pending)

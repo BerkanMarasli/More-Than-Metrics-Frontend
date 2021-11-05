@@ -29,7 +29,7 @@ export default function ViewCompanyModal(props) {
 
     useEffect(() => {
         async function fetchCompanyData() {
-            const companyDataResponse = await fetch(`http://localhost:8080/company/${companyViewed}`)
+            const companyDataResponse = await fetch(process.env.REACT_APP_API_URL + `/company/${companyViewed}`)
             const companyData = await companyDataResponse.json()
             setCompanyData(companyData[0])
         }

@@ -34,7 +34,10 @@ function CompanyRegistration() {
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
                 "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
             ),
-        passwordConfirmation: yup.string().oneOf([yup.ref("password"), null], "Passwords must match"),
+        passwordConfirmation: yup
+            .string()
+            .required("Please confirm password")
+            .oneOf([yup.ref("password"), null], "Passwords must match"),
     })
 
     return (
@@ -45,7 +48,7 @@ function CompanyRegistration() {
 }
 
 async function createUser(values, setErrorMsg) {
-    const url = `http://localhost:8080/company/register`
+    const url = process.env.REACT_APP_API_URL + `/company/register`
 
     const { img_url, companyName, companyBio, numOfEmployees, femalePercentage, retentionRate, location, email, password, passwordConfirmation } =
         values

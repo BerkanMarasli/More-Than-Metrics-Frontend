@@ -21,7 +21,7 @@ function SelectTechnologies(props) {
 
     useEffect(() => {
         const fetchTechnologies = async () => {
-            const techResponse = await fetch("http://localhost:8080/technologies")
+            const techResponse = await fetch(process.env.REACT_APP_API_URL + "/technologies")
             const techJson = await techResponse.json()
             setTechnologies(techJson)
         }

@@ -32,7 +32,7 @@ function Login(props) {
 }
 
 async function getUser(values, setLoggedIn, setErrorMsg) {
-    const url = "http://localhost:8080/login"
+    const url = process.env.REACT_APP_API_URL + "/login"
     try {
         const response = await fetch(url, {
             method: "POST",
@@ -45,6 +45,8 @@ async function getUser(values, setLoggedIn, setErrorMsg) {
 
         if (response.status === 200) {
             setLoggedIn(true)
+            document.cookie = json.cookieOneToSet
+            document.cookie = json.cookieTwoToSet
             window.location.href = json.url
         }
     } catch (error) {

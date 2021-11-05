@@ -45,13 +45,13 @@ function DisplayApplications(props) {
 
     useEffect(() => {
         async function fetchJobs() {
-            const applicationsResponse = await fetch(`http://localhost:8080/company/jobStats/${companyID}`)
+            const applicationsResponse = await fetch(process.env.REACT_APP_API_URL + `/company/jobStats/${companyID}`)
             const applicationsData = await applicationsResponse.json()
             const applications = applicationsData.reverse().map((application) => {
                 return createJobListing(
                     jobTitle(application),
                     <ApplicationBadges jobStats={application.jobStats} />,
-                    <ViewApplicantsBtn />,
+                    <ViewApplicantsBtn jobID={application.job_id} />,
                     <ViewSuccessBtn jobID={application.job_id} handleOpen={handleOpenViewSuccessful} />
                 )
             })

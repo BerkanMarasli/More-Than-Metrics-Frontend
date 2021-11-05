@@ -33,7 +33,7 @@ function CompanyJobBoard(props) {
 
     useEffect(() => {
         async function fetchJobs() {
-            const jobsResponse = await fetch(`http://localhost:8080/jobs/company/${companyViewed}`)
+            const jobsResponse = await fetch(process.env.REACT_APP_API_URL + `/jobs/company/${companyViewed}`)
             const jobsData = await jobsResponse.json()
             const jobs = jobsData.map((job) => {
                 return createData(

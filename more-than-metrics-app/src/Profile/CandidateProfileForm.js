@@ -87,10 +87,9 @@ const marks = [
         label: "5+",
     },
 ]
-// const candidateID = getUserID(document.cookie)
-const candidateID = 2
 
 function Experiment(props) {
+    const candidateID = getUserID(document.cookie)
     const { setErrorMsg } = props
     const [userDetails, setUserDetails] = useState({
         firstName: "",
@@ -145,7 +144,7 @@ function Experiment(props) {
 
     useEffect(() => {
         async function getUserDetails(setUserDetails) {
-            const response = await fetch(`http://localhost:8080/candidate/information/2`)
+            const response = await fetch(process.env.REACT_APP_API_URL + `/candidate/information/${candidateID}`)
             const [json] = await response.json()
             const { candidate_name, headline, technologies, candidate_phone_number, candidate_years_in_industry_id, account_email } = json
             const nameArr = candidate_name.split(" ")
@@ -168,7 +167,7 @@ function Experiment(props) {
     }, [refreshForUpdate])
 
     async function updateUser(values) {
-        const url = `http://localhost:8080/candidate/update`
+        const url = process.env.REACT_APP_API_URL + `/candidate/update`
 
         const { firstName, lastName, email, phoneNumber, yearsInIndustry, technology, headline, password, passwordConfirmation } = values
         // console.log(values)
@@ -212,13 +211,6 @@ function Experiment(props) {
             } else {
                 setErrorMsg("")
             }
-
-            // if (!json.msg) {
-            //     return "That username is taken. Try another."
-            // } else {
-            //     setDisabled(true)
-            //     return ""
-            // }
         } catch (error) {
             console.log(error)
         }
@@ -230,8 +222,6 @@ function Experiment(props) {
                 <div className={classes.root}>
                     <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>YOUR PROFILE</h1>
                     <Button onClick={() => setDisabled(!disabled)}>Edit</Button>
-                    {/* {console.log(loadedTechList)} */}
-                    {/*{console.log(userDetails.technology)} */}
                     <Formik
                         initialValues={userDetails}
                         onSubmit={(values, actions) => {

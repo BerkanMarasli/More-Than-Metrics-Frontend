@@ -35,7 +35,7 @@ function Applied() {
 
     useEffect(() => {
         async function fetchJobs() {
-            const applicationsResponse = await fetch(`http://localhost:8080/applications/candidate/${userID}`)
+            const applicationsResponse = await fetch(process.env.REACT_APP_API_URL + `/applications/candidate/${userID}`)
             const applications = await applicationsResponse.json()
             const rows = applications.reverse().map((application) => {
                 return createData(
