@@ -10,11 +10,9 @@ import Button from "@material-ui/core/Button"
 import { MenuItem, Select, InputAdornment } from "@material-ui/core"
 import Stack from "@mui/material/Stack"
 import LinearProgress from "@mui/material/LinearProgress"
-import { Slider } from "@mui/material/"
-
-import Alert from "@mui/material/Alert"
-
-import clsx from "clsx"
+import { Slider, Box, InputLabel, OutlinedInput, IconButton, Avatar, Badge, Popover } from "@mui/material/"
+import { Visibility, VisibilityOff, AddPhotoAlternate } from "@material-ui/icons"
+import FileUploadIcon from "@mui/icons-material/FileUpload"
 
 // Formik
 import { Formik, Form } from "formik"
@@ -48,12 +46,15 @@ const useStyles = makeStyles(() => ({
     },
 }))
 
+const companyID = 1
+
 function CompanyProfileForm(props) {
+    const { setErrorMsg } = props
     const [userDetails, setUserDetails] = useState({
         img_url: "",
         companyName: "",
         companyBio: "",
-        numOfEmployees: "",
+        numOfEmployees: null,
         femalePercentage: "",
         retentionRate: "",
         location: "",
@@ -63,7 +64,12 @@ function CompanyProfileForm(props) {
     })
     const classes = useStyles()
     const [fetchedNumOfEmployeesCategory, setNumOfEmployees] = useState(null)
-    const { createUser, errorMsg, setErrorMsg } = props
+
+    const [disabled, setDisabled] = useState(true)
+    const [showPassword, setShowPassword] = useState(false)
+    const [loadedTechList, setLoadedTechList] = useState(null)
+    const [refreshForUpdate, setRefreshForUpdate] = useState(false)
+    const [anchorEl, setAnchorEl] = useState(null)
 
     const validationSchema = yup.object().shape({
         img_url: yup
@@ -98,7 +104,6 @@ function CompanyProfileForm(props) {
         async function getUserDetails(setUserDetails) {
             const response = await fetch(`http://localhost:8080/company/information/1`)
             const [json] = await response.json()
-            console.log(json)
             const {
                 company_name,
                 company_bio,
@@ -143,22 +148,81 @@ function CompanyProfileForm(props) {
             }
         })
     }
+    async function updateUser(values, setErrorMsg) {
+        const url = `http://localhost:8080/company/update/`
+
+        const { img_url, companyName, companyBio, location, numOfEmployees, femalePercentage, retentionRate, email, password, passwordConfirmation } =
+            values
+
+        console.log(numOfEmployees)
+        try {
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    companyID: companyID,
+                    companyEmail: email,
+                    companyPassword: password,
+                    companyPasswordConfirmation: passwordConfirmation,
+                    companyName: companyName,
+                    companyBio: companyBio,
+                    companyLocation: location,
+                    numberOfEmployeesID: numOfEmployees,
+                    femalePercentage: femalePercentage,
+                    retentionRate: retentionRate,
+                    imageURL: img_url,
+                }),
+            })
+
+            setRefreshForUpdate(true)
+            const json = await response.json()
+            console.log(json)
+
+            if (response.status === 200) {
+                setDisabled(true)
+                setErrorMsg(json.message)
+            } else {
+                setErrorMsg("")
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword)
+    }
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault()
+    }
+    const handleOpenPopover = (event) => {
+        setAnchorEl(event.currentTarget)
+    }
+
+    const handleClose = () => {
+        setAnchorEl(null)
+    }
+    const open = Boolean(anchorEl)
+    const id = open ? "simple-popover" : undefined
 
     const checkDetails = () => {
         if (userDetails.companyName) {
             return (
-                <div>
+                <div className={classes.root}>
+                    <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>YOUR PROFILE</h1>
+
                     <Formik
                         initialValues={userDetails}
                         onSubmit={(values, actions) => {
-                            createUser(values, setErrorMsg)
+                            updateUser(values, setErrorMsg)
                         }}
                         validationSchema={validationSchema}>
                         {({ values, touched, errors, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
                             return (
                                 <Form onSubmit={handleSubmit}>
                                     <div>
-                                        <Card
+                                        <Box
                                             style={{
                                                 marginBottom: 20,
                                                 maxWidth: 900,
@@ -167,7 +231,6 @@ function CompanyProfileForm(props) {
                                             <CardContent>
                                                 <Typography
                                                     variant="h3"
-                                                    className={clsx(classes.center, classes.mb4)}
                                                     style={{
                                                         "letter-spacing": "0.01071em",
                                                         fontWeight: "bold",
@@ -178,39 +241,79 @@ function CompanyProfileForm(props) {
                                                         marginBottom: "1rem",
                                                         color: "gray",
                                                     }}>
-                                                    REGISTRATION
+                                                    Company Profile
                                                 </Typography>
-
+                                                <div className={classes.row}>
+                                                    <Button onClick={() => setDisabled(!disabled)}>Edit</Button>
+                                                    <Badge
+                                                        aria-describedby={id}
+                                                        size="small"
+                                                        overlap="circular"
+                                                        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                                                        badgeContent={<AddPhotoAlternate onClick={handleOpenPopover} />}
+                                                        style={disabled ? { color: "transparent", opacity: "70%" } : null}>
+                                                        <Avatar
+                                                            // alt={name}
+                                                            src={values.img_url ? values.img_url : "/broken-image.jpg"}
+                                                            style={{
+                                                                height: "3rem",
+                                                                width: "3rem",
+                                                                padding: "5px",
+                                                                border: "0.1px solid lightgray",
+                                                            }}
+                                                        />
+                                                    </Badge>
+                                                    <Popover
+                                                        id={id}
+                                                        open={open}
+                                                        anchorEl={anchorEl}
+                                                        onClose={handleClose}
+                                                        anchorOrigin={{
+                                                            vertical: "bottom",
+                                                            horizontal: "left",
+                                                        }}>
+                                                        <Typography>
+                                                            <OutlinedInput
+                                                                size="small"
+                                                                id="outlined-img"
+                                                                className={classes.input}
+                                                                style={{ width: "15rem" }}
+                                                                placeholder="Enter the logo URL"
+                                                                label="Company Logo URL"
+                                                                type="text"
+                                                                variant="outlined"
+                                                                name="img_url"
+                                                                value={values.img_url}
+                                                                onChange={handleChange}
+                                                                onBlur={handleBlur}
+                                                                error={touched && touched.img_url && errors && errors.img_url}
+                                                                helperText={
+                                                                    touched && touched.img_url && errors && errors.img_url ? errors.img_url : ""
+                                                                }
+                                                            />
+                                                            <Button size="small" style={{ padding: "none" }} onClick={handleClose}>
+                                                                <FileUploadIcon />
+                                                            </Button>
+                                                        </Typography>
+                                                    </Popover>
+                                                    <TextField
+                                                        disabled={disabled}
+                                                        label="Company Name"
+                                                        type="text"
+                                                        variant="outlined"
+                                                        name="companyName"
+                                                        value={values.companyName}
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        error={touched && touched.companyName && errors && errors.companyName}
+                                                        helperText={
+                                                            touched && touched.companyName && errors && errors.companyName ? errors.companyName : ""
+                                                        }
+                                                    />
+                                                </div>
                                                 <TextField
                                                     fullWidth
-                                                    label="Company Logo URL"
-                                                    type="text"
-                                                    variant="outlined"
-                                                    name="img_url"
-                                                    value={values.img_url}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    error={touched && touched.img_url && errors && errors.img_url}
-                                                    helperText={touched && touched.img_url && errors && errors.img_url ? errors.img_url : ""}
-                                                />
-
-                                                <TextField
-                                                    fullWidth
-                                                    label="Company Name"
-                                                    type="text"
-                                                    variant="outlined"
-                                                    name="companyName"
-                                                    value={values.companyName}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    error={touched && touched.companyName && errors && errors.companyName}
-                                                    helperText={
-                                                        touched && touched.companyName && errors && errors.companyName ? errors.companyName : ""
-                                                    }
-                                                />
-
-                                                <TextField
-                                                    fullWidth
+                                                    disabled={disabled}
                                                     multiline
                                                     rows={5}
                                                     label="Company Bio"
@@ -223,8 +326,8 @@ function CompanyProfileForm(props) {
                                                     error={touched && touched.companyBio && errors && errors.companyBio}
                                                     helperText={touched && touched.companyBio && errors && errors.companyBio ? errors.companyBio : ""}
                                                 />
-
                                                 <TextField
+                                                    disabled={disabled}
                                                     fullWidth
                                                     label="Female percentage"
                                                     type="number"
@@ -242,27 +345,31 @@ function CompanyProfileForm(props) {
                                                             ? errors.femalePercentage
                                                             : ""
                                                     }
-                                                />
-
-                                                <Slider
-                                                    // disabled={disabled}
-                                                    aria-label="NumOfEmployees"
-                                                    id="slider-employees"
-                                                    size="medium"
-                                                    name={"numOfEmployees"}
-                                                    valueLabelDisplay="auto"
-                                                    valueLabelFormat={valueLabelFormat}
-                                                    getAriaValueText={valueLabelFormat}
-                                                    step={1}
-                                                    marks
-                                                    defaultValue={values.numOfEmployees}
-                                                    onChange={handleChange("numOfEmployees")}
-                                                    min={0}
-                                                    max={fetchedNumOfEmployeesCategory.length - 1}
-                                                    // style={disabled ? { color: "#FFBF50", opacity: "70%" } : { color: "#FFBF50" }}
-                                                />
+                                                />{" "}
+                                                <InputLabel> Number of employees</InputLabel>
+                                                {fetchedNumOfEmployeesCategory ? (
+                                                    <Slider
+                                                        disabled={disabled}
+                                                        aria-label="NumOfEmployees"
+                                                        id="slider-employees"
+                                                        size="medium"
+                                                        name={"numOfEmployees"}
+                                                        valueLabelDisplay="auto"
+                                                        valueLabelFormat={valueLabelFormat}
+                                                        getAriaValueText={valueLabelFormat}
+                                                        step={1}
+                                                        marks
+                                                        defaultValue={values.numOfEmployees}
+                                                        onChange={handleChange("numOfEmployees")}
+                                                        min={1}
+                                                        max={6}
+                                                        style={disabled ? { color: "#FFBF50", opacity: "70%" } : { color: "#FFBF50" }}
+                                                    />
+                                                ) : null}
+                                                {console.log(values.numOfEmployees)}
                                                 <TextField
                                                     fullWidth
+                                                    disabled={disabled}
                                                     label="Retention Rate"
                                                     type="number"
                                                     variant="outlined"
@@ -278,9 +385,9 @@ function CompanyProfileForm(props) {
                                                         touched && touched.retentionRate && errors && errors.retentionRate ? errors.retentionRate : ""
                                                     }
                                                 />
-
                                                 <TextField
                                                     fullWidth
+                                                    disabled={disabled}
                                                     label="Location"
                                                     type="text"
                                                     variant="outlined"
@@ -291,9 +398,9 @@ function CompanyProfileForm(props) {
                                                     error={touched && touched.location && errors && errors.location}
                                                     helperText={touched && touched.location && errors && errors.location ? errors.location : ""}
                                                 />
-
                                                 <TextField
                                                     fullWidth
+                                                    disabled={disabled}
                                                     label="Email"
                                                     type="email"
                                                     variant="outlined"
@@ -304,58 +411,55 @@ function CompanyProfileForm(props) {
                                                     error={touched && touched.email && errors && errors.email}
                                                     helperText={touched && touched.email && errors && errors.email ? errors.email : ""}
                                                 />
-
-                                                <TextField
-                                                    fullWidth
-                                                    label="Password"
-                                                    type="password"
-                                                    variant="outlined"
-                                                    name="password"
-                                                    value={values.password}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    error={touched && touched.password && errors && errors.password}
-                                                    helperText={touched && touched.password && errors && errors.password ? errors.password : ""}
-                                                />
-
-                                                <TextField
-                                                    fullWidth
-                                                    label="Confirm Password"
-                                                    type="password"
-                                                    variant="outlined"
-                                                    name="passwordConfirmation"
-                                                    value={values.passwordConfirmation}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    error={touched && touched.passwordConfirmation && errors && errors.passwordConfirmation}
-                                                    helperText={
-                                                        touched && touched.passwordConfirmation && errors && errors.passwordConfirmation
-                                                            ? errors.passwordConfirmation
-                                                            : ""
-                                                    }
-                                                />
-
-                                                {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
-
-                                                <div style={{ display: "flex", justifyContent: "center", margin: "8px 0px" }}>
-                                                    <Button
-                                                        type="submit"
-                                                        color="primary"
-                                                        variant="contained"
-                                                        className={clsx(classes.mt4, classes.mb3)}
-                                                        style={{
-                                                            backgroundColor: "#FFBF50",
-                                                            color: "white",
-                                                            fontSize: "12pt",
-                                                            fontFamily: "Lato",
-                                                            fontWeight: "bold",
-                                                            marginTop: "1rem",
-                                                        }}>
-                                                        REGISTER
+                                                {!disabled ? (
+                                                    <div className={classes.row}>
+                                                        <Grid style={{ marginRight: "1rem" }} item lg={6} md={6} xs={12}>
+                                                            <TextField
+                                                                fullWidth
+                                                                label="Password"
+                                                                type={showPassword ? "text" : "password"}
+                                                                variant="outlined"
+                                                                name="password"
+                                                                value={values.password}
+                                                                onChange={handleChange("password")}
+                                                                onBlur={handleBlur}
+                                                                error={errors && errors.password}
+                                                                helperText={errors && errors.password ? errors.password : ""}
+                                                            />
+                                                        </Grid>
+                                                        <Grid style={{ marginRight: "1rem" }} item lg={6} md={6} xs={12}>
+                                                            <TextField
+                                                                fullWidth
+                                                                label="Confirm Password"
+                                                                type={showPassword ? "text" : "password"}
+                                                                variant="outlined"
+                                                                name="passwordConfirmation"
+                                                                value={values.passwordConfirmation}
+                                                                onChange={handleChange("passwordConfirmation")}
+                                                                onBlur={handleBlur}
+                                                                error={errors && errors.passwordConfirmation}
+                                                                helperText={errors && errors.passwordConfirmation ? errors.passwordConfirmation : ""}
+                                                            />
+                                                        </Grid>
+                                                        <InputAdornment>
+                                                            <IconButton
+                                                                style={{ marginTop: "3rem" }}
+                                                                aria-label="toggle password visibility"
+                                                                onClick={handleClickShowPassword}
+                                                                onMouseDown={handleMouseDownPassword}>
+                                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    </div>
+                                                ) : null}
+                                                {!disabled ? (
+                                                    <Button type="submit" color="primary" variant="contained">
+                                                        submit
                                                     </Button>
-                                                </div>
+                                                ) : // <Button onClick={() => setDisabled(true)}>Save</Button>
+                                                null}
                                             </CardContent>
-                                        </Card>
+                                        </Box>
                                     </div>
                                 </Form>
                             )
