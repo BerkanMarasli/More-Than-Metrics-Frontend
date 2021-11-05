@@ -39,12 +39,10 @@ function App() {
     const redirectRegister = (e) => {
         if (e !== undefined) {
             if (e.target.innerHTML === "company") {
-                console.log("COMPANY")
-                document.cookie = "redirectToRegister=company;max-age=5"
+                document.cookie = "redirectToRegister=company;max-age=5;SameSite=None;Secure"
                 setUserType("company")
             } else {
-                console.log("CANDIDATE")
-                document.cookie = "redirectToRegister=candidate;max-age=5"
+                document.cookie = "redirectToRegister=candidate;max-age=5;SameSite=None;Secure"
                 setUserType("candidate")
             }
             window.location.href = "/register"
