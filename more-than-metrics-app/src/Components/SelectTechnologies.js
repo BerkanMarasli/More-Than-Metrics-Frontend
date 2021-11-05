@@ -46,7 +46,6 @@ function SelectTechnologies(props) {
                     input={<OutlinedInput id="select-multiple-chip" />}
                     renderValue={(selected) => (
                         <div>
-                            {console.log(selected)}
                             <Box
                                 sx={{
                                     display: "flex",
