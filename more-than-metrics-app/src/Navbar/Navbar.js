@@ -81,7 +81,7 @@ function Navbar(props) {
                 }
                 setTimeout(() => {
                     window.location.href = json.url
-                }, 3000)
+                }, 1000)
                 // window.location.href = json.url
             }
         } catch (error) {
