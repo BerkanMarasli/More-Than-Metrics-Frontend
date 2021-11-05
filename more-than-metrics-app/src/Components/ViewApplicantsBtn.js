@@ -10,6 +10,6 @@ export default function ViewApplicantsBtn(props) {
 
 function handleOnClick(jobID) {
     console.log(jobID)
-    document.cookie = `matchJobID=${jobID};max-age=10000`
+    document.cookie = `matchJobID=${jobID};max-age=600`
     window.location.href = "https://morethanmetrics.netlify.app/match"
 }
