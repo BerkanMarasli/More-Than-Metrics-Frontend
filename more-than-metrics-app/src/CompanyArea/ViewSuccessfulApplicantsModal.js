@@ -101,7 +101,7 @@ export default function ViewSuccessfulApplicantsModal(props) {
 
     useEffect(() => {
         const fetchAcceptedApplicants = async () => {
-            const acceptedApplicantsResponse = await fetch(`http://localhost:8080/applications/accepted/${jobIDViewed}`)
+            const acceptedApplicantsResponse = await fetch(process.env.REACT_APP_API_URL + `/applications/accepted/${jobIDViewed}`)
             const acceptedApplicantsJson = await acceptedApplicantsResponse.json()
             setAcceptedApplicants(acceptedApplicantsJson)
         }
@@ -117,7 +117,7 @@ export default function ViewSuccessfulApplicantsModal(props) {
             <div className={classes.root}>
                 <Box className={classes.box} sx={style}>
                     {acceptedApplicants.message ? (
-                        <Alert severity="info">No Accepted Applicants</Alert>
+                        <Alert severity="warning">No Accepted Applicants</Alert>
                     ) : (
                         <div>
                             <h1 className={classes.title}>Accepted Applicants</h1>

@@ -6,6 +6,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle"
 import { IconButton } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { Alert } from "@mui/material"
+import { getMatchJobID } from "../handleCookie.js"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -74,7 +75,7 @@ function MatchCandidates() {
 
     useEffect(() => {
         async function getCandidates(jobID) {
-            const response = await fetch(`http://localhost:8080/applications/review/${jobID}`)
+            const response = await fetch(process.env.REACT_APP_API_URL + `/applications/review/${jobID}`)
             const json = await response.json()
             setCandidates(json)
             console.log(json)
@@ -82,12 +83,12 @@ function MatchCandidates() {
                 setMsg({ error: json.message })
             }
         }
-        if (candidates === null) getCandidates(1)
+        if (candidates === null) getCandidates(getMatchJobID(document.cookie))
     }, [candidates])
 
     async function sendCandidateStatus(id, result) {
         console.log(id)
-        const response = await fetch(`http://localhost:8080/applications/assess/`, {
+        const response = await fetch(process.env.REACT_APP_API_URL + `/applications/assess/`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

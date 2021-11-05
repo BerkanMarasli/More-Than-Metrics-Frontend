@@ -48,6 +48,7 @@ function PostVacancy() {
     const classes = useStyles()
 
     function handleSummit() {
+        console.log(responsibilities)
         console.log(technologies)
     }
 
@@ -104,9 +105,9 @@ function PostVacancy() {
                     <OutlinedInput
                         id="outlined-responsibilities"
                         className={classes.input}
-                        placeholder="Enter the key responsibilities"
+                        placeholder="Enter responsibilities (comma separated)"
                         value={responsibilities}
-                        onChange={(e) => setResponsbilities(e.target.value)}
+                        onChange={(e) => setResponsbilities(e.target.value.split(","))}
                     />
                 </div>
                 <div className={classes.row}>

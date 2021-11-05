@@ -13,6 +13,8 @@ import Profile from "./Profile/Profile.js"
 import Register from "./Components/Register/Register"
 import Login from "./Components/Login/Login"
 
+import PostVacancyForm from "./Profile/PostVacancyForm.js"
+
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [userType, setUserType] = useState(null)
@@ -37,12 +39,10 @@ function App() {
     const redirectRegister = (e) => {
         if (e !== undefined) {
             if (e.target.innerHTML === "company") {
-                console.log("COMPANY")
-                document.cookie = "redirectToRegister=company;max-age=5"
+                document.cookie = "redirectToRegister=company;max-age=5;SameSite=None;Secure"
                 setUserType("company")
             } else {
-                console.log("CANDIDATE")
-                document.cookie = "redirectToRegister=candidate;max-age=5"
+                document.cookie = "redirectToRegister=candidate;max-age=5;SameSite=None;Secure"
                 setUserType("candidate")
             }
             window.location.href = "/register"
@@ -92,6 +92,9 @@ function App() {
                 </Route>
                 <Route exact path="/candidates">
                     <Candidates setUserType={setUserType} />
+                </Route>
+                <Route exact path="/experiment">
+                    <PostVacancyForm setUserType={setUserType} />
                 </Route>
                 <Route exact path="/login">
                     {redirectLogin()}

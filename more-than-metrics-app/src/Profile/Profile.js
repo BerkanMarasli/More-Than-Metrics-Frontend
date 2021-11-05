@@ -3,12 +3,14 @@ import Navbar from "../Navbar/Navbar.js"
 import Applied from "./Applied.js"
 import CandidateProfileForm from "./CandidateProfileForm.js"
 import CompanyProfile from "./CompanyProfile.js"
-import PostVacancy from "./PostVacancy.js"
+import PostVacancyForm from "./PostVacancyForm.js"
 import { Paper, Box } from "@mui/material"
 import { makeStyles } from "@material-ui/core/styles"
 import { styled } from "@mui/material/styles"
 import Footer from "../Navbar/Footer.js"
 import Alert from "@mui/material/Alert"
+
+import CompanyProfileForm from "./CompanyProfileForm.js"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -63,10 +65,11 @@ function Profile(props) {
             return (
                 <Box className={classes.box}>
                     <Item className={classes.container}>
-                        <CompanyProfile />
+                        <CompanyProfileForm setErrorMsg={setErrorMsg} />
+                        {errorMsg === "Updated company details!" ? <Alert severity="success">{errorMsg}</Alert> : null}
                     </Item>
                     <Item className={classes.container}>
-                        <PostVacancy />
+                        <PostVacancyForm />
                     </Item>
                 </Box>
             )

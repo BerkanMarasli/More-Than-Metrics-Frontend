@@ -62,7 +62,7 @@ function Navbar(props) {
     }
 
     const handleLogout = async () => {
-        const url = "http://localhost:8080/logout"
+        const url = process.env.REACT_APP_API_URL + "/logout"
         try {
             const response = await fetch(url, {
                 method: "POST",
@@ -71,7 +71,18 @@ function Navbar(props) {
             const json = await response.json()
 
             if (response.status === 200) {
-                window.location.href = json.url
+                const cookieArray = document.cookie.split("; ")
+                for (let cookie of cookieArray) {
+                    if (cookie.includes("moreThanMetricsAT")) {
+                        document.cookie = "moreThanMetricsAT=delete;max-age=0"
+                    } else if (cookie.includes("moreThanMetricsID")) {
+                        document.cookie = "moreThanMetricsID=delete;max-age=0"
+                    }
+                }
+                setTimeout(() => {
+                    window.location.href = json.url
+                }, 1000)
+                // window.location.href = json.url
             }
         } catch (error) {
             console.log({ error })
