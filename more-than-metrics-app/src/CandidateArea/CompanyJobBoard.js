@@ -25,6 +25,7 @@ function createData(jobTitle, viewJobBtn, applyBtn) {
 
 function CompanyJobBoard(props) {
     const companyViewed = props.companyViewed
+    console.log(companyViewed)
     const { handleOpenViewJob } = props.handleViewJob
     const { handleOpenViewApply } = props.handleViewApply
     const [jobs, setJobs] = useState(null)
