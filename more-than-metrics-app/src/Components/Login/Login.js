@@ -45,9 +45,9 @@ async function getUser(values, setLoggedIn, setErrorMsg) {
 
         if (response.status === 200) {
             setLoggedIn(true)
-            window.location.href = json.url
             document.cookie = json.cookieOneToSet
             document.cookie = json.cookieTwoToSet
+            window.location.href = json.url
         }
     } catch (error) {
         console.log({ error })
