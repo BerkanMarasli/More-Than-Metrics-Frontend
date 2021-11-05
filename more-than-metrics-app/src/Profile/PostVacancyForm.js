@@ -77,6 +77,9 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: "Lato",
         marginBottom: "1rem",
     },
+    addMargin: {
+        margin: "0.5px 0px",
+    },
 }))
 
 const companyID = 1
@@ -166,78 +169,85 @@ function PostVacancyForm() {
                         <Form onSubmit={handleSubmit}>
                             <Box container spacing={0} direction="column" alignItems="center" justifyContent="center" style={{ border: "none" }}>
                                 <div>
-                                    <TextField
-                                        fullWidth
-                                        label="Title"
-                                        type="text"
-                                        variant="outlined"
-                                        name="title"
-                                        value={values.title}
-                                        onChange={handleChange("title")}
-                                        onBlur={handleBlur}
-                                        error={touched && touched.title && errors && errors.title}
-                                        helperText={touched && touched.title && errors && errors.title ? errors.title : ""}
-                                        style={{ margin: "0.5px 0px" }}
-                                    />
-                                    <TextField
-                                        fullWidth
-                                        label="Location"
-                                        type="text"
-                                        variant="outlined"
-                                        name="location"
-                                        value={values.location}
-                                        onChange={handleChange("location")}
-                                        onBlur={handleBlur}
-                                        error={touched && touched.location && errors && errors.location}
-                                        helperText={touched && touched.location && errors && errors.location ? errors.location : ""}
-                                        style={{ margin: "0.5px 0px" }}
-                                    />
-                                    <TextField
-                                        fullWidth
-                                        label="Salary"
-                                        type="number"
-                                        variant="outlined"
-                                        name="salary"
-                                        value={values.salary}
-                                        onChange={handleChange("salary")}
-                                        onBlur={handleBlur}
-                                        error={touched && touched.salary && errors && errors.salary}
-                                        helperText={touched && touched.salary && errors && errors.salary ? errors.salary : ""}
-                                        style={{ margin: "0.5px 0px" }}
-                                    />
-                                    <TextField
-                                        fullWidth
-                                        placeholder="Describe the function of the role and the type of candidate you're looking for"
-                                        label="Description"
-                                        type="number"
-                                        variant="outlined"
-                                        name="description"
-                                        multiline
-                                        maxRows={4}
-                                        value={values.description}
-                                        onChange={handleChange("description")}
-                                        onBlur={handleBlur}
-                                        error={touched && touched.description && errors && errors.description}
-                                        helperText={touched && touched.description && errors && errors.description ? errors.description : ""}
-                                        style={{ margin: "0.5px 0px" }}
-                                    />
-                                    <TextField
-                                        fullWidth
-                                        placeholder="Enter responsibilities (comma separated)"
-                                        label="Responsibilities"
-                                        type="text"
-                                        variant="outlined"
-                                        name="responsibilities"
-                                        value={values.responsibilities}
-                                        onChange={handleChange("responsibilities")}
-                                        onBlur={handleBlur}
-                                        error={touched && touched.responsibilities && errors && errors.responsibilities}
-                                        helperText={
-                                            touched && touched.responsibilities && errors && errors.responsibilities ? errors.responsibilities : ""
-                                        }
-                                        style={{ margin: "0.5px 0px" }}
-                                    />
-                                    <div style={{ margin: "0.5px 0px" }}>
+                                    <div className={classes.addMargin}>
+                                        <TextField
+                                            fullWidth
+                                            label="Title"
+                                            type="text"
+                                            variant="outlined"
+                                            name="title"
+                                            value={values.title}
+                                            onChange={handleChange("title")}
+                                            onBlur={handleBlur}
+                                            error={touched && touched.title && errors && errors.title}
+                                            helperText={touched && touched.title && errors && errors.title ? errors.title : ""}
+                                        />
+                                    </div>
+                                    <div className={classes.addMargin}>
+                                        <TextField
+                                            fullWidth
+                                            label="Location"
+                                            type="text"
+                                            variant="outlined"
+                                            name="location"
+                                            value={values.location}
+                                            onChange={handleChange("location")}
+                                            onBlur={handleBlur}
+                                            error={touched && touched.location && errors && errors.location}
+                                            helperText={touched && touched.location && errors && errors.location ? errors.location : ""}
+                                        />
+                                    </div>
+                                    <div className={classes.addMargin}>
+                                        <TextField
+                                            fullWidth
+                                            label="Salary"
+                                            type="number"
+                                            variant="outlined"
+                                            name="salary"
+                                            value={values.salary}
+                                            onChange={handleChange("salary")}
+                                            onBlur={handleBlur}
+                                            error={touched && touched.salary && errors && errors.salary}
+                                            helperText={touched && touched.salary && errors && errors.salary ? errors.salary : ""}
+                                        />
+                                    </div>
+                                    <div className={classes.addMargin}>
+                                        <TextField
+                                            fullWidth
+                                            placeholder="Describe the function of the role and the type of candidate you're looking for"
+                                            label="Description"
+                                            type="number"
+                                            variant="outlined"
+                                            name="description"
+                                            multiline
+                                            maxRows={4}
+                                            value={values.description}
+                                            onChange={handleChange("description")}
+                                            onBlur={handleBlur}
+                                            error={touched && touched.description && errors && errors.description}
+                                            helperText={touched && touched.description && errors && errors.description ? errors.description : ""}
+                                        />
+                                    </div>
+                                    <div className={classes.addMargin}>
+                                        <TextField
+                                            fullWidth
+                                            placeholder="Enter responsibilities (comma separated)"
+                                            label="Responsibilities"
+                                            type="text"
+                                            variant="outlined"
+                                            name="responsibilities"
+                                            value={values.responsibilities}
+                                            onChange={handleChange("responsibilities")}
+                                            onBlur={handleBlur}
+                                            error={touched && touched.responsibilities && errors && errors.responsibilities}
+                                            helperText={
+                                                touched && touched.responsibilities && errors && errors.responsibilities
+                                                    ? errors.responsibilities
+                                                    : ""
+                                            }
+                                        />
+                                    </div>
+                                    <div className={classes.addMargin}>
                                         <SelectTechnologies handleChange={handleChange} techArray={values.technology} />
                                         {errors.technology && touched.technology && <p className={classes.inputFeedback}>{errors.technology}</p>}
                                     </div>
