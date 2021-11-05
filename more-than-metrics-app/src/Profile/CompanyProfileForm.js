@@ -25,6 +25,11 @@ const useStyles = makeStyles(() => ({
         justifyContent: "center",
         alignContent: "center",
     },
+    row: {
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center",
+    },
     mb4: {
         marginBottom: 4,
     },
@@ -225,7 +230,7 @@ function CompanyProfileForm(props) {
                                             }}>
                                             <h1 style={{ margin: "0px", fontFamily: "Lato", color: "gray" }}>YOUR PROFILE</h1>
                                             <CardContent>
-                                                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                                <div className={classes.row}>
                                                     <Button onClick={() => setDisabled(!disabled)}>Edit</Button>
                                                     <Badge
                                                         aria-describedby={id}
